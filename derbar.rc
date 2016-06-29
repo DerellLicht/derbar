@@ -1,0 +1,161 @@
+//****************************************************************************
+//  Copyright (c) 2009-2014  Daniel D Miller
+//  DerBar.exe - a system-information monitoring utility
+//
+//  Written by:  Danial D Miller
+//****************************************************************************
+//  Interesting notes about this file:
+//  
+//  > SS_NOTIFY and "Static" controls
+//    If SS_NOTIFY is not specified in the control styles,
+//    you cannot attach tooltips to the control.
+//  
+//****************************************************************************
+
+//lint -e129  declaration expected, identifier 'LTEXT' ignored - this was in my .RC file
+#include <windows.h>
+
+#include "resource.h"
+
+IDI_MAINICON  ICON      tmap.ico
+
+IDC_LEDBMPS   BITMAP    "leds.tiny.bmp"
+
+// IDM_POPMENU MENU DISCARDABLE 
+IDM_POPMENU MENU 
+BEGIN
+    POPUP "DerMenu"
+    BEGIN
+        MENUITEM "Toggle Title Bar", IDM_TOGGLE_TBAR
+        MENUITEM "Relocate DerBar",  IDM_RELOCATE
+        MENUITEM "Options",          IDM_OPTIONS
+        MENUITEM "Interfaces",       IDM_IFACES
+        MENUITEM "About DerBar",     IDM_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",             IDM_APP_EXIT
+    END
+END
+
+//*******************************************************************
+//  main dialog
+//  Using WS_EX_TOOLWINDOW, instead of WS_EX_APPWINDOW,
+//  removes the application bar from the Toolbar.
+//*******************************************************************
+#define Y0      1
+#define DY      10
+
+IDD_MAIN DIALOGEX 0, 200, 449, DY
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+// EXSTYLE WS_EX_APPWINDOW
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "DerBar"
+FONT 11, "Times New Roman"
+BEGIN
+   CTEXT           "DerBar",    IDC_DERBAR,     0, Y0, 34,  9, SS_SUNKEN	//lint !e2  Unclosed Quote
+
+   LTEXT           " ",         IDC_STATIC,    36,  0,  2, DY+1, SS_SUNKEN      //lint !e2  Unclosed Quote
+
+   LTEXT           "Mem:",      IDC_STATIC,    40, Y0, 20,  9
+   LTEXT           "Free",      IDC_STATIC,    64, Y0, 16,  9
+   CTEXT           " ",         IDC_FREEMEM,   80, Y0, 35,  9, SS_SUNKEN
+
+   LTEXT           "Total",     IDC_STATIC,   118, Y0, 20,  9
+   CTEXT           " ",         IDC_TOTALMEM, 138, Y0, 35,  9, SS_SUNKEN
+
+   LTEXT           " ",         IDC_STATIC,   176,  0,  2, DY+1, SS_SUNKEN
+
+   LTEXT           "Uptime:",   IDC_STATIC,   181, Y0, 25,  9
+   CTEXT           " ",         IDC_UPTIME,   206, Y0, 60,  9, SS_SUNKEN
+
+   LTEXT           " ",         IDC_STATIC,   268,  0,  2, DY+1, SS_SUNKEN
+
+   LTEXT           "RX:",       IDC_STATIC,   273, Y0, 12,  9
+   CTEXT           " ",         IDC_RXBYTES,  286, Y0, 30,  9, SS_SUNKEN
+
+   LTEXT           "TX:",       IDC_STATIC,   321, Y0, 12,  9
+   CTEXT           " ",         IDC_TXBYTES,  336, Y0, 30,  9, SS_SUNKEN
+
+   LTEXT           " ",         IDC_STATIC,   368,  0,  2, DY+1, SS_SUNKEN
+
+   LTEXT           "CPU:",      IDC_STATIC,   373, Y0, 18,  9
+   CTEXT           " ",         IDC_CPUTIME,  393, Y0, 15,  9, SS_SUNKEN
+
+   LTEXT           " ",         IDC_STATIC,   410,  0,  2, DY+1, SS_SUNKEN
+
+   CTEXT           "c",         IDC_KBD_CAPS, 414, Y0, 9,  9, SS_SUNKEN
+   CTEXT           "n",         IDC_KBD_NUM , 426, Y0, 9,  9, SS_SUNKEN
+   CTEXT           "s",         IDC_KBD_SCRL, 438, Y0, 9,  9, SS_SUNKEN
+
+END
+
+//*******************************************************************
+//  options dialog
+//*******************************************************************
+// #define  OPT_DX       160
+#define  OPT_DX       163
+#define  OPT_DONE_DX   70
+#define  OPT_DONE_X   ((OPT_DX - OPT_DONE_DX) / 2)
+
+IDD_OPTIONS DIALOGEX 200, 200, OPT_DX, 82
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "DerBar Options"
+FONT 10, "Times New Roman"
+BEGIN
+   LTEXT           "Info Fgnd (0XBBGGRR): ",IDC_STATIC,  5, 8,78,10
+   EDITTEXT        IDC_EDIT_FGND,                       85, 8,37,10
+   PUSHBUTTON      "Browse",IDC_CLR_FGND,              126, 8,30,10
+
+   LTEXT           "Info Bgnd (0XBBGGRR): ",IDC_STATIC,  5,22,78,10
+   EDITTEXT        IDC_EDIT_BGND,                  	85,22,37,10
+   PUSHBUTTON      "Browse",IDC_CLR_BGND,              126,22,30,10
+
+   // LTEXT           "Eth Interface:",IDC_STATIC,          5,36,45,10
+   // COMBOBOX        IDC_CBOX_IFACE,			 5,46,170,150,
+   // 			CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+   CONTROL         "Keep On Top",IDM_ONTOP,"Button",
+                   BS_AUTOCHECKBOX | WS_TABSTOP,   	 5,36,140,10
+
+   CONTROL         "Enable WinMsgs (debug)",IDM_WINMSGS,"Button",
+                   BS_AUTOCHECKBOX | WS_TABSTOP,   	 5,50,140,10
+
+   DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,62,OPT_DONE_DX,14
+END
+
+//***************************************************************************
+//  Network-interface listview dialog
+//***************************************************************************
+#define  LV_DX	400
+#define  LV_DY	100
+
+IDD_LV_IFACES DIALOGEX 200, 200, LV_DX,LV_DY
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Network Interfaces"
+FONT 10, "Times New Roman"
+// FONT 12, "MS Sans Serif"
+BEGIN
+   // PUSHBUTTON      "Test",          IDM_APP_TEST,     300,TOP_Y, 50,14
+   CONTROL         "List1", IDC_LV_IFACES,"SysListView32",
+                    LVS_REPORT | LVS_EDITLABELS | WS_BORDER | WS_TABSTOP | LVS_SHAREIMAGELISTS,
+		    0,0,LV_DX,LV_DY
+END
+
+//*******************************************************************
+IDD_ABOUT DIALOG DISCARDABLE  200, 200, 150, 90
+// STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "About DerBar"
+// FONT 8, "MS Sans Serif"
+FONT 10, "Times New Roman"
+BEGIN
+    ICON            IDI_MAINICON,IDC_STATIC,9,12
+    LTEXT           "DerBar System Monitor",IDC_STATIC,        36,15, 75,12
+    LTEXT           "V1.08",IDC_VERNUM,                       111,15, 50,12
+    LTEXT           "Copyright (c) 2008-2014",IDC_STATIC,      36,28,100,12
+    LTEXT           "Daniel D Miller",IDC_STATIC,              36,41,100,12
+    // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
+    LTEXT           "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
+    DEFPUSHBUTTON   "Close",IDOK,36,70,100,14
+END
+
