@@ -48,22 +48,16 @@ const char *VerNum = "V1.09" ;
 #include <stdio.h>   //  for sprintf, for %f support
 #include <time.h>
 
-// #define  USE_SYSTRAY    1
-
 #include "resource.h"
 #include "common.h"
 #include "derbar.h"
 #include "images.h"
 #include "winmsgs.h"
-#ifndef  USE_SYSTRAY
 #include "systray.h"
-#endif
 
 #define  USE_TIMER_TEST
 
 #define  USE_CPU_UTIL   1
-
-// #define  WM_USER_SHELLICON WM_USER + 1
 
 //  system.cpp
 extern void update_memory_readings(void);
@@ -106,10 +100,6 @@ static char szClassName[] = "DerBar" ;
 HINSTANCE g_hinst = 0;
 
 static UINT timerID = 0 ;
-
-#ifdef   USE_SYSTRAY
-static NOTIFYICONDATA NotifyIconData;
-#endif
 
 //  definitions for dialog controls
 //lint -esym(844, hwndDerBar)
@@ -462,37 +452,12 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       SendMessage(hwnd, WM_SETICON, ICON_BIG,   (LPARAM) LoadIcon(g_hinst, MAKEINTRESOURCE(IDI_MAINICON)));
       SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM) LoadIcon(g_hinst, MAKEINTRESOURCE(IDI_MAINICON)));
 
-#ifdef   USE_SYSTRAY
-      //  load menu, hopefully
-      hMenu = LoadMenu (g_hinst, MAKEINTRESOURCE(IDM_POPMENU)) ;
-      if (hMenu == NULL) {
-         syslog("LoadMenu: %s\n", get_system_message()) ;
-      } 
-      hMenu = GetSubMenu(hMenu, 0) ;
-      if (hMenu == NULL) {
-         syslog("GetSubMenu: %s\n", get_system_message()) ;
-      } 
-#else
       load_tray_menu();
-#endif
 
       set_window_position(hwnd) ;
 
       // put the icon into a system tray
-#ifdef   USE_SYSTRAY
-      NotifyIconData.cbSize = sizeof (NOTIFYICONDATA);
-      NotifyIconData.hWnd = hwnd;
-      NotifyIconData.uID = IDI_MAINICON ;
-      NotifyIconData.uFlags = NIF_ICON | NIF_TIP | NIF_MESSAGE;
-      NotifyIconData.uCallbackMessage = WM_USER; // tray events will generate WM_USER event
-      NotifyIconData.hIcon = (HICON) LoadIcon (g_hinst, MAKEINTRESOURCE (IDI_MAINICON));
-      lstrcpy (NotifyIconData.szTip, szClassName); // max 64 characters
-      //  getting string from STRINGTABLE in .rc file
-      // LoadString(hInstance, IDS_APPTOOLTIP,nidApp.szTip,MAX_LOADSTRING);
-      Shell_NotifyIcon (NIM_ADD, &NotifyIconData);
-#else      
       attach_tray_icon(hwnd, szClassName);
-#endif
 
       //  start timer for program update
       //  Note that Windows timers do not actually count 1000 msec per second,
@@ -502,35 +467,9 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       timerID = SetTimer(hwnd, IDT_TIMER, 244, (TIMERPROC) NULL) ;
       return TRUE;
 
-#ifdef   USE_SYSTRAY
-   case WM_USER:
-      //  event genereted by a system tray - the type of tray event that
-      //  generated the message can be found in lParam.
-      //  However, this code caused a situation where clicking outside the
-      //  title bar did *not* make the menu go away.
-      //  Microsoft's solutions to this problem are documented in
-      //  http://support.microsoft.com/kb/q135788/
-      //  and are implemented below.
-      switch (lParam)   {
-      case WM_LBUTTONUP:
-      case WM_RBUTTONUP:
-         {
-         POINT MouseCoordinates;
-         // display a tray menu
-         SetForegroundWindow(hwnd); //  MSoft fix1 for stuck title bar
-         GetCursorPos(&MouseCoordinates);
-         TrackPopupMenu(hMenu, TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_BOTTOMALIGN,
-            MouseCoordinates.x, MouseCoordinates.y, 0, hwnd, NULL);
-         PostMessage(hwnd, WM_NULL, 0, 0); //  MSoft fix2 for stuck title bar
-         }         
-         return TRUE;
-      }  //lint !e744
-      break;
-#else      
    case WM_USER:
       respond_to_tray_clicks(hwnd, lParam);
       break;
-#endif
 
    case WM_SYSCOMMAND:
       switch (wParam) {
@@ -735,11 +674,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       cpu_usage_release();
 #endif
       // remove the icon from a system tray and free .dll handle
-#ifdef   USE_SYSTRAY
-      Shell_NotifyIcon (NIM_DELETE, &NotifyIconData);
-#else
       release_systray_resource();
-#endif
       release_led_images();
 
       PostQuitMessage(0);
