@@ -29,7 +29,7 @@
 #include <stdlib.h>  //  atoi()
 #include <limits.h>  //  PATH_MAX
 
-#include "wcommon.h"
+#include "common.h"
 #include "derbar.h"
 
 //  system.cpp
@@ -68,6 +68,7 @@ static LRESULT save_default_ini_file(void)
    fprintf(fd, "ontop=%u\n", keep_on_top) ;
    fprintf(fd, "editfg=0x%06X\n", (uint) fgnd_edit) ;
    fprintf(fd, "editbg=0x%06X\n", (uint) bgnd_edit) ;
+   fprintf(fd, "ci_attr=%u\n", ci_attr) ;
    // fprintf(fd, "ip_iface=%u\n", ip_iface_idx) ;
    write_iface_enables(fd) ;
    fclose(fd) ;
@@ -126,6 +127,10 @@ LRESULT read_config_file(void)
       } else
       if (strncmp(inpstr, "editbg=", 7) == 0) {
          bgnd_edit = (uint) strtoul(&inpstr[7], 0, 0) ;
+      } else
+      if (strncmp(inpstr, "ci_attr=", 8) == 0) {
+         // syslog("enabling factory mode\n") ;
+         ci_attr = (uint) strtoul(&inpstr[8], 0, 0) ;
       } else
       if (strncmp(inpstr, "ip_iface=", 9) == 0) {
          // ip_iface_idx = (uint) strtoul(&inpstr[9], 0, 0) ;

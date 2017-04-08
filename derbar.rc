@@ -26,13 +26,15 @@ IDM_POPMENU MENU
 BEGIN
     POPUP "DerMenu"
     BEGIN
-        MENUITEM "Toggle Title Bar", IDM_TOGGLE_TBAR
-        MENUITEM "Relocate DerBar",  IDM_RELOCATE
-        MENUITEM "Options",          IDM_OPTIONS
-        MENUITEM "Interfaces",       IDM_IFACES
-        MENUITEM "About DerBar",     IDM_ABOUT
+        MENUITEM "Toggle Title Bar",      IDM_TOGGLE_TBAR
+        MENUITEM "Relocate DerBar",       IDM_RELOCATE
+        MENUITEM "Options",               IDM_OPTIONS
+        MENUITEM "Interfaces",            IDM_IFACES
+        MENUITEM "Select new icon color", IDM_SET_COLOR
+        MENUITEM "Set icon colors now",   IDM_SET_NOW
+        MENUITEM "About DerBar",          IDM_ABOUT
         MENUITEM SEPARATOR
-        MENUITEM "Exit",             IDM_APP_EXIT
+        MENUITEM "Exit",                  IDM_APP_EXIT
     END
 END
 
@@ -143,7 +145,7 @@ BEGIN
 END
 
 //*******************************************************************
-IDD_ABOUT DIALOG DISCARDABLE  200, 200, 150, 90
+IDD_ABOUT DIALOG DISCARDABLE  200, 200, 180, 90
 // STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "About DerBar"
 // FONT 8, "MS Sans Serif"
@@ -151,11 +153,11 @@ FONT 10, "Times New Roman"
 BEGIN
     ICON            IDI_MAINICON,IDC_STATIC,9,12
     LTEXT           "DerBar System Monitor",IDC_STATIC,        36,15, 75,12
-    LTEXT           "V1.08",IDC_VERNUM,                       111,15, 50,12
-    LTEXT           "Copyright (c) 2008-2014",IDC_STATIC,      36,28,100,12
+    LTEXT           "V1.09",IDC_VERNUM,                       111,15, 50,12
+    LTEXT           "Copyright (c) 2008-2017",IDC_STATIC,      36,28,100,12
     LTEXT           "Daniel D Miller",IDC_STATIC,              36,41,100,12
     // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
-    LTEXT           "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
+    LTEXT           "http://www.derelllicht.com/DerBar.html",IDC_WEBLINK,  36,54,140,12
     DEFPUSHBUTTON   "Close",IDOK,36,70,100,14
 END
 

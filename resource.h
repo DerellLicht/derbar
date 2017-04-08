@@ -1,5 +1,5 @@
 //**********************************************************************
-//  Copyright (c) 2009-2010  Daniel D Miller
+//  Copyright (c) 2009-2017  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  resources.h: Windows resource IDs
 //  
@@ -33,6 +33,8 @@
 #define  IDM_IFACES           336
 #define  IDM_RELOCATE         337
 #define  IDM_ONTOP            338
+#define  IDM_SET_COLOR        339
+#define  IDM_SET_NOW          340
 
 //  dialog objects
 #define  IDC_DERBAR           1000

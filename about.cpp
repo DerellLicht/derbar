@@ -58,7 +58,7 @@ static BOOL CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LPARA
    case WM_COMMAND:
       switch (LOWORD(wparam)) {
       case IDC_WEBLINK:
-         ShellExecute(hdlg, "open", "http://home.comcast.net/~derelict", "", "", SW_SHOW);
+         ShellExecute(hdlg, "open", "http://www.derelllicht.com/DerBar.html", "", "", SW_SHOW);
          return TRUE;
          
       case IDOK:
@@ -80,6 +80,7 @@ PURPOSE: Creates the modal About dialog
 -----------------------------------------------------------------------------*/
 BOOL CmdAbout(HWND hwnd)
 {
+    // syslog("WM_COMMAND: IDM_ABOUT\n");
     // DialogBox(g_hinst, MAKEINTRESOURCE(IDD_ABOUT), hwnd, AboutDlgProc);
     DialogBox(g_hinst, MAKEINTRESOURCE(IDD_ABOUT), 0, AboutDlgProc);
     return 0;

@@ -1,5 +1,5 @@
 //**********************************************************************
-//  Copyright (c) 2009  Daniel D Miller
+//  Copyright (c) 2009-2017  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  derbar.cpp: main interface functions
 //  
@@ -16,8 +16,6 @@
 //  or any other conditions.
 //  
 //  Written by:   Daniel D. Miller
-//  
-//  Last Update:  04/10/09 09:50
 //**********************************************************************
 #include <windows.h>
 #include <time.h>
@@ -26,10 +24,11 @@
 #endif
 
 #include "resource.h"
-#include "wcommon.h"
+#include "common.h"
 #include "derbar.h"
+#include "winmsgs.h"
 
-bool show_winmsgs = false ;
+bool show_winmsgs = true ;
 bool keep_on_top = false ;
 
 static HWND hwndEditFgnd ;

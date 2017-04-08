@@ -10,7 +10,7 @@
 
 #include "resource.h"
 #include "images.h"
-#include "wcommon.h"
+#include "common.h"
 #include "derbar.h"
 
 //  led-image data

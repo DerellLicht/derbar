@@ -26,7 +26,7 @@
 #include <iphlpapi.h>
 
 #include "resource.h"
-#include "wcommon.h"
+#include "common.h"
 #include "derbar.h"
 #include "images.h"
 #include "ip_iface.h"

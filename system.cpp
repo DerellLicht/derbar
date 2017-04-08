@@ -32,7 +32,7 @@
 #include <stdlib.h>  //  atoi()
 #endif
 
-#include "wcommon.h"
+#include "common.h"
 #include "derbar.h"
 #include "ip_iface.h"
 #include "PdhMsg.h"
