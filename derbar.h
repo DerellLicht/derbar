@@ -1,11 +1,9 @@
 //**********************************************************************
-//  Copyright (c) 2009  Daniel D Miller
+//  Copyright (c) 2009-2017  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  derbar.cpp: main interface functions
 //  
 //  Written by:   Daniel D. Miller
-//  
-//  Last Update:  04/10/09 09:50
 //**********************************************************************
 
 extern HINSTANCE g_hinst ;
@@ -24,4 +22,9 @@ extern bool keep_on_top ;
 //  function prototypes
 LRESULT save_cfg_file(void);
 LRESULT read_config_file(void);
+
+//  ClearIcon.cpp
+extern unsigned ci_attr ;
+unsigned select_color(COLORREF orig_attr);
+void reset_icon_colors(bool my_select_color);
 

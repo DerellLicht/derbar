@@ -1,3 +1,4 @@
+SHELL=cmd.exe
 USE_DEBUG = NO
 
 ifeq ($(USE_DEBUG),YES)
@@ -7,9 +8,10 @@ else
 CFLAGS=-Wall -O2
 LFLAGS=-s -mwindows
 endif
+CFLAGS += -Wno-write-strings
 
 CPPSRC=derbar.cpp config.cpp common_funcs.cpp system.cpp about.cpp options.cpp \
-lv_ifaces.cpp images.cpp hyperlinks.cpp
+lv_ifaces.cpp images.cpp hyperlinks.cpp systray.cpp winmsgs.cpp ClearIcon.cpp
 
 OBJS = $(CPPSRC:.cpp=.o) rc.o
 
@@ -52,12 +54,14 @@ rc.o: derbar.rc
 
 # DO NOT DELETE
 
-derbar.o: resource.h wcommon.h derbar.h images.h
-config.o: wcommon.h derbar.h
-common_funcs.o: wcommon.h
-system.o: wcommon.h derbar.h ip_iface.h PdhMsg.h
+derbar.o: resource.h common.h derbar.h images.h winmsgs.h systray.h
+config.o: common.h derbar.h
+common_funcs.o: common.h
+system.o: common.h derbar.h ip_iface.h PdhMsg.h
 about.o: resource.h hyperlinks.h
-options.o: resource.h wcommon.h derbar.h
-lv_ifaces.o: resource.h wcommon.h derbar.h images.h ip_iface.h
-images.o: resource.h images.h wcommon.h derbar.h
+options.o: resource.h common.h derbar.h winmsgs.h
+lv_ifaces.o: resource.h common.h derbar.h images.h ip_iface.h
+images.o: resource.h images.h common.h derbar.h
 hyperlinks.o: hyperlinks.h
+systray.o: resource.h common.h systray.h
+ClearIcon.o: common.h derbar.h

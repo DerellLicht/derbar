@@ -1,5 +1,5 @@
 //**************************************************************************************
-//  Copyright (c) 2009-2014  Daniel D Miller
+//  Copyright (c) 2009-2017  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  
 //  DerBar, its source code and executables, are Copyrighted in their
@@ -35,9 +35,11 @@
 //    1.08     > Modify call to PdhGetFormattedCounterValue(), to try to eliminate the
 //               undocumented 0x800007D6 (PDH_CALC_NEGATIVE_DENOMINATOR) Error.
 //             > About dialog - convert home website link from button to hyperlink
+//    1.09     > Move systray functionality to separate file
+//             > Integrate ClearIconTray functions to here
 //**************************************************************************************
 
-const char *VerNum = "V1.08" ;
+const char *VerNum = "V1.09" ;
 
 //lint -esym(767, _WIN32_WINNT)
 #define _WIN32_WINNT 0x0500
@@ -46,16 +48,20 @@ const char *VerNum = "V1.08" ;
 #include <stdio.h>   //  for sprintf, for %f support
 #include <time.h>
 
+// #define  USE_SYSTRAY    1
+
 #include "resource.h"
-#include "wcommon.h"
+#include "common.h"
 #include "derbar.h"
 #include "images.h"
+#include "winmsgs.h"
+#ifndef  USE_SYSTRAY
+#include "systray.h"
+#endif
 
 #define  USE_TIMER_TEST
 
 #define  USE_CPU_UTIL   1
-
-#define  USE_SYSTRAY    1
 
 // #define  WM_USER_SHELLICON WM_USER + 1
 
@@ -243,6 +249,7 @@ static void set_window_position(HWND hwnd)
 //***********************************************************************
 #ifdef  USE_TIMER_TEST
 
+//lint -esym(843, cpu_freq_hz)
 static uint cpu_freq_hz = 0 ;
 // static uint cpu_freq_mhz = 0 ;
 // static uint prev_ticks = 0 ;
@@ -402,7 +409,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
    // static bool show_winmsgs = true ;
    // static bool lbutton_active = false ;
    char msgstr[81] ;
-   static HMENU hMenu ;
+   static bool first_pass_done = false ;
    static bool moving_via_title_bar = false ;
    HDC hdc ;
 
@@ -431,7 +438,6 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       get_monitor_dimens(hwnd);
 
       //  read configuration *before* creating edit fields
-      read_config_file() ; //  read current screen position
       verify_screen_position() ;
       read_system_data() ;
       update_keep_on_top() ;
@@ -456,6 +462,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       SendMessage(hwnd, WM_SETICON, ICON_BIG,   (LPARAM) LoadIcon(g_hinst, MAKEINTRESOURCE(IDI_MAINICON)));
       SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM) LoadIcon(g_hinst, MAKEINTRESOURCE(IDI_MAINICON)));
 
+#ifdef   USE_SYSTRAY
       //  load menu, hopefully
       hMenu = LoadMenu (g_hinst, MAKEINTRESOURCE(IDM_POPMENU)) ;
       if (hMenu == NULL) {
@@ -465,6 +472,10 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       if (hMenu == NULL) {
          syslog("GetSubMenu: %s\n", get_system_message()) ;
       } 
+#else
+      load_tray_menu();
+#endif
+
       set_window_position(hwnd) ;
 
       // put the icon into a system tray
@@ -479,14 +490,16 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       //  getting string from STRINGTABLE in .rc file
       // LoadString(hInstance, IDS_APPTOOLTIP,nidApp.szTip,MAX_LOADSTRING);
       Shell_NotifyIcon (NIM_ADD, &NotifyIconData);
+#else      
+      attach_tray_icon(hwnd, szClassName);
 #endif
 
       //  start timer for program update
-      //  Note that Windows timers do not actually count msec,
-      //  they are off by about 1.5%
+      //  Note that Windows timers do not actually count 1000 msec per second,
+      //  they count 1024 msec per second; thus, they are off by about 1.5%
       // timerID = SetTimer(hwnd, IDT_TIMER, 1000, (TIMERPROC) NULL) ;
-      // timerID = SetTimer(hwnd, IDT_TIMER, 987, (TIMERPROC) NULL) ;
-      timerID = SetTimer(hwnd, IDT_TIMER, 247, (TIMERPROC) NULL) ;
+      // timerID = SetTimer(hwnd, IDT_TIMER, 977, (TIMERPROC) NULL) ;
+      timerID = SetTimer(hwnd, IDT_TIMER, 244, (TIMERPROC) NULL) ;
       return TRUE;
 
 #ifdef   USE_SYSTRAY
@@ -512,6 +525,10 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
          }         
          return TRUE;
       }  //lint !e744
+      break;
+#else      
+   case WM_USER:
+      respond_to_tray_clicks(hwnd, lParam);
       break;
 #endif
 
@@ -550,18 +567,18 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       return TRUE;
       
    // //  this is used for floating (not SysTray) menu activation
-#ifndef  USE_SYSTRAY
-   case WM_RBUTTONUP:
-      {
-      POINT point ;
-      point.x = LOWORD (lParam) ;
-      point.y = HIWORD (lParam) ;
-      ClientToScreen (hwnd, &point) ;
-      
-      TrackPopupMenu(hMenu, TPM_RIGHTBUTTON, point.x, point.y, 0, hwnd, NULL) ;
-      }
-      return 0 ;
-#endif
+// #ifndef  USE_SYSTRAY
+//    case WM_RBUTTONUP:
+//       {
+//       POINT point ;
+//       point.x = LOWORD (lParam) ;
+//       point.y = HIWORD (lParam) ;
+//       ClientToScreen (hwnd, &point) ;
+//       
+//       TrackPopupMenu(hMenu, TPM_RIGHTBUTTON, point.x, point.y, 0, hwnd, NULL) ;
+//       }
+//       return 0 ;
+// #endif
 
    //  technique to drag dialog by its client area.
    //  Once this is enabled, though, the popup menu will no longer work!!
@@ -594,6 +611,14 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
             relocate_main_dialog(hwnd) ;
             return TRUE;
 
+         case IDM_SET_NOW:
+            reset_icon_colors(false);
+            return TRUE;
+
+         case IDM_SET_COLOR:   
+            reset_icon_colors(true);
+            return TRUE;
+            
          case IDM_ABOUT:
             CmdAbout(hwnd);
             return TRUE;
@@ -668,8 +693,30 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 #endif
          read_system_data() ;
          update_data_fields() ;
+         if (!first_pass_done) {
+            first_pass_done = true ;
+            reset_icon_colors(false);
+         }
+
          return TRUE;
       }  //lint !e744
+      break;
+
+   //  We cannot trigger on WM_ERASEBKGND or WM_CTLCOLORDLG,
+   //  because we want to hide the main window.
+   //  Thus, we trigger on WM_SYSCOLORCHANGE instead.
+   // 00000002 11:37:16.650   [6380] SWMsg: [WM_SYSCOLORCHANGE]
+   // 00000003 11:37:16.650   [6380] SWMsg: [WM_PAINT]   
+   // 00000004 11:37:16.650   [6380] SWMsg: [WM_NCPAINT] 
+   // 00000005 11:37:16.655   [6380] SWMsg: [WM_ERASEBKGND] 
+   // 00000006 11:37:16.655   [6380] SWMsg: [WM_CTLCOLORDLG]   
+   case WM_SYSCOLORCHANGE:
+   // 00000826 13:10:04.124   [5108] SWMsg: [WM_DISPLAYCHANGE] 
+   // 00000827 13:10:04.125   [4104] 2017-04-07 13:10:10.824 (  87756.863) |    
+   //    DEBUG: [UXDriver.ApiX.MessageTranslator] 325@Nvidia::UXDriver::ApiX::MessageTranslator::Translate : 
+   //           message(0x7e) wparam(0x20) lParam(0x6400a00): 9, translated(1).   
+   case WM_DISPLAYCHANGE:
+      reset_icon_colors(false);
       break;
 
    //********************************************************************
@@ -690,6 +737,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       // remove the icon from a system tray and free .dll handle
 #ifdef   USE_SYSTRAY
       Shell_NotifyIcon (NIM_DELETE, &NotifyIconData);
+#else
+      release_systray_resource();
 #endif
       release_led_images();
 
@@ -724,7 +773,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
    }
 
    g_hinst = hInstance;
-   load_exec_filename() ;     //  get our executable name
+   load_exec_filename() ;  //  get our executable name
+   read_config_file() ;    //  read current screen position
 
    //  build one-time network tables
    build_iface_tables() ;
@@ -732,7 +782,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 #ifdef   USE_CPU_UTIL
    cpu_usage_setup();
 #endif
-   load_led_images() ;        //  load our image list
+   load_led_images() ;     //  load our image list
 
    //  create the main application
    HWND hwnd = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), NULL, (DLGPROC) WndProc);
