@@ -1,5 +1,5 @@
 //****************************************************************************
-//  Copyright (c) 2009-2014  Daniel D Miller
+//  Copyright (c) 2009-2017  Daniel D Miller
 //  DerBar.exe - a system-information monitoring utility
 //
 //  Written by:  Danial D Miller
@@ -30,10 +30,11 @@ BEGIN
         MENUITEM "Relocate DerBar",       IDM_RELOCATE
         MENUITEM "Options",               IDM_OPTIONS
         MENUITEM "Interfaces",            IDM_IFACES
+        MENUITEM SEPARATOR
         MENUITEM "Select new icon color", IDM_SET_COLOR
         MENUITEM "Set icon colors now",   IDM_SET_NOW
-        MENUITEM "About DerBar",          IDM_ABOUT
         MENUITEM SEPARATOR
+        MENUITEM "About DerBar",          IDM_ABOUT
         MENUITEM "Exit",                  IDM_APP_EXIT
     END
 END
