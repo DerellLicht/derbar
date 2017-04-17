@@ -16,6 +16,7 @@
 #include <windows.h>
 
 #include "resource.h"
+#include "version.h"
 
 IDI_MAINICON  ICON      tmap.ico
 
@@ -45,7 +46,7 @@ END
 //  removes the application bar from the Toolbar.
 //*******************************************************************
 #define Y0      1
-#define DY      10
+#define DY      11
 
 IDD_MAIN DIALOGEX 0, 200, 449, DY
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
@@ -154,7 +155,7 @@ FONT 10, "Times New Roman"
 BEGIN
     ICON            IDI_MAINICON,IDC_STATIC,9,12
     LTEXT           "DerBar System Monitor",IDC_STATIC,        36,15, 75,12
-    LTEXT           "V1.09",IDC_VERNUM,                       111,15, 50,12
+    LTEXT           VerNum,IDC_VERNUM,                        111,15, 50,12
     LTEXT           "Copyright (c) 2008-2017",IDC_STATIC,      36,28,100,12
     LTEXT           "Daniel D Miller",IDC_STATIC,              36,41,100,12
     // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12

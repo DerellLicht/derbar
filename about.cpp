@@ -22,14 +22,12 @@
 #include <windows.h>
 
 #include "resource.h"
+#include "version.h"
 #include "hyperlinks.h"
 
 //  window.mgr.cpp
 extern HINSTANCE g_hinst ;
 // extern OSVERSIONINFO gOSV;
-
-//lint -esym(843, VerNum)
-extern const char *VerNum ;
 
 /*-----------------------------------------------------------------------------
 

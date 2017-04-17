@@ -54,11 +54,11 @@ rc.o: derbar.rc
 
 # DO NOT DELETE
 
-derbar.o: resource.h common.h derbar.h images.h winmsgs.h systray.h
+derbar.o: resource.h version.h common.h derbar.h images.h winmsgs.h systray.h
 config.o: common.h derbar.h
 common_funcs.o: common.h
 system.o: common.h derbar.h ip_iface.h PdhMsg.h
-about.o: resource.h hyperlinks.h
+about.o: resource.h version.h hyperlinks.h
 options.o: resource.h common.h derbar.h winmsgs.h
 lv_ifaces.o: resource.h common.h derbar.h images.h ip_iface.h
 images.o: resource.h images.h common.h derbar.h

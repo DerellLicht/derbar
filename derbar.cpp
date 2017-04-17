@@ -37,9 +37,8 @@
 //             > About dialog - convert home website link from button to hyperlink
 //    1.09     > Move systray functionality to separate file
 //             > Integrate ClearIconTray functions to here
+//    1.10     Research into refresh messages
 //**************************************************************************************
-
-const char *VerNum = "V1.09" ;
 
 //lint -esym(767, _WIN32_WINNT)
 #define _WIN32_WINNT 0x0500
@@ -49,6 +48,7 @@ const char *VerNum = "V1.09" ;
 #include <time.h>
 
 #include "resource.h"
+#include "version.h"
 #include "common.h"
 #include "derbar.h"
 #include "images.h"
@@ -411,6 +411,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       case WM_NCHITTEST:
       case WM_SETCURSOR:
       case WM_TIMER:
+      case WM_NCMOUSEMOVE:
          break;
       default:
          // syslog("MON: [%s]\n", get_winmsg_name(result));
