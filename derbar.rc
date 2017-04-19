@@ -57,7 +57,7 @@ FONT 11, "Times New Roman"
 BEGIN
    CTEXT           "DerBar",    IDC_DERBAR,     0, Y0, 34,  9, SS_SUNKEN	//lint !e2  Unclosed Quote
 
-   LTEXT           " ",         IDC_STATIC,    36,  0,  2, DY+1, SS_SUNKEN      //lint !e2  Unclosed Quote
+   LTEXT           " ",         IDC_STATIC,    36,  0,  2, DY, SS_SUNKEN      //lint !e2  Unclosed Quote
 
    LTEXT           "Mem:",      IDC_STATIC,    40, Y0, 20,  9
    LTEXT           "Free",      IDC_STATIC,    64, Y0, 16,  9
@@ -66,12 +66,12 @@ BEGIN
    LTEXT           "Total",     IDC_STATIC,   118, Y0, 20,  9
    CTEXT           " ",         IDC_TOTALMEM, 138, Y0, 35,  9, SS_SUNKEN
 
-   LTEXT           " ",         IDC_STATIC,   176,  0,  2, DY+1, SS_SUNKEN
+   LTEXT           " ",         IDC_STATIC,   176,  0,  2, DY, SS_SUNKEN
 
    LTEXT           "Uptime:",   IDC_STATIC,   181, Y0, 25,  9
    CTEXT           " ",         IDC_UPTIME,   206, Y0, 60,  9, SS_SUNKEN
 
-   LTEXT           " ",         IDC_STATIC,   268,  0,  2, DY+1, SS_SUNKEN
+   LTEXT           " ",         IDC_STATIC,   268,  0,  2, DY, SS_SUNKEN
 
    LTEXT           "RX:",       IDC_STATIC,   273, Y0, 12,  9
    CTEXT           " ",         IDC_RXBYTES,  286, Y0, 30,  9, SS_SUNKEN
@@ -79,12 +79,12 @@ BEGIN
    LTEXT           "TX:",       IDC_STATIC,   321, Y0, 12,  9
    CTEXT           " ",         IDC_TXBYTES,  336, Y0, 30,  9, SS_SUNKEN
 
-   LTEXT           " ",         IDC_STATIC,   368,  0,  2, DY+1, SS_SUNKEN
+   LTEXT           " ",         IDC_STATIC,   368,  0,  2, DY, SS_SUNKEN
 
    LTEXT           "CPU:",      IDC_STATIC,   373, Y0, 18,  9
    CTEXT           " ",         IDC_CPUTIME,  393, Y0, 15,  9, SS_SUNKEN
 
-   LTEXT           " ",         IDC_STATIC,   410,  0,  2, DY+1, SS_SUNKEN
+   LTEXT           " ",         IDC_STATIC,   410,  0,  2, DY, SS_SUNKEN
 
    CTEXT           "c",         IDC_KBD_CAPS, 414, Y0, 9,  9, SS_SUNKEN
    CTEXT           "n",         IDC_KBD_NUM , 426, Y0, 9,  9, SS_SUNKEN
