@@ -644,18 +644,29 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 
    //  We cannot trigger on WM_ERASEBKGND or WM_CTLCOLORDLG,
    //  because we want to hide the main window.
+   //  Later: now that I've attached ClearIcon to DerBar,
+   //  which is always displayed, the above restrictions do not matter.
    //  Thus, we trigger on WM_SYSCOLORCHANGE instead.
    // 00000002 11:37:16.650   [6380] SWMsg: [WM_SYSCOLORCHANGE]
    // 00000003 11:37:16.650   [6380] SWMsg: [WM_PAINT]   
    // 00000004 11:37:16.650   [6380] SWMsg: [WM_NCPAINT] 
    // 00000005 11:37:16.655   [6380] SWMsg: [WM_ERASEBKGND] 
    // 00000006 11:37:16.655   [6380] SWMsg: [WM_CTLCOLORDLG]   
-   case WM_SYSCOLORCHANGE:
+   // case WM_SYSCOLORCHANGE:
    // 00000826 13:10:04.124   [5108] SWMsg: [WM_DISPLAYCHANGE] 
    // 00000827 13:10:04.125   [4104] 2017-04-07 13:10:10.824 (  87756.863) |    
    //    DEBUG: [UXDriver.ApiX.MessageTranslator] 325@Nvidia::UXDriver::ApiX::MessageTranslator::Translate : 
    //           message(0x7e) wparam(0x20) lParam(0x6400a00): 9, translated(1).   
-   case WM_DISPLAYCHANGE:
+   // case WM_DISPLAYCHANGE:
+   //  Messages rcvd when exiting from Witcher 3
+   // 00000042 08:28:48.089   [10444] DBGHELP:  
+   // 00000043 08:28:48.108   [5336] DerBar: [WM_PAINT]  
+   // 00000044 08:28:48.108   [5336] DerBar: [WM_NCPAINT]   
+   // 00000045 08:28:48.108   [5336] DerBar: [WM_ERASEBKGND]   
+   // 00000046 08:28:48.108   [5336] DerBar: [WM_CTLCOLORDLG]  
+   // Since I'm not receiving WM_SYSCOLORCHANGE in this case,
+   // I'll try switching to one of the others instead.
+   case WM_ERASEBKGND:
       reset_icon_colors(false);
       break;
 
