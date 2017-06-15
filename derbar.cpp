@@ -38,6 +38,8 @@
 //    1.09     > Move systray functionality to separate file
 //             > Integrate ClearIconTray functions to here
 //    1.10     Research into refresh messages
+//    1.11     Try to add right-click on main dialog, to *also* present
+//             the action menu
 //**************************************************************************************
 
 //lint -esym(767, _WIN32_WINNT)
@@ -470,6 +472,10 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 
    case WM_USER:
       respond_to_tray_clicks(hwnd, lParam);
+      break;
+
+   case WM_NCRBUTTONUP:
+      respond_to_tray_clicks(hwnd, WM_RBUTTONUP);
       break;
 
    case WM_SYSCOMMAND:

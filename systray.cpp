@@ -4,7 +4,6 @@
 //  
 //  Collected by:   Daniel D. Miller
 //**************************************************************************************
-
 #include <windows.h>
 
 #include "resource.h"

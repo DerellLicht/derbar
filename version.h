@@ -1,2 +1,2 @@
-#define VerNum    "V1.10"
+#define VerNum    "V1.11"
 
