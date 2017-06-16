@@ -69,6 +69,7 @@ static LRESULT save_default_ini_file(void)
    fprintf(fd, "editfg=0x%06X\n", (uint) fgnd_edit) ;
    fprintf(fd, "editbg=0x%06X\n", (uint) bgnd_edit) ;
    fprintf(fd, "ci_attr=%u\n", ci_attr) ;
+   fprintf(fd, "debug=%u\n", (show_winmsgs) ? 1U : 0U) ;
    // fprintf(fd, "ip_iface=%u\n", ip_iface_idx) ;
    write_iface_enables(fd) ;
    fclose(fd) ;
@@ -91,13 +92,18 @@ LRESULT save_cfg_file(void)
 LRESULT read_config_file(void)
 {
    char inpstr[128] ;
+   uint uvalue ;
    LRESULT result = derive_filename_from_exec(ini_name, (char *) ".ini") ;
    if (result != 0)
       return result;
 
+   if (show_winmsgs) {
+      syslog("ini file: %s\n", ini_name);
+   }
    FILE *fd = fopen(ini_name, "rt") ;
-   if (fd == 0)
+   if (fd == 0) {
       return save_default_ini_file() ;
+   }
 
    while (fgets(inpstr, sizeof(inpstr), fd) != 0) {
       strip_comments(inpstr) ;
@@ -131,6 +137,10 @@ LRESULT read_config_file(void)
       if (strncmp(inpstr, "ci_attr=", 8) == 0) {
          // syslog("enabling factory mode\n") ;
          ci_attr = (uint) strtoul(&inpstr[8], 0, 0) ;
+      } else
+      if (strncmp(inpstr, "debug=", 6) == 0) {
+         uvalue = (uint) strtoul(&inpstr[6], 0, 0) ;
+         show_winmsgs = (uvalue == 0) ? false : true ;
       } else
       if (strncmp(inpstr, "ip_iface=", 9) == 0) {
          // ip_iface_idx = (uint) strtoul(&inpstr[9], 0, 0) ;

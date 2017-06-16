@@ -38,8 +38,11 @@
 //    1.09     > Move systray functionality to separate file
 //             > Integrate ClearIconTray functions to here
 //    1.10     Research into refresh messages
-//    1.11     Try to add right-click on main dialog, to *also* present
-//             the action menu
+//    1.11     > Try to add right-click on main dialog, to *also* present
+//               the action menu
+//             > Fix startup operations so ip_iface tables are build before
+//               reading config file
+//             > Store show_winmsgs in INI file
 //**************************************************************************************
 
 //lint -esym(767, _WIN32_WINNT)
@@ -74,7 +77,6 @@ extern DWORD SampleMsec ;
 extern BOOL CmdAbout(HWND hwnd);
 
 //  options.cpp
-extern bool show_winmsgs ;
 extern void open_options_dialog(HWND hwnd);
 
 //  lv_ifaces.cpp
@@ -414,6 +416,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       case WM_SETCURSOR:
       case WM_TIMER:
       case WM_NCMOUSEMOVE:
+      case WM_MOUSEWHEEL:
+      case WM_ENTERIDLE:
          break;
       default:
          // syslog("MON: [%s]\n", get_winmsg_name(result));
@@ -727,11 +731,14 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
    g_hinst = hInstance;
    load_exec_filename() ;  //  get our executable name
-   read_config_file() ;    //  read current screen position
-
+   
    //  build one-time network tables
    build_iface_tables() ;
    update_iface_counters() ;
+   
+   // do this *after* building iface tables
+   read_config_file() ;    //  read current screen position, etc
+
 #ifdef   USE_CPU_UTIL
    cpu_usage_setup();
 #endif

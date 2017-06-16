@@ -136,6 +136,7 @@ error_cleanup:
 static PMIB_IFROW get_iface_entry(DWORD idx)
 {
    PMIB_IFROW pIfRow = new MIB_IFROW ;
+   ZeroMemory(pIfRow, sizeof(MIB_IFROW));
    pIfRow->dwIndex = idx ;
    DWORD result = GetIfEntry(pIfRow) ;
    if (result == NO_ERROR) 
@@ -166,7 +167,6 @@ static void build_iface_table(void)
          iptr->iface_name[pIfRow->dwDescrLen] = 0 ;
          // iptr->cbox_row = cbox_row++ ;
          iptr->lview_row = lview_row++ ;
-         iptr->if_active = true ;   //  default to active
 
          delete pIfRow ;
       }

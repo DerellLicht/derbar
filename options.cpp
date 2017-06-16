@@ -28,7 +28,7 @@
 #include "derbar.h"
 #include "winmsgs.h"
 
-bool show_winmsgs = true ;
+bool show_winmsgs = false ;
 bool keep_on_top = false ;
 
 static HWND hwndEditFgnd ;

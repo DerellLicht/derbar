@@ -28,3 +28,5 @@ extern unsigned ci_attr ;
 unsigned select_color(COLORREF orig_attr);
 void reset_icon_colors(bool my_select_color);
 
+//  options.cpp
+extern bool show_winmsgs ;
