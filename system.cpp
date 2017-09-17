@@ -359,16 +359,13 @@ double cpu_usage_report(void)
 
    //  https://www.netiq.com/support/kb/doc.php?id=7010545
    //  The return values like PDH_CALC_NEGATIVE_DENOMINATOR can occur because of 
-   //  either bug in the provider or overflow of values in data storage. In these 
+   //  either a bug in the provider or overflow of values in data storage. In these 
    //  situations, you have an option to ignore this return value and retry a bit 
    //  later like 1 second to get the new values. This is not a fatal error that 
    //  application can’t continue correctly, like INVALID_HANDLE or INVALID_DATA. 
    //  
    //  08/20/14 - adding PDH_FMT_NOCAP100 to the function call did NOT solve this 
    //  issue.  BTW, this mostly occurs on WinXP systems, I think.
-   //  
-   //  
-   //  
    //**********************************************************************************
    presult = PdhGetFormattedCounterValue(hCounter, PDH_FMT_DOUBLE | PDH_FMT_NOCAP100, NULL, &FmtValue);
    if (presult != ERROR_SUCCESS) {

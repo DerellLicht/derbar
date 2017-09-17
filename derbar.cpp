@@ -471,6 +471,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       //  they count 1024 msec per second; thus, they are off by about 1.5%
       // timerID = SetTimer(hwnd, IDT_TIMER, 1000, (TIMERPROC) NULL) ;
       // timerID = SetTimer(hwnd, IDT_TIMER, 977, (TIMERPROC) NULL) ;
+      //  Later note: I eventually switched to 1/4-second timing,
+      //  to improve responsiveness in data updates.
       timerID = SetTimer(hwnd, IDT_TIMER, 244, (TIMERPROC) NULL) ;
       return TRUE;
 
@@ -493,6 +495,10 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       //    DestroyWindow (hwnd);
       //    break;
       
+      //  In case you're wondering, NO, I have no idea why I put
+      //  the "OR 2" option in here.  Presumably I was seeing these messages
+      //  pop up in the winmsgs display, and couldn't find documentation
+      //  on precisely what SC_MOVE is supposed to do... (??)
       case (SC_MOVE | 2):  //  mouse move
       case SC_MOVE:
          // syslog("we be moving!!\n") ;
@@ -516,22 +522,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       }
       return TRUE;
       
-   // //  this is used for floating (not SysTray) menu activation
-// #ifndef  USE_SYSTRAY
-//    case WM_RBUTTONUP:
-//       {
-//       POINT point ;
-//       point.x = LOWORD (lParam) ;
-//       point.y = HIWORD (lParam) ;
-//       ClientToScreen (hwnd, &point) ;
-//       
-//       TrackPopupMenu(hMenu, TPM_RIGHTBUTTON, point.x, point.y, 0, hwnd, NULL) ;
-//       }
-//       return 0 ;
-// #endif
-
    //  technique to drag dialog by its client area.
-   //  Once this is enabled, though, the popup menu will no longer work!!
+   //  Once the title bar is enabled, though, the popup menu will no longer work!!
    case WM_NCHITTEST:
       if (!tbar_on  &&  DefWindowProc(hwnd, WM_NCHITTEST, wParam, lParam) == HTCLIENT) {
          SetWindowLong(hwnd, DWL_MSGRESULT, HTCAPTION);
