@@ -668,6 +668,16 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
    // 00000046 08:28:48.108   [5336] DerBar: [WM_CTLCOLORDLG]  
    // Since I'm not receiving WM_SYSCOLORCHANGE in this case,
    // I'll try switching to one of the others instead.
+   // 
+   // 12/09/17 - From Divinity: Original Sin 2, I receive:
+   // 00000071 13:54:33.658   [3692] DerBar: [WM_DISPLAYCHANGE]   
+   // 00000072 13:54:34.227   [3692] DerBar: [WM_SYNCPAINT ]   
+   // 00000073 13:54:34.229   [3692] DerBar: [WM_NCPAINT]   
+   // 00000074 13:54:34.231   [3692] DerBar: [WM_ERASEBKGND]   
+   // 00000075 13:54:34.239   [3692] DerBar: [WM_SYNCPAINT ]   
+   // 00000076 13:54:34.246   [3692] DerBar: [WM_CTLCOLORDLG]  
+   // 00000077 13:54:34.246   [3692] DerBar: [WM_PAINT]  
+   //  but trapping WM_PAINT did not work either
    case WM_ERASEBKGND:
       reset_icon_colors(false);
       break;
