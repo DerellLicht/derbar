@@ -1,6 +1,5 @@
 //****************************************************************************
-//  Copyright (c) 2008  Anacom, Inc
-//  AnaComm.exe - a utility for communicating with ODUs and other devices.
+//  Copyright (c) 2009-2017  Daniel D Miller
 //  images.cpp - handle ImageList functions for LED bitmaps
 //
 //  Produced and Directed by:  Dan Miller
@@ -43,7 +42,7 @@ static int el_width = 0 ;
 //****************************************************************************
 bool load_led_images(void)
 {
-   hiSpriteList = ImageList_LoadImage(g_hinst, MAKEINTRESOURCE(IDC_LEDBMPS), image_height, 0, CLR_DEFAULT, IMAGE_BITMAP, LR_CREATEDIBSECTION) ;
+   hiSpriteList = ImageList_LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDC_LEDBMPS), image_height, 0, CLR_DEFAULT, IMAGE_BITMAP, LR_CREATEDIBSECTION) ;
    if (hiSpriteList == NULL) {
       syslog("ImageList_LoadBitmap: %s\n", get_system_message()) ;
       return false;
