@@ -1,5 +1,5 @@
 
-<center><h3>DerBar - a simple system-status bar</h3></center>
+### DerBar - a simple system-status bar
 
 ![DerBar without title bar](images/derbar.notitle.jpg)
 
