@@ -21,28 +21,28 @@ DerBar is written in C++, using standard Windows library calls.  It is built usi
 
 _Revision history_
 
-| Version | description |<br>
-| --- | --- |<br>
-| 1.00 | Original release<br>
-| 1.01 | Added color options for field colors<br>
+| Version | description |
+| --- | --- |
+| 1.00 | Original release |
+| 1.01 | Added color options for field colors |
 | 1.02 | Added option to select which network interface should be used for
-reading network throughput.<br>
-1.03: Add listview to show info for all interfaces<br>
+reading network throughput. |
+1.03: Add listview to show info for all interfaces |
 1.04: Replace interface-selection combo box in Options, with management via
-the listview dialog.<br>
-1.05: Add status displays for locking keyboard keys<br>
+the listview dialog. |
+1.05: Add status displays for locking keyboard keys |
 1.06: > Add option to move main dialog back to a visible position (to deal
-with desktop size changes)<br>
-       > Add option to make main window stay on top<br>
-1.07 > make the memory bars wider, so that 16GB data will display!<br>
-       > try to detect if dialog is off-screen, and move it back onto display<br>
+with desktop size changes) |
+       > Add option to make main window stay on top |
+1.07 > make the memory bars wider, so that 16GB data will display! |
+       > try to detect if dialog is off-screen, and move it back onto display |
 1.08 > Modify call to PdhGetFormattedCounterValue(), to try to eliminate the
-undocumented 0x800007D6 (PDH_CALC_NEGATIVE_DENOMINATOR) Error.<br>
-       > About dialog - convert home website link from button to hyperlink<br>
-1.09 > Move systray functionality to separate file<br>
+undocumented 0x800007D6 (PDH_CALC_NEGATIVE_DENOMINATOR) Error. |
+       > About dialog - convert home website link from button to hyperlink |
+1.09 > Move systray functionality to separate file |
        > Integrate ClearIconTray functions to DerBar 1.10 Research into
-refresh messages<br>
-1.11 > Add right-click on main dialog, to *also* present the action menu<br>
+refresh messages |
+1.11 > Add right-click on main dialog, to *also* present the action menu |
        > Fix startup operations so ip_iface tables are build before reading
-config file<br>
-       > Store show_winmsgs in INI file<br>
+config file |
+       > Store show_winmsgs in INI file |
