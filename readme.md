@@ -17,7 +17,7 @@ DerBar is written in C++, using standard Windows library calls.  It is built usi
 _Revision history_
 
 | Version | description |
-| --- | --- |
+| :---: | --- |
 | 1.00 | Original release |
 | 1.01 | Added color options for field colors |
 | 1.02 | Added option to select which network interface should be used for reading network throughput. |
