@@ -1,4 +1,4 @@
-### <center>DerBar - a simple system-status bar</center>
+<center><b>DerBar - a simple system-status bar</b></center>
 
 ![DerBar without title bar](images/derbar.notitle.jpg)
 
