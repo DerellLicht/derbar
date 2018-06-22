@@ -14,10 +14,18 @@ Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 
 DerBar is written in C++, using standard Windows library calls.  It is built using the open source MinGW (Minimal Gnu for Windows) tools, and requires a couple of the common utilities from Cygwin as well (Gnu make, rm, etc).
 
-_Revision history_<br>
-1.00: Original release<br>
-1.01: Added color options for field colors<br>
-1.02: Added option to select which network interface should be used for
+| Command | Description |
+| --- | --- |
+| git status | List all new or modified files |
+| git diff | Show file differences that haven't been staged |
+
+_Revision history_
+
+| Version | description |<br>
+| --- | --- |<br>
+| 1.00 | Original release<br>
+| 1.01 | Added color options for field colors<br>
+| 1.02 | Added option to select which network interface should be used for
 reading network throughput.<br>
 1.03: Add listview to show info for all interfaces<br>
 1.04: Replace interface-selection combo box in Options, with management via
@@ -38,4 +46,3 @@ refresh messages<br>
        > Fix startup operations so ip_iface tables are build before reading
 config file<br>
        > Store show_winmsgs in INI file<br>
-
