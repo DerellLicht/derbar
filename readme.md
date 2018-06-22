@@ -14,11 +14,6 @@ Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 
 DerBar is written in C++, using standard Windows library calls.  It is built using the open source MinGW (Minimal Gnu for Windows) tools, and requires a couple of the common utilities from Cygwin as well (Gnu make, rm, etc).
 
-| Command | Description |
-| --- | --- |
-| git status | List all new or modified files |
-| git diff | Show file differences that haven't been staged |
-
 _Revision history_
 
 | Version | description |
