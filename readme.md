@@ -9,6 +9,10 @@ DerBar is compatible with all other programs and will not conflict with DirectX 
 
 Download [DerBar](https://github.com/DerellLicht/bin) utility here (select Derbar.zip)
 
+Download [DerBar](http://github.com/DerellLicht/bin/blob/master/DerBar.zip) utility here
+
+https://github.com/DerellLicht/bin/blob/master/DerBar.zip
+
 DerBar is freeware, source code is available.<br>
 Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 
