@@ -1,5 +1,7 @@
 
+{: style="text-align:center;}
 ### DerBar - a simple system-status bar
+{: style="text-align:center;}
 
 ![DerBar without title bar](images/derbar.notitle.jpg)
 
@@ -9,7 +11,7 @@ DerBar is compatible with all other programs and will not conflict with DirectX 
 
 Download [DerBar](https://github.com/DerellLicht/bin/raw/master/DerBar.zip) utility here
 
-DerBar is freeware, source code is available.<br>
+DerBar is freeware, source code is available.  
 Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 
 DerBar is written in C++, using standard Windows library calls.  It is built using the open source MinGW (Minimal Gnu for Windows) tools, and requires a couple of the common utilities from Cygwin as well (Gnu make, rm, etc).
