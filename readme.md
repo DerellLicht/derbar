@@ -1,7 +1,5 @@
 
-{: style="text-align:center;}
 ### DerBar - a simple system-status bar
-{: style="text-align:center;}
 
 ![DerBar without title bar](images/derbar.notitle.jpg)
 
