@@ -1,4 +1,3 @@
-
 ### DerBar - a simple system-status bar
 
 ![DerBar without title bar](images/derbar.notitle.jpg)
@@ -12,7 +11,18 @@ Download [DerBar](https://github.com/DerellLicht/bin/raw/master/DerBar.zip) util
 DerBar is freeware, source code is available.  
 Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 
-DerBar is written in C++, using standard Windows library calls.  It is built using the open source MinGW (Minimal Gnu for Windows) tools, and requires a couple of the common utilities from Cygwin as well (Gnu make, rm, etc).
+DerBar is written in C++, using standard Windows library calls.  
+
+#### building the application
+This application is built using the MinGW toolchain; I recommend the [TDM](http://tdm-gcc.tdragon.net/) distribution, to avoid certain issues with library accessibility. The makefile also requires certain Cygwin tools (rm, make, etc).
+Building the Windows installer will require [Inno Setup](http://jrsoftware.org/isinfo.php); 
+I use version 5.37, but later versions should work fine.
+
+To build command-line version, run  
+   `make anagram`
+
+To build the Windows version, run  
+   `make`
 
 _Revision history_
 
