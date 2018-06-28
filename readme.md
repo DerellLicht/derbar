@@ -15,14 +15,6 @@ DerBar is written in C++, using standard Windows library calls.
 
 #### building the application
 This application is built using the MinGW toolchain; I recommend the [TDM](http://tdm-gcc.tdragon.net/) distribution, to avoid certain issues with library accessibility. The makefile also requires certain Cygwin tools (rm, make, etc).
-Building the Windows installer will require [Inno Setup](http://jrsoftware.org/isinfo.php); 
-I use version 5.37, but later versions should work fine.
-
-To build command-line version, run  
-   `make anagram`
-
-To build the Windows version, run  
-   `make`
 
 _Revision history_
 
