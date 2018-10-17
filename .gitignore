@@ -3,3 +3,4 @@ _lint.tmp
 *.o
 *.exe
 *.bak
+*.zip
