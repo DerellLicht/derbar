@@ -37,3 +37,6 @@ _Revision history_
 | 1.11 | Add right-click on main dialog, to *also* present the action menu |
 |      | Fix startup operations so ip_iface tables are build before reading config file |
 |      | Store show_winmsgs in INI file |
+| 1.12 | Try to provide RED background for free memory, if it gets too low
+| 1.13 | Enable toggling of CAPS/NUM/SCRL keys from program interface
+

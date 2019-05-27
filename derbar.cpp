@@ -1,5 +1,5 @@
 //**************************************************************************************
-//  Copyright (c) 2009-2017  Daniel D Miller
+//  Copyright (c) 2009-2019  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  
 //  DerBar, its source code and executables, are Copyrighted in their
@@ -88,10 +88,11 @@ static HWND hwndUptime ;
 static HWND hwndRxBytes ;
 static HWND hwndTxBytes ;
 static HWND hwndCpuTime ;
+static HWND hwndMainDialog = 0 ;
+
 static HWND hwndKbdCaps ;
 static HWND hwndKbdNum  ;
 static HWND hwndKbdScrl ;
-static HWND hwndMainDialog = 0 ;
 
 //*******************************************************************
 static uint screen_width  = 0 ;
@@ -374,6 +375,72 @@ void update_keep_on_top(void)
    }
 }
 
+//*************************************************************************************
+//  info on toggling keyboard states was obtained from:
+//  https://support.microsoft.com/en-us/help/127190/
+//     howto-toggle-the-num-lock-caps-lock-and-scroll-lock-keys
+//*************************************************************************************
+#define PROP_KBD_PROC    TEXT("_DerBarKeys_Original_Proc_")
+
+static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+   BYTE keyState[256];
+   //  debug function: see what messages are being received
+   if (show_winmsgs) {
+      switch (message) {
+      //  list messages to be ignored
+      case WM_TIMER:
+      case WM_SETTEXT:
+      case WM_NCHITTEST:
+      case WM_CTLCOLORSTATIC:
+      case WM_SETCURSOR:
+      case WM_NCMOUSEMOVE:
+      case WM_MOUSEMOVE:
+         break;
+      default:
+         // syslog("MON: [%s]\n", get_winmsg_name(result));
+         syslog("DerBarSC [%08X]: [%s]\n", (uint) hwnd, lookup_winmsg_name(message)) ;
+         break;
+      }
+   }
+   // kbd hwnd: C0013023E N0013023C S001906D6
+   WNDPROC pfnOrigProc = (WNDPROC) GetProp(hwnd, PROP_KBD_PROC);   //lint !e611
+
+   switch (message)
+   {
+   case WM_LBUTTONUP:
+      GetKeyboardState((PBYTE)&keyState[0]);
+       // syslog("kbd hwnd: hwnd:%08X C:%08X N:%08X S:%08X\n", hwnd, hwndKbdCaps, hwndKbdNum, hwndKbdScrl);
+      if (hwnd == hwndKbdCaps) {
+         // Simulate a key press
+         keybd_event( VK_CAPITAL, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0 );
+
+         // Simulate a key release
+         keybd_event( VK_CAPITAL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+      } else
+      if (hwnd == hwndKbdNum) {
+         // Simulate a key press
+         keybd_event( VK_NUMLOCK, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0 );
+
+         // Simulate a key release
+         keybd_event( VK_NUMLOCK, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+      } else
+      if (hwnd == hwndKbdScrl) {
+         // Simulate a key press
+         keybd_event( VK_SCROLL, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0 );
+
+         // Simulate a key release
+         keybd_event( VK_SCROLL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+      } 
+      break;
+
+   default:
+      break;   
+   }  //lint !e744
+
+   return CallWindowProc(pfnOrigProc, hwnd, message, wParam, lParam);
+}
+
 //*******************************************************************
 static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -429,6 +496,20 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       hwndKbdNum   = GetDlgItem(hwnd, IDC_KBD_NUM ) ;
       hwndKbdScrl  = GetDlgItem(hwnd, IDC_KBD_SCRL) ;
 
+      //  Subclass the existing key-state controls, 
+      //  to allow toggling their states
+      {
+      WNDPROC pfnOrigProcCaps = (WNDPROC) GetWindowLong(hwndKbdCaps, GWL_WNDPROC);
+      SetProp(hwndKbdCaps, PROP_KBD_PROC, (HANDLE) pfnOrigProcCaps); //lint !e611
+      SetWindowLong(hwndKbdCaps, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+      WNDPROC pfnOrigProcNum = (WNDPROC) GetWindowLong(hwndKbdNum, GWL_WNDPROC);
+      SetProp(hwndKbdNum, PROP_KBD_PROC, (HANDLE) pfnOrigProcNum); //lint !e611
+      SetWindowLong(hwndKbdNum, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+      WNDPROC pfnOrigProcScrl = (WNDPROC) GetWindowLong(hwndKbdScrl, GWL_WNDPROC);
+      SetProp(hwndKbdScrl, PROP_KBD_PROC, (HANDLE) pfnOrigProcScrl); //lint !e611
+      SetWindowLong(hwndKbdScrl, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+      }
+
       update_data_fields() ;
       //**********************************************************
       //  do other config tasks *after* creating fields,
@@ -463,6 +544,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       break;
 
    case WM_SYSCOMMAND:
+      // syslog("SYSCOMMAND>: wParam=%04X\n", wParam) ;
       switch (wParam) {
       // case SC_MINIMIZE:
       //    ShowWindow (hwnd, SW_HIDE);
@@ -477,8 +559,12 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       //  the "OR 2" option in here.  Presumably I was seeing these messages
       //  pop up in the winmsgs display, and couldn't find documentation
       //  on precisely what SC_MOVE is supposed to do... (??)
+      //  
+      //  Later note: Actually, SC_MOVE does not occur on its own,
+      //  it is *always* accompanies by 0x0002
+      //  This makes it difficult to specifically detect left-click...
       case (SC_MOVE | 2):  //  mouse move
-      case SC_MOVE:
+      // case SC_MOVE:
          // syslog("we be moving!!\n") ;
          moving_via_title_bar = true ;
          break;
@@ -487,7 +573,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       //  needs to be passed on to the system.
       //  Otherwise, the window isn't movable!!
       default:
-         // syslog("wParam=%04X\n", wParam) ;
+         // syslog("SYSCOMMAND: wParam=%04X\n", wParam) ;
          // return DefWindowProc (hwnd, message, wParam, lParam);
          break;
       }

@@ -86,9 +86,9 @@ BEGIN
 
    LTEXT           " ",         IDC_STATIC,   410,  0,  2, DY, SS_SUNKEN
 
-   CTEXT           "c",         IDC_KBD_CAPS, 414, Y0, 9,  9, SS_SUNKEN
-   CTEXT           "n",         IDC_KBD_NUM , 426, Y0, 9,  9, SS_SUNKEN
-   CTEXT           "s",         IDC_KBD_SCRL, 438, Y0, 9,  9, SS_SUNKEN
+   CTEXT           "c",         IDC_KBD_CAPS, 414, Y0, 9,  9, SS_SUNKEN | SS_NOTIFY
+   CTEXT           "n",         IDC_KBD_NUM , 426, Y0, 9,  9, SS_SUNKEN | SS_NOTIFY
+   CTEXT           "s",         IDC_KBD_SCRL, 438, Y0, 9,  9, SS_SUNKEN | SS_NOTIFY
 
 END
 
