@@ -19,13 +19,12 @@
 //    1.09     > Move systray functionality to separate file
 //             > Integrate ClearIconTray functions to here
 //    1.10     Research into refresh messages
-//    1.11     > Try to add right-click on main dialog, to *also* present
-//               the action menu
-//             > Fix startup operations so ip_iface tables are build before
-//               reading config file
+//    1.11     > Try to add right-click on main dialog, to *also* present the action menu
+//             > Fix startup operations so ip_iface tables are build before reading config file
 //             > Store show_winmsgs in INI file
 //    1.12     Try to provide RED background for free memory, if it gets too low
 //    1.13     Enable toggling of CAPS/NUM/SCRL keys from program interface
+//    1.14     Double-click on DerBar dialog, now resets desktop icon colors
 //**************************************************************************************
-#define VerNum    "V1.13"
+#define VerNum    "V1.14"
 

@@ -595,10 +595,18 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       } 
       break;
 
+   //  DerBar: [WM_NCLBUTTONDBLCLK]
+   case WM_NCLBUTTONDBLCLK:
+      reset_icon_colors(false);
+      break;
+
    case WM_COMMAND:
       {
       DWORD cmd = HIWORD (wParam) ;
       DWORD target = LOWORD(wParam) ;
+      if (show_winmsgs) {
+         syslog("WM_COMMAND: cmd: %08X, target: %08X\n", cmd, target);
+      }
       // If a button is clicked...
       if (cmd == BN_CLICKED) {
          switch (target) {
