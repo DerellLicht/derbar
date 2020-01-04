@@ -1,5 +1,12 @@
 #  SHELL=cmd.exe
 USE_DEBUG = NO
+USE_64BIT = NO
+
+ifeq ($(USE_64BIT),YES)
+TOOLS=c:\tdm64\bin
+else
+TOOLS=c:\mingw\bin
+endif
 
 ifeq ($(USE_DEBUG),YES)
 CFLAGS=-Wall -ggdb -O
@@ -9,6 +16,9 @@ CFLAGS=-Wall -O2
 LFLAGS=-s -mwindows
 endif
 CFLAGS += -Wno-write-strings
+ifeq ($(USE_64BIT),YES)
+CFLAGS += -DUSE_64BIT
+endif
 
 CPPSRC=derbar.cpp config.cpp common_funcs.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp hyperlinks.cpp systray.cpp winmsgs.cpp ClearIcon.cpp
@@ -18,7 +28,7 @@ OBJS = $(CPPSRC:.cpp=.o) rc.o
 BINS=derbar.exe
 
 %.o: %.cpp
-	g++ $(CFLAGS) -c $<
+	$(TOOLS)\g++ $(CFLAGS) -c $<
 
 #**************************************************************
 #  generic build rules
@@ -44,13 +54,13 @@ dist:
 #  build rules for executables                           
 #**************************************************************
 derbar.exe: $(OBJS)
-	g++ $(CFLAGS) $(OBJS) $(LFLAGS) -o $@ -lcomctl32 -liphlpapi -lpdh
+	$(TOOLS)\g++ $(CFLAGS) $(OBJS) $(LFLAGS) -o $@ -lcomctl32 -liphlpapi -lpdh
 
 #**************************************************************
 #  build rules for libraries and other components
 #**************************************************************
 rc.o: derbar.rc
-	windres -O COFF $^ -o $@
+	$(TOOLS)\windres -O COFF $^ -o $@
 
 # DO NOT DELETE
 
