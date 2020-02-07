@@ -4,7 +4,7 @@
 
 DerBar is a simple, slightly-configurable status bar for monitoring key system and network parameters.  It is modeled on older status-monitoring programs such as StatBar, WinBar, and InfoBar, but without the configuration options of those other programs; it is designed for compactness and compatibility, not for turning parts on and off.  The few configuration options that are present, are accessed via the icon in the system tray.  You can move DerBar anywhere you want, by grabbing it and dragging it around, and it will remember where you leave it next time it runs.  
 
-DerBar is compatible with all other programs and will not conflict with DirectX games, as each of the afore-mentioned tools would sometimes do.  It works fine with WinXP, Vista and later versiona, but I have no idea whether it would work under Win98 or not.
+DerBar is compatible with all other programs and will not conflict with DirectX games, as each of the afore-mentioned tools would sometimes do.  It works fine with WinXP and Vista+, but would likely not work on Win98 famiily due to UNICODE support.
 
 Download [DerBar](https://github.com/DerellLicht/bin/raw/master/DerBar.zip) utility here
 
@@ -39,4 +39,6 @@ _Revision history_
 |      | Store show_winmsgs in INI file |
 | 1.12 | Try to provide RED background for free memory, if it gets too low
 | 1.13 | Enable toggling of CAPS/NUM/SCRL keys from program interface
+| 1.14 | Double-click on DerBar dialog, now resets desktop icon colors
+| 1.15 | Add VS_VERSION_INFO to resource file
 
