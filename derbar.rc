@@ -187,7 +187,7 @@ BEGIN
         BEGIN
             VALUE "Comments", "DerBar - Windows performance monitor."
             VALUE "CompanyName", "Cathartes Aura"
-            VALUE "FileDescription", "DerBar"
+            VALUE "FileDescription", "DerBar Windows performance monitor"
             VALUE "FileVersion", VerNum
             VALUE "InternalName", "DerBar"
             VALUE "LegalCopyright", "Copyright © 2008-2020"
