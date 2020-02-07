@@ -25,6 +25,7 @@
 //    1.12     Try to provide RED background for free memory, if it gets too low
 //    1.13     Enable toggling of CAPS/NUM/SCRL keys from program interface
 //    1.14     Double-click on DerBar dialog, now resets desktop icon colors
+//    1.15     Add VS_VERSION_INFO to resource file
 //**************************************************************************************
-#define VerNum    "V1.14"
+#define VerNum    "V1.15"
 
