@@ -56,7 +56,7 @@ extern void open_options_dialog(HWND hwnd);
 //  lv_ifaces.cpp
 extern void spawn_ifaces_lview(HWND hwnd);
 
-//  dialog color settings
+//  dialog color settings    0Oo 1lIi|  
 static HBRUSH hbLogo = 0 ;
 HBRUSH hbEdit = 0 ;
 COLORREF fgnd_edit = WIN_BGREEN ;
