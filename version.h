@@ -26,6 +26,7 @@
 //    1.13     Enable toggling of CAPS/NUM/SCRL keys from program interface
 //    1.14     Double-click on DerBar dialog, now resets desktop icon colors
 //    1.15     Add VS_VERSION_INFO to resource file
+//    1.16     Add WM_DWMCOLORIZATIONCOLORCHANGED command for redraw of icon colors
 //**************************************************************************************
-#define VerNum    "V1.15"
+#define VerNum    "V1.16"
 

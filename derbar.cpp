@@ -466,7 +466,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
          break;
       default:
          // syslog("MON: [%s]\n", get_winmsg_name(result));
-         syslog("DerBar: [%s]\n", lookup_winmsg_name(message)) ;
+         syslog("DerBar: [%s] %08X\n", lookup_winmsg_name(message), message) ;
          break;
       }
    }
@@ -595,7 +595,10 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       } 
       break;
 
+
+#define  WM_DWMCOLORIZATIONCOLORCHANGED   0x320
    //  DerBar: [WM_NCLBUTTONDBLCLK]
+   case WM_DWMCOLORIZATIONCOLORCHANGED:
    case WM_NCLBUTTONDBLCLK:
       reset_icon_colors(false);
       break;
