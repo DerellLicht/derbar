@@ -119,8 +119,8 @@ unsigned select_color(COLORREF orig_attr)
    cc.rgbResult      = orig_attr ;
    cc.lpCustColors   = crCustColors ;
    cc.Flags          = CC_RGBINIT | CC_FULLOPEN ;
-   cc.Flags = CC_ENABLEHOOK;
-   cc.lpfnHook = (LPCCHOOKPROC)ChooseColorHookProc;
+   cc.Flags          = CC_ENABLEHOOK;
+   cc.lpfnHook       = (LPCCHOOKPROC)ChooseColorHookProc;
    cc.lpTemplateName = (LPTSTR)NULL;
 
    return (ChooseColor(&cc) == TRUE) ? cc.rgbResult : 0 ;
@@ -163,7 +163,7 @@ void reset_icon_colors(bool my_select_color)
 
    //  finally, set screen colors
    ListView_SetTextBkColor(hwnd, CLR_NONE);  //lint !e522
-   ListView_SetTextColor(hwnd, ci_attr) ; //lint !e522  added by Dan Miller
+   ListView_SetTextColor(hwnd, ci_attr) ; //lint !e522
    InvalidateRect(hwnd, NULL, TRUE);
    UpdateWindow(hwnd);
 }
