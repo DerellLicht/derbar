@@ -76,7 +76,7 @@ void update_memory_readings(void)
    // // Show the amount of extended memory available.
    // printf ("There are %*I64x free %sbytes of extended memory.\n",
    //         WIDTH, statex.ullAvailExtendedVirtual/DIV, divisor);
-   freemem = statex.ullAvailPhys ;
+   freemem  = statex.ullAvailPhys ;
    totalmem = statex.ullTotalPhys ;
 }
 

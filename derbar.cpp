@@ -1,5 +1,5 @@
 //**************************************************************************************
-//  Copyright (c) 2009-2019  Daniel D Miller
+//  Copyright (c) 2009-2021  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  
 //  DerBar, its source code and executables, are Copyrighted in their
@@ -342,7 +342,7 @@ static void update_data_fields(void)
 
    isMemoryLow = (freemem < (totalmem / 10)) ? true : false ;
    
-   if (freemem < 1000000000U) 
+   if (freemem < SZ1GB) 
       sprintf(msgstr, "%u MB", (unsigned) (freemem / SZ1MB)) ;
    else
       sprintf(msgstr, "%.2f GB", (double) freemem / SZ1GB) ;
