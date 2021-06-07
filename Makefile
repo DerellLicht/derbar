@@ -60,7 +60,7 @@ dist:
 #  build rules for executables                           
 #**************************************************************
 derbar.exe: $(OBJS)
-	$(TOOLS)\g++ $(CFLAGS) $(OBJS) $(LFLAGS) -o $@ -lcomctl32 -liphlpapi -lpdh -lsecur32
+	$(TOOLS)\g++ $(CFLAGS) $(OBJS) $(LFLAGS) -o $@ -lcomctl32 -liphlpapi -lpdh
 
 #**************************************************************
 #  build rules for libraries and other components

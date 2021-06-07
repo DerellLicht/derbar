@@ -7,7 +7,7 @@
 //  
 //  Last Update:  06/06/21 17:51
 //**********************************************************************
-//  build: g++ -Wall -O2 login_lsa.cpp -o login_lsa.exe -lsecur32
+//  build: g++ -Wall -O2 -DSTAND_ALONE=1 login_lsa.cpp -o login_lsa.exe -lsecur32
 
 // #define  STAND_ALONE    1
 
@@ -239,7 +239,8 @@ time_t get_max_logon_time(void)
 #endif
             }
 
-            LsaFreeReturnBuffer(pData);
+            // LsaFreeReturnBuffer(pData);
+            (*pfLFRB)(pData);
          }
       }
    }
