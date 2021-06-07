@@ -3,18 +3,6 @@
 //  derbar.exe - Another WinBar application
 //  system.cpp: functions for gathering system information
 //  
-//  DerBar, its source code and executables, are Copyrighted in their
-//  unmodified form by Daniel D Miller, and are distributed as free
-//  software, with only one restriction:
-//  
-//  Any modified version of the program cannot be distributed with
-//  the name DerBar.
-//  
-//  Other than this, the source code, executables, help files, and any
-//  other related files are provided with absolutely no restriction 
-//  on use, distribution, modification, commercial adaptation, 
-//  or any other conditions.
-//  
 //  Written by:   Daniel D. Miller
 //  
 //  Last Update:  04/10/09 09:50

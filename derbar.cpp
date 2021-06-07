@@ -398,7 +398,7 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
          break;
       default:
          // syslog("MON: [%s]\n", get_winmsg_name(result));
-         syslog("DerBarSC [%08X]: [%s]\n", (uint) hwnd, lookup_winmsg_name(message)) ;
+         syslog("DerBarSC [%X]: [%s]\n", hwnd, lookup_winmsg_name(message)) ;
          break;
       }
    }
@@ -589,7 +589,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
    //  Once the title bar is enabled, though, the popup menu will no longer work!!
    case WM_NCHITTEST:
       if (!tbar_on  &&  DefWindowProc(hwnd, WM_NCHITTEST, wParam, lParam) == HTCLIENT) {
-         SetWindowLong(hwnd, DWL_MSGRESULT, HTCAPTION);
+         // SetWindowLong(hwnd, DWL_MSGRESULT, HTCAPTION);
+         SetWindowLong(hwnd, 0, HTCAPTION);  //  change for 64-bit build
          return TRUE;
       } 
       break;
@@ -658,7 +659,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
          SetBkColor(hdc, WIN_BLUE);
          if (hbLogo == 0) 
             hbLogo = CreateSolidBrush(WIN_BLUE) ;
-         return (LONG) hbLogo ;   // hilight colour
+         return (LRESULT) hbLogo ;   // hilight colour
       } 
       if ((HWND) lParam == hwndFreeMem  ||
           (HWND) lParam == hwndTotalMem  ||
@@ -677,7 +678,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
             if (hbEdit == 0) 
                hbEdit = CreateSolidBrush(bgnd_edit) ;
          }
-         return (LONG) hbEdit ;   // hilight colour
+         return (LRESULT) hbEdit ;   // hilight colour
       }
       if ((HWND) lParam == hwndKbdCaps) {
          if (kbd_state & 4) {
@@ -685,7 +686,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
             SetBkColor(hdc, bgnd_edit);
             if (hbEdit == 0) 
                hbEdit = CreateSolidBrush(bgnd_edit) ;
-            return (LONG) hbEdit ;   // hilight colour
+            return (LRESULT) hbEdit ;   // hilight colour
          }
       } 
       if ((HWND) lParam == hwndKbdNum) {
@@ -694,7 +695,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
             SetBkColor(hdc, bgnd_edit);
             if (hbEdit == 0) 
                hbEdit = CreateSolidBrush(bgnd_edit) ;
-            return (LONG) hbEdit ;   // hilight colour
+            return (LRESULT) hbEdit ;   // hilight colour
          }
       } 
       if ((HWND) lParam == hwndKbdScrl) {
@@ -703,7 +704,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
             SetBkColor(hdc, bgnd_edit);
             if (hbEdit == 0) 
                hbEdit = CreateSolidBrush(bgnd_edit) ;
-            return (LONG) hbEdit ;   // hilight colour
+            return (LRESULT) hbEdit ;   // hilight colour
          }
       } 
       break;

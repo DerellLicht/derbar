@@ -1,7 +1,7 @@
 //**********************************************************************
-//  Copyright (c) 2009-2017  Daniel D Miller
+//  Copyright (c) 2009-2021  Daniel D Miller
 //  derbar.exe - Another WinBar application
-//  derbar.cpp: main interface functions
+//  derbar.h: global declarations
 //  
 //  Written by:   Daniel D. Miller
 //**********************************************************************
