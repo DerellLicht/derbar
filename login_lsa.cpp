@@ -150,7 +150,7 @@ exit_point:
 
 //*******************************************************************************
 // https://fossies.org/linux/gkrellm/src/sysdeps/win32.c
-// create points to LSA library functions for 32-bit MinGW
+// create pointers to LSA library functions for 32-bit MinGW
 //*******************************************************************************
 static bool load_LSA_library_pointers(void)
 {
