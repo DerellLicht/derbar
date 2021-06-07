@@ -17,6 +17,7 @@ extern uint x_pos ;
 extern uint y_pos ;
 extern uint tbar_on ;
 extern bool keep_on_top ;
+extern bool use_logon_time_for_uptime ;
 // extern uint ip_iface_idx ;  //  0 means read all, otherwise read selected iface
 
 //  function prototypes

@@ -56,6 +56,11 @@ extern void open_options_dialog(HWND hwnd);
 //  lv_ifaces.cpp
 extern void spawn_ifaces_lview(HWND hwnd);
 
+//  login_lsa.cpp
+//lint -esym(752, get_max_logon_time)
+time_t get_max_logon_time(void);
+time_t get_logon_time(void);
+
 //  dialog color settings    0Oo 1lIi|  
 static HBRUSH hbLogo = 0 ;
 HBRUSH hbEdit = 0 ;
@@ -269,14 +274,19 @@ static void update_time_count(void)
 
 //*******************************************************************
 static char uptime_str[81] = "0" ;
-// static unsigned duh = 1000 ;
+
+#define USE_LOGON_TIME  1
 
 static void update_uptime(void)
 {
-   DWORD gtc = GetTickCount() ;  //  get uptime in msec
-   // duh += 1000 ;
-   // DWORD gtc = duh ;
-   gtc /= 1000 ;  //  convert to seconds
+   DWORD gtc ;
+   if (use_logon_time_for_uptime) {
+      gtc = (DWORD) get_logon_time();
+   }
+   else {
+      gtc = GetTickCount() ;  //  get uptime in msec
+      gtc /= 1000 ;  //  convert to seconds
+   }
    DWORD secs = gtc % 60 ;
    gtc /= 60 ; //  convert to minutes
    DWORD mins = gtc % 60 ;

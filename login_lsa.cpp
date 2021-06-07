@@ -7,7 +7,7 @@
 //  
 //  Last Update:  06/06/21 17:51
 //**********************************************************************
-//  build: g++ -Wall -O2 -DSTAND_ALONE=1 login_lsa.cpp -o login_lsa.exe -lsecur32
+//  build: g++ -Wall -O2 -DSTAND_ALONE=1 login_lsa.cpp -o login_lsa.exe
 
 // #define  STAND_ALONE    1
 
@@ -33,7 +33,7 @@ typedef  unsigned long long   u64;
 //lint -esym(754, _SECURITY_LOGON_SESSION_DATA::LogonDomain, _SECURITY_LOGON_SESSION_DATA::AuthenticationPackage)
 //lint -esym(754, _SECURITY_LOGON_SESSION_DATA::Session, _SECURITY_LOGON_SESSION_DATA::Sid)
 //lint -esym(754, _SECURITY_LOGON_SESSION_DATA::LogonServer, _SECURITY_LOGON_SESSION_DATA::DnsDomainName)
-//lint -esym(754, _SECURITY_LOGON_SESSION_DATA::Upn)
+//lint -esym(754, _SECURITY_LOGON_SESSION_DATA::Upn, _SECURITY_LOGON_SESSION_DATA::UserName)
 
 //lint -esym(534, wprintf, LsaFreeReturnBuffer, strftime, time)
 
@@ -102,8 +102,10 @@ static time_t u64_to_timet(LARGE_INTEGER const& ull)
    return ull.QuadPart / 10000000ULL - 11644473600ULL;  //lint !e737 !e573 !e712
 }
 
+#ifdef STAND_ALONE
 //  used by get_dtimes_str()
 #define  GET_TIME_LEN   30
+#endif
 
 //*************************************************************************
 //lint -esym(714, secs_to_date_time_str)
@@ -163,6 +165,13 @@ static bool load_LSA_library_pointers(void)
          return false;
          }
 
+      pfLGLSD = (pfLsaGetLogonSessionData)GetProcAddress(hSecur32, "LsaGetLogonSessionData");
+      if (pfLGLSD == NULL)
+         {
+         // printf("Could not get address for LsaGetLogonSessionData() in secur32.dll\n");
+         return false;
+         }
+
       pfLFRB = (pfLsaFreeReturnBuffer)GetProcAddress(hSecur32, "LsaFreeReturnBuffer");
       if (pfLFRB == NULL)
          {
@@ -170,12 +179,6 @@ static bool load_LSA_library_pointers(void)
          return false;
          }
 
-      pfLGLSD = (pfLsaGetLogonSessionData)GetProcAddress(hSecur32, "LsaGetLogonSessionData");
-      if (pfLGLSD == NULL)
-         {
-         // printf("Could not get address for LsaGetLogonSessionData() in secur32.dll\n");
-         return false;
-         }
       }
    else
       {
@@ -186,6 +189,7 @@ static bool load_LSA_library_pointers(void)
 }
 
 //*******************************************************************************
+//lint -esym(765, get_max_logon_time)
 time_t get_max_logon_time(void)
 {
    static time_t max_logon_time = 0 ;

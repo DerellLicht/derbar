@@ -1,19 +1,7 @@
 //**********************************************************************
-//  Copyright (c) 2009-2017  Daniel D Miller
+//  Copyright (c) 2009-2021  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  derbar.cpp: main interface functions
-//  
-//  DerBar, its source code and executables, are Copyrighted in their
-//  unmodified form by Daniel D Miller, and are distributed as free
-//  software, with only one restriction:
-//  
-//  Any modified version of the program cannot be distributed with
-//  the name DerBar.
-//  
-//  Other than this, the source code, executables, help files, and any
-//  other related files are provided with absolutely no restriction 
-//  on use, distribution, modification, commercial adaptation, 
-//  or any other conditions.
 //  
 //  Written by:   Daniel D. Miller
 //**********************************************************************
@@ -30,6 +18,7 @@
 
 bool show_winmsgs = false ;
 bool keep_on_top = false ;
+bool use_logon_time_for_uptime = true ;
 
 static HWND hwndEditFgnd ;
 static HWND hwndEditBgnd ;

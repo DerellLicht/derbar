@@ -27,6 +27,7 @@
 //    1.14     Double-click on DerBar dialog, now resets desktop icon colors
 //    1.15     Add VS_VERSION_INFO to resource file
 //    1.16     Add WM_DWMCOLORIZATIONCOLORCHANGED command for redraw of icon colors
+//    1.17     Add support for substituting logon time for Uptime
 //**************************************************************************************
-#define VerNum    "V1.16"
+#define VerNum    "V1.17"
 
