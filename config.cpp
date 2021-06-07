@@ -66,6 +66,7 @@ static LRESULT save_default_ini_file(void)
    fprintf(fd, "y_pos=%u\n", y_pos) ;
    fprintf(fd, "tbar=%u\n", tbar_on) ;
    fprintf(fd, "ontop=%u\n", keep_on_top) ;
+   fprintf(fd, "login_uptime=%u\n", use_logon_time_for_uptime) ;
    fprintf(fd, "editfg=0x%06X\n", (uint) fgnd_edit) ;
    fprintf(fd, "editbg=0x%06X\n", (uint) bgnd_edit) ;
    fprintf(fd, "ci_attr=%u\n", ci_attr) ;
@@ -127,6 +128,10 @@ LRESULT read_config_file(void)
       if (strncmp(inpstr, "ontop=", 6) == 0) {
          // syslog("enabling factory mode\n") ;
          keep_on_top = (bool) (uint) strtoul(&inpstr[6], 0, 0) ;
+      } else
+      if (strncmp(inpstr, "login_uptime=", 13) == 0) {
+         // syslog("enabling factory mode\n") ;
+         use_logon_time_for_uptime = (bool) (uint) strtoul(&inpstr[13], 0, 0) ;
       } else
       if (strncmp(inpstr, "editfg=", 7) == 0) {
          fgnd_edit = (uint) strtoul(&inpstr[7], 0, 0) ;

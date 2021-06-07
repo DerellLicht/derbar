@@ -275,8 +275,6 @@ static void update_time_count(void)
 //*******************************************************************
 static char uptime_str[81] = "0" ;
 
-#define USE_LOGON_TIME  1
-
 static void update_uptime(void)
 {
    DWORD gtc ;

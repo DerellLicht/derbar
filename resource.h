@@ -35,6 +35,7 @@
 #define  IDM_ONTOP            338
 #define  IDM_SET_COLOR        339
 #define  IDM_SET_NOW          340
+#define  IDM_LOGON_UPTIME     341
 
 //  dialog objects
 #define  IDC_DERBAR           1000

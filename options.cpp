@@ -18,7 +18,7 @@
 
 bool show_winmsgs = false ;
 bool keep_on_top = false ;
-bool use_logon_time_for_uptime = true ;
+bool use_logon_time_for_uptime = false ;
 
 static HWND hwndEditFgnd ;
 static HWND hwndEditBgnd ;
@@ -77,8 +77,9 @@ static BOOL CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
       // SetWindowText(this_port->hwndDbgEdit, msgstr);
       // wsprintf(msgstr, " %u", get_comm_timeout(this_port)) ;
       // SetWindowText(this_port->hwndCpTmo, msgstr);
-      PostMessage(GetDlgItem(hwnd, IDM_WINMSGS), BM_SETCHECK, show_winmsgs, 0) ;
-      PostMessage(GetDlgItem(hwnd, IDM_ONTOP), BM_SETCHECK, keep_on_top, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_WINMSGS),      BM_SETCHECK, show_winmsgs, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_ONTOP),        BM_SETCHECK, keep_on_top, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_LOGON_UPTIME), BM_SETCHECK, use_logon_time_for_uptime, 0) ;
 
       // wsprintf(msgstr, "Monitor Options") ;
       // SetWindowText(hwnd, msgstr) ;
@@ -101,9 +102,12 @@ static BOOL CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
             return TRUE;
 
          case IDM_ONTOP:
-            // show_winmsgs ^= 1 ;  //  unthematic
             keep_on_top = (keep_on_top) ? false : true ;
             update_keep_on_top() ;
+            return TRUE;
+
+         case IDM_LOGON_UPTIME:
+            use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
             return TRUE;
 
          case IDC_CLR_FGND:

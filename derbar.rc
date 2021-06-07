@@ -100,7 +100,7 @@ END
 #define  OPT_DONE_DX   70
 #define  OPT_DONE_X   ((OPT_DX - OPT_DONE_DX) / 2)
 
-IDD_OPTIONS DIALOGEX 200, 200, OPT_DX, 82
+IDD_OPTIONS DIALOGEX 200, 200, OPT_DX, 96
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "DerBar Options"
@@ -121,10 +121,13 @@ BEGIN
    CONTROL         "Keep On Top",IDM_ONTOP,"Button",
                    BS_AUTOCHECKBOX | WS_TABSTOP,   	 5,36,140,10
 
-   CONTROL         "Enable WinMsgs (debug)",IDM_WINMSGS,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,   	 5,50,140,10
+   CONTROL         "Use Logon for Uptime",IDM_LOGON_UPTIME,"Button",
+                   BS_AUTOCHECKBOX | WS_TABSTOP,         5,50,140,10
 
-   DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,62,OPT_DONE_DX,14
+   CONTROL         "Enable WinMsgs (debug)",IDM_WINMSGS,"Button",
+                   BS_AUTOCHECKBOX | WS_TABSTOP,         5,64,140,10
+
+   DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,76,OPT_DONE_DX,14
 END
 
 //***************************************************************************
