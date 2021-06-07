@@ -16,7 +16,7 @@
 #include <time.h>
 #include <ntsecapi.h>
 #define __STDC_FORMAT_MACROS
-#include <inttypes.h>
+#include <inttypes.h>   // required for %"PRIu64" printf artifact
 
 #ifndef STAND_ALONE
 #include "common.h"
