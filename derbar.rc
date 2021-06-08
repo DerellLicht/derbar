@@ -69,7 +69,7 @@ BEGIN
    LTEXT           " ",         IDC_STATIC,   176,  0,  2, DY, SS_SUNKEN
 
    LTEXT           "Uptime:",   IDC_STATIC,   181, Y0, 25,  9
-   CTEXT           " ",         IDC_UPTIME,   206, Y0, 60,  9, SS_SUNKEN
+   CTEXT           " ",         IDC_UPTIME,   206, Y0, 60,  9, SS_SUNKEN | SS_NOTIFY
 
    LTEXT           " ",         IDC_STATIC,   268,  0,  2, DY, SS_SUNKEN
 

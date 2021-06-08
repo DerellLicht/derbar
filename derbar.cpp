@@ -417,7 +417,7 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
    {
    case WM_LBUTTONUP:
       GetKeyboardState((PBYTE)&keyState[0]);
-       // syslog("kbd hwnd: hwnd:%08X C:%08X N:%08X S:%08X\n", hwnd, hwndKbdCaps, hwndKbdNum, hwndKbdScrl);
+      // syslog("kbd hwnd: hwnd:%08X C:%08X N:%08X S:%08X\n", hwnd, hwndKbdCaps, hwndKbdNum, hwndKbdScrl);
       if (hwnd == hwndKbdCaps) {
          // Simulate a key press
          keybd_event( VK_CAPITAL, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0 );
@@ -438,6 +438,10 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 
          // Simulate a key release
          keybd_event( VK_SCROLL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+      } else
+      if (hwnd == hwndUptime) {
+         use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
+         save_cfg_file() ;
       } 
       break;
 
@@ -509,12 +513,20 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       WNDPROC pfnOrigProcCaps = (WNDPROC) GetWindowLong(hwndKbdCaps, GWL_WNDPROC);
       SetProp(hwndKbdCaps, PROP_KBD_PROC, (HANDLE) pfnOrigProcCaps); //lint !e611
       SetWindowLong(hwndKbdCaps, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+
       WNDPROC pfnOrigProcNum = (WNDPROC) GetWindowLong(hwndKbdNum, GWL_WNDPROC);
       SetProp(hwndKbdNum, PROP_KBD_PROC, (HANDLE) pfnOrigProcNum); //lint !e611
       SetWindowLong(hwndKbdNum, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+
       WNDPROC pfnOrigProcScrl = (WNDPROC) GetWindowLong(hwndKbdScrl, GWL_WNDPROC);
       SetProp(hwndKbdScrl, PROP_KBD_PROC, (HANDLE) pfnOrigProcScrl); //lint !e611
       SetWindowLong(hwndKbdScrl, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+
+      //  try this for uptime field as well
+      //  NOTE: this requires SS_NOTIFY set in control definition (derbar.rc)
+      WNDPROC pfnOrigProcUptime = (WNDPROC) GetWindowLong(hwndUptime, GWL_WNDPROC);
+      SetProp(hwndUptime, PROP_KBD_PROC, (HANDLE) pfnOrigProcUptime); //lint !e611
+      SetWindowLong(hwndUptime, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
       }
 
       update_data_fields() ;
