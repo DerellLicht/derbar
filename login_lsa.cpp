@@ -154,37 +154,26 @@ exit_point:
 //*******************************************************************************
 static bool load_LSA_library_pointers(void)
 {
-   //  these pointers are required for 32-buit MinGW builds
    hSecur32 = LoadLibraryW(L"secur32.dll");
-   if (hSecur32 != NULL)
-      {
+   if (hSecur32 != NULL) {
       pfLELS = (pfLsaEnumerateLogonSessions)GetProcAddress(hSecur32, "LsaEnumerateLogonSessions");
-      if (pfLELS == NULL)
-         {
-         // printf("Could not get address for LsaEnumerateLogonSessions() in secur32.dll\n");
+      if (pfLELS == NULL) {
          return false;
-         }
+      }
 
       pfLGLSD = (pfLsaGetLogonSessionData)GetProcAddress(hSecur32, "LsaGetLogonSessionData");
-      if (pfLGLSD == NULL)
-         {
-         // printf("Could not get address for LsaGetLogonSessionData() in secur32.dll\n");
+      if (pfLGLSD == NULL) {
          return false;
-         }
+      }
 
       pfLFRB = (pfLsaFreeReturnBuffer)GetProcAddress(hSecur32, "LsaFreeReturnBuffer");
-      if (pfLFRB == NULL)
-         {
-         // printf("Could not get address for LsaFreeReturnBuffer() in secur32.dll\n");
+      if (pfLFRB == NULL) {
          return false;
-         }
-
       }
-   else
-      {
-      // printf("Could not load secur32.dll\n");
+   }
+   else {
       return false;
-      }
+   }
    return true;   
 }
 
