@@ -412,7 +412,7 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
    }
    // kbd hwnd: C0013023E N0013023C S001906D6
    WNDPROC pfnOrigProc = (WNDPROC) GetProp(hwnd, PROP_KBD_PROC);   //lint !e611
-
+   
    switch (message)
    {
    case WM_LBUTTONUP:
@@ -682,8 +682,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
          return (LRESULT) hbLogo ;   // hilight colour
       } 
       if ((HWND) lParam == hwndFreeMem  ||
-          (HWND) lParam == hwndTotalMem  ||
-          (HWND) lParam == hwndUptime  ||
+          (HWND) lParam == hwndTotalMem ||
+          (HWND) lParam == hwndUptime   ||
           (HWND) lParam == hwndRxBytes  ||
           (HWND) lParam == hwndTxBytes  ||
           (HWND) lParam == hwndCpuTime) {
