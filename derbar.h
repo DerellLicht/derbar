@@ -23,6 +23,7 @@ extern bool use_logon_time_for_uptime ;
 //  function prototypes
 LRESULT save_cfg_file(void);
 LRESULT read_config_file(void);
+void update_uptime_label(void);
 
 //  ClearIcon.cpp
 extern unsigned ci_attr ;
@@ -31,3 +32,4 @@ void reset_icon_colors(bool my_select_color);
 
 //  options.cpp
 extern bool show_winmsgs ;
+

@@ -55,7 +55,7 @@ EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "DerBar"
 FONT 11, "Times New Roman"
 BEGIN
-   CTEXT           "DerBar",    IDC_DERBAR,     0, Y0, 34,  9, SS_SUNKEN	//lint !e2  Unclosed Quote
+   CTEXT           "DerBar",    IDC_DERBAR,     0, Y0, 34,  9, SS_SUNKEN   //lint !e2  Unclosed Quote
 
    LTEXT           " ",         IDC_STATIC,    36,  0,  2, DY, SS_SUNKEN      //lint !e2  Unclosed Quote
 
@@ -68,7 +68,7 @@ BEGIN
 
    LTEXT           " ",         IDC_STATIC,   176,  0,  2, DY, SS_SUNKEN
 
-   LTEXT           "Uptime:",   IDC_STATIC,   181, Y0, 25,  9
+   LTEXT           "Uptime:",   IDS_UPTIME,   181, Y0, 25,  9
    CTEXT           " ",         IDC_UPTIME,   206, Y0, 60,  9, SS_SUNKEN | SS_NOTIFY
 
    LTEXT           " ",         IDC_STATIC,   268,  0,  2, DY, SS_SUNKEN
@@ -111,15 +111,15 @@ BEGIN
    PUSHBUTTON      "Browse",IDC_CLR_FGND,              126, 8,30,10
 
    LTEXT           "Info Bgnd (0XBBGGRR): ",IDC_STATIC,  5,22,78,10
-   EDITTEXT        IDC_EDIT_BGND,                  	85,22,37,10
+   EDITTEXT        IDC_EDIT_BGND,                     85,22,37,10
    PUSHBUTTON      "Browse",IDC_CLR_BGND,              126,22,30,10
 
    // LTEXT           "Eth Interface:",IDC_STATIC,          5,36,45,10
-   // COMBOBOX        IDC_CBOX_IFACE,			 5,46,170,150,
-   // 			CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+   // COMBOBOX        IDC_CBOX_IFACE,         5,46,170,150,
+   //          CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 
    CONTROL         "Keep On Top",IDM_ONTOP,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,   	 5,36,140,10
+                   BS_AUTOCHECKBOX | WS_TABSTOP,       5,36,140,10
 
    CONTROL         "Use Logon for Uptime",IDM_LOGON_UPTIME,"Button",
                    BS_AUTOCHECKBOX | WS_TABSTOP,         5,50,140,10
@@ -133,8 +133,8 @@ END
 //***************************************************************************
 //  Network-interface listview dialog
 //***************************************************************************
-#define  LV_DX	400
-#define  LV_DY	100
+#define  LV_DX 400
+#define  LV_DY 100
 
 IDD_LV_IFACES DIALOGEX 200, 200, LV_DX,LV_DY
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
@@ -146,7 +146,7 @@ BEGIN
    // PUSHBUTTON      "Test",          IDM_APP_TEST,     300,TOP_Y, 50,14
    CONTROL         "List1", IDC_LV_IFACES,"SysListView32",
                     LVS_REPORT | LVS_EDITLABELS | WS_BORDER | WS_TABSTOP | LVS_SHAREIMAGELISTS,
-		    0,0,LV_DX,LV_DY
+          0,0,LV_DX,LV_DY
 END
 
 //*******************************************************************

@@ -42,12 +42,13 @@
 #define  IDC_FREEMEM          1001
 #define  IDC_TOTALMEM         1002
 #define  IDC_UPTIME           1003
-#define  IDC_RXBYTES          1004
-#define  IDC_TXBYTES          1005
-#define  IDC_CPUTIME          1006
-#define  IDC_KBD_CAPS         1007
-#define  IDC_KBD_NUM          1008
-#define  IDC_KBD_SCRL         1009
+#define  IDS_UPTIME           1004
+#define  IDC_RXBYTES          1005
+#define  IDC_TXBYTES          1006
+#define  IDC_CPUTIME          1007
+#define  IDC_KBD_CAPS         1008
+#define  IDC_KBD_NUM          1009
+#define  IDC_KBD_SCRL         1010
 
 #define  IDC_WEBLINK          2000
 #define  IDC_EDIT_FGND        2001

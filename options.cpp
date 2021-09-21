@@ -163,6 +163,7 @@ static BOOL CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
             //    changed = TRUE ;
             // }
 
+            update_uptime_label();
             if (changed) 
                save_cfg_file() ;
 

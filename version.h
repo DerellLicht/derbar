@@ -28,6 +28,7 @@
 //    1.15     Add VS_VERSION_INFO to resource file
 //    1.16     Add WM_DWMCOLORIZATIONCOLORCHANGED command for redraw of icon colors
 //    1.17     Add support for substituting logon time for Uptime
+//             Update label to Login/Uptime as required
 //**************************************************************************************
 #define VerNum    "V1.17"
 

@@ -91,6 +91,7 @@ static HWND hwndDerBar ;
 static HWND hwndFreeMem ;
 static HWND hwndTotalMem ;
 static HWND hwndUptime ;
+static HWND hwndSUptime ;
 static HWND hwndRxBytes ;
 static HWND hwndTxBytes ;
 static HWND hwndCpuTime ;
@@ -143,6 +144,17 @@ static void save_window_position(HWND hwnd)
 //  use 20 for WS_EX_APPWINDOW
 //  use 16 for WS_EX_TOOLWINDOW
 // #define  TBAR_DY  16
+
+//******************************************************************
+void update_uptime_label(void)
+{
+   if (use_logon_time_for_uptime) {
+      SetWindowText(hwndSUptime, "Login") ;
+   }
+   else {
+      SetWindowText(hwndSUptime, "Uptime") ;
+   }
+}
 
 //*******************************************************************
 static void relocate_main_dialog(HWND hwnd)
@@ -441,6 +453,7 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
       } else
       if (hwnd == hwndUptime) {
          use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
+         update_uptime_label();
          save_cfg_file() ;
       } 
       break;
@@ -499,6 +512,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       hwndDerBar   = GetDlgItem(hwnd, IDC_DERBAR) ;
       hwndFreeMem  = GetDlgItem(hwnd, IDC_FREEMEM) ;
       hwndTotalMem = GetDlgItem(hwnd, IDC_TOTALMEM) ;
+      hwndSUptime  = GetDlgItem(hwnd, IDS_UPTIME) ;
       hwndUptime   = GetDlgItem(hwnd, IDC_UPTIME) ;
       hwndRxBytes  = GetDlgItem(hwnd, IDC_RXBYTES) ;
       hwndTxBytes  = GetDlgItem(hwnd, IDC_TXBYTES) ;
@@ -544,6 +558,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       // put the icon into a system tray
       attach_tray_icon(hwnd, szClassName);
 
+      update_uptime_label();
       //  start timer for program update
       //  Note that Windows timers do not actually count 1000 msec per second,
       //  they count 1024 msec per second; thus, they are off by about 1.5%
