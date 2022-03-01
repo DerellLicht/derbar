@@ -398,6 +398,9 @@ void update_keep_on_top(void)
 //  info on toggling keyboard states was obtained from:
 //  https://support.microsoft.com/en-us/help/127190/
 //     howto-toggle-the-num-lock-caps-lock-and-scroll-lock-keys
+//  
+//  Later note: just be aware that this function is somewhat misnamed,
+//              now that it is also responsible for clicks in the Uptime/Logon field
 //*************************************************************************************
 #define PROP_KBD_PROC    TEXT("_DerBarKeys_Original_Proc_")
 
