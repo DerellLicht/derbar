@@ -420,7 +420,6 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
       case WM_MOUSEMOVE:
          break;
       default:
-         // syslog("MON: [%s]\n", get_winmsg_name(result));
          syslog("DerBarSC [%X]: [%s]\n", hwnd, lookup_winmsg_name(message)) ;
          break;
       }
