@@ -26,6 +26,10 @@ static HWND hwndEditBgnd ;
 
 extern void update_keep_on_top(void);
 
+//  tooltips.cpp
+extern HWND create_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec);
+extern void add_program_tooltips(HWND hwnd, HWND hwndToolTip);
+
 //  system.cpp
 // extern void fill_eth_iface_combobox(HWND hwndIpIface, uint init_idx);
 
@@ -63,26 +67,20 @@ static BOOL CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
       //  label the dialog
       hwndEditFgnd = GetDlgItem(hwnd, IDC_EDIT_FGND) ;  // EDITTEXT   
       hwndEditBgnd = GetDlgItem(hwnd, IDC_EDIT_BGND) ;  // EDITTEXT   
-      // hwndIpIface  = GetDlgItem(hwnd, IDC_CBOX_IFACE) ;
-      // fill_eth_iface_combobox(hwndIpIface, ip_iface_idx) ;
 
       wsprintf(msgstr, " 0x%06X", fgnd_edit) ;
       SetWindowText(hwndEditFgnd, msgstr);
       wsprintf(msgstr, " 0x%06X", bgnd_edit) ;
       SetWindowText(hwndEditBgnd, msgstr);
 
-      // wsprintf(msgstr, " %u", this_port->odu_poll_period) ;
-      // SetWindowText(this_port->hwndOptEdit, msgstr);
-      // wsprintf(msgstr, " 0x%X", dbg_flags) ;
-      // SetWindowText(this_port->hwndDbgEdit, msgstr);
-      // wsprintf(msgstr, " %u", get_comm_timeout(this_port)) ;
-      // SetWindowText(this_port->hwndCpTmo, msgstr);
       PostMessage(GetDlgItem(hwnd, IDM_WINMSGS),      BM_SETCHECK, show_winmsgs, 0) ;
       PostMessage(GetDlgItem(hwnd, IDM_ONTOP),        BM_SETCHECK, keep_on_top, 0) ;
-      PostMessage(GetDlgItem(hwnd, IDM_LOGON_UPTIME), BM_SETCHECK, use_logon_time_for_uptime, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_LOGIN_UPTIME), BM_SETCHECK, use_logon_time_for_uptime, 0) ;
 
-      // wsprintf(msgstr, "Monitor Options") ;
-      // SetWindowText(hwnd, msgstr) ;
+      {
+      HWND hToolTip = create_tooltips(hwnd, 150, 100, 10000) ;
+      add_program_tooltips(hwnd, hToolTip) ;
+      }
       return TRUE ;
 
    //********************************************************************
@@ -106,7 +104,7 @@ static BOOL CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
             update_keep_on_top() ;
             return TRUE;
 
-         case IDM_LOGON_UPTIME:
+         case IDM_LOGIN_UPTIME:
             use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
             return TRUE;
 

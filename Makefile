@@ -27,7 +27,7 @@ endif
 
 CPPSRC=derbar.cpp config.cpp common_funcs.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp hyperlinks.cpp systray.cpp winmsgs.cpp ClearIcon.cpp \
-login_lsa.cpp
+login_lsa.cpp tooltips.cpp
 
 OBJS = $(CPPSRC:.cpp=.o) rc.o
 
@@ -82,3 +82,4 @@ hyperlinks.o: hyperlinks.h
 systray.o: resource.h common.h systray.h
 ClearIcon.o: common.h derbar.h
 login_lsa.o: common.h derbar.h
+tooltips.o: resource.h common.h

@@ -35,7 +35,7 @@
 #define  IDM_ONTOP            338
 #define  IDM_SET_COLOR        339
 #define  IDM_SET_NOW          340
-#define  IDM_LOGON_UPTIME     341
+#define  IDM_LOGIN_UPTIME     341
 
 //  dialog objects
 #define  IDC_DERBAR           1000
@@ -51,11 +51,13 @@
 #define  IDC_KBD_SCRL         1010
 
 #define  IDC_WEBLINK          2000
-#define  IDC_EDIT_FGND        2001
-#define  IDC_CLR_FGND         2002
-#define  IDC_EDIT_BGND        2003
-#define  IDC_CLR_BGND         2004
-#define  IDC_VERNUM           2005
+#define  IDS_CLR_FGND         2001
+#define  IDC_EDIT_FGND        2002
+#define  IDC_CLR_FGND         2003
+#define  IDS_CLR_BGND         2004
+#define  IDC_EDIT_BGND        2005
+#define  IDC_CLR_BGND         2006
+#define  IDC_VERNUM           2007
 // #define  IDC_CBOX_IFACE       2006
 
 //  network-interface listview constants

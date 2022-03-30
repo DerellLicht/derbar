@@ -106,26 +106,22 @@ EXSTYLE WS_EX_APPWINDOW
 CAPTION "DerBar Options"
 FONT 10, "Times New Roman"
 BEGIN
-   LTEXT           "Info Fgnd (0XBBGGRR): ",IDC_STATIC,  5, 8,78,10
-   EDITTEXT        IDC_EDIT_FGND,                       85, 8,37,10
-   PUSHBUTTON      "Browse",IDC_CLR_FGND,              126, 8,30,10
+   LTEXT           "Info Fgnd (0XBBGGRR): ",IDS_CLR_FGND,  5, 8,78,10,SS_NOTIFY
+   EDITTEXT        IDC_EDIT_FGND,                         85, 8,37,10,SS_NOTIFY
+   PUSHBUTTON      "Browse",IDC_CLR_FGND,                126, 8,30,10
 
-   LTEXT           "Info Bgnd (0XBBGGRR): ",IDC_STATIC,  5,22,78,10
-   EDITTEXT        IDC_EDIT_BGND,                     85,22,37,10
-   PUSHBUTTON      "Browse",IDC_CLR_BGND,              126,22,30,10
-
-   // LTEXT           "Eth Interface:",IDC_STATIC,          5,36,45,10
-   // COMBOBOX        IDC_CBOX_IFACE,         5,46,170,150,
-   //          CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+   LTEXT           "Info Bgnd (0XBBGGRR): ",IDS_CLR_BGND,  5,22,78,10,SS_NOTIFY
+   EDITTEXT        IDC_EDIT_BGND,                         85,22,37,10,SS_NOTIFY
+   PUSHBUTTON      "Browse",IDC_CLR_BGND,                126,22,30,10
 
    CONTROL         "Keep On Top",IDM_ONTOP,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,       5,36,140,10
+                   BS_AUTOCHECKBOX | WS_TABSTOP,           5,36,140,10
 
-   CONTROL         "Use Logon for Uptime",IDM_LOGON_UPTIME,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,         5,50,140,10
+   CONTROL         "Use Login for Uptime",IDM_LOGIN_UPTIME,"Button",
+                   BS_AUTOCHECKBOX | WS_TABSTOP,           5,50,140,10
 
    CONTROL         "Enable WinMsgs (debug)",IDM_WINMSGS,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,         5,64,140,10
+                   BS_AUTOCHECKBOX | WS_TABSTOP,           5,64,140,10
 
    DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,76,OPT_DONE_DX,14
 END
