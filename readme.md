@@ -45,4 +45,5 @@ _Revision history_
 | 1.16 | Add WM_DWMCOLORIZATIONCOLORCHANGED command for redraw of icon colors |
 | 1.17 | Add support for substituting logon time for Uptime |
 |      | Enable left-click on Uptime field to toggle uptime/logon display |
+| 1.18 | Add tooltips to Options dialog controls |
 
