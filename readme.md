@@ -6,7 +6,7 @@ DerBar is a simple, slightly-configurable status bar for monitoring key system a
 
 DerBar is compatible with all other programs and will not conflict with DirectX games, as each of the afore-mentioned tools would sometimes do.  It works fine with WinXP and Vista+, but would likely not work on Win98 famiily due to UNICODE support.
 
-Download [DerBar](https://github.com/DerellLicht/bin/raw/master/DerBar.zip) utility here
+Download [DerBar](https://www.derelllicht.com/files/DerBar.zip) utility here
 
 DerBar is freeware, source code is available.  
 Download [DerBar source code](https://github.com/DerellLicht/derbar) here
