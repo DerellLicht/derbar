@@ -6,6 +6,9 @@ USE_UNICODE = NO
 # Note about 64-bit mingw/tdm builds:
 # Working include files are in:
 # D:\tdm64/x86_64-w64-mingw32/include
+# 
+# Note: selection of 64-bit options in code can be done via:
+# ifdef _WIN64
 
 ifeq ($(USE_64BIT),YES)
 TOOLS=d:\tdm64\bin
@@ -21,9 +24,6 @@ CFLAGS=-Wall -O2
 LFLAGS=-s -mwindows
 endif
 CFLAGS += -Wno-write-strings
-ifeq ($(USE_64BIT),YES)
-CFLAGS += -DUSE_64BIT
-endif
 
 ifeq ($(USE_UNICODE),YES)
 CFLAGS += -DUNICODE -D_UNICODE
