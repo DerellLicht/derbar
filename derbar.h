@@ -1,5 +1,5 @@
 //**********************************************************************
-//  Copyright (c) 2009-2021  Daniel D Miller
+//  Copyright (c) 2009-2022  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  derbar.h: global declarations
 //  

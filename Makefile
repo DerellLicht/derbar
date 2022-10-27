@@ -3,6 +3,10 @@ USE_DEBUG = NO
 USE_64BIT = NO
 USE_UNICODE = NO
 
+# Note about 64-bit mingw/tdm builds:
+# Working include files are in:
+# D:\tdm64/x86_64-w64-mingw32/include
+
 ifeq ($(USE_64BIT),YES)
 TOOLS=d:\tdm64\bin
 else
@@ -70,7 +74,8 @@ rc.o: derbar.rc
 
 # DO NOT DELETE
 
-derbar.o: resource.h version.h common.h derbar.h images.h winmsgs.h systray.h
+derbar.o: iface_32_64.h resource.h version.h common.h derbar.h images.h
+derbar.o: winmsgs.h systray.h
 config.o: common.h derbar.h
 common_funcs.o: common.h
 system.o: common.h derbar.h ip_iface.h PdhMsg.h
@@ -78,8 +83,8 @@ about.o: resource.h version.h hyperlinks.h
 options.o: resource.h common.h derbar.h winmsgs.h
 lv_ifaces.o: resource.h common.h derbar.h images.h ip_iface.h
 images.o: resource.h images.h common.h derbar.h
-hyperlinks.o: hyperlinks.h
+hyperlinks.o: iface_32_64.h hyperlinks.h
 systray.o: resource.h common.h systray.h
 ClearIcon.o: common.h derbar.h
 login_lsa.o: common.h derbar.h
-tooltips.o: resource.h common.h
+tooltips.o: iface_32_64.h resource.h common.h

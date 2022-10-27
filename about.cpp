@@ -45,7 +45,8 @@ HISTORY:    Date:      Author:     Comment:
             10/27/95   AllenD      Wrote it
 
 -----------------------------------------------------------------------------*/
-static BOOL CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LPARAM lparam)
+//static BOOL CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LPARAM lparam)
+static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LPARAM lparam)
 {
    switch(uMessage) {
    case WM_INITDIALOG:
@@ -83,4 +84,3 @@ BOOL CmdAbout(HWND hwnd)
     DialogBox(g_hinst, MAKEINTRESOURCE(IDD_ABOUT), 0, AboutDlgProc);
     return 0;
 }  //lint !e715  hwnd
-

@@ -26,6 +26,7 @@
 #include <stdio.h>   //  for sprintf, for %f support
 #include <time.h>
 
+#include "iface_32_64.h"
 #include "resource.h"
 #include "version.h"
 #include "common.h"
@@ -523,26 +524,27 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       hwndKbdNum   = GetDlgItem(hwnd, IDC_KBD_NUM ) ;
       hwndKbdScrl  = GetDlgItem(hwnd, IDC_KBD_SCRL) ;
 
+
       //  Subclass the existing key-state controls, 
       //  to allow toggling their states
       {
-      WNDPROC pfnOrigProcCaps = (WNDPROC) GetWindowLong(hwndKbdCaps, GWL_WNDPROC);
+      WNDPROC pfnOrigProcCaps = (WNDPROC) GetWindowLongIF(hwndKbdCaps, GWx_WNDPROC);
       SetProp(hwndKbdCaps, PROP_KBD_PROC, (HANDLE) pfnOrigProcCaps); //lint !e611
-      SetWindowLong(hwndKbdCaps, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+      SetWindowLongIF(hwndKbdCaps, GWx_WNDPROC, (LONG_PTR) (WNDPROC) KbdFlagsProc);
 
-      WNDPROC pfnOrigProcNum = (WNDPROC) GetWindowLong(hwndKbdNum, GWL_WNDPROC);
+      WNDPROC pfnOrigProcNum = (WNDPROC) GetWindowLongIF(hwndKbdNum, GWx_WNDPROC);
       SetProp(hwndKbdNum, PROP_KBD_PROC, (HANDLE) pfnOrigProcNum); //lint !e611
-      SetWindowLong(hwndKbdNum, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+      SetWindowLongIF(hwndKbdNum, GWx_WNDPROC, (LONG_PTR) (WNDPROC) KbdFlagsProc);
 
-      WNDPROC pfnOrigProcScrl = (WNDPROC) GetWindowLong(hwndKbdScrl, GWL_WNDPROC);
+      WNDPROC pfnOrigProcScrl = (WNDPROC) GetWindowLongIF(hwndKbdScrl, GWx_WNDPROC);
       SetProp(hwndKbdScrl, PROP_KBD_PROC, (HANDLE) pfnOrigProcScrl); //lint !e611
-      SetWindowLong(hwndKbdScrl, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+      SetWindowLongIF(hwndKbdScrl, GWx_WNDPROC, (LONG_PTR) (WNDPROC) KbdFlagsProc);
 
       //  try this for uptime field as well
       //  NOTE: this requires SS_NOTIFY set in control definition (derbar.rc)
-      WNDPROC pfnOrigProcUptime = (WNDPROC) GetWindowLong(hwndUptime, GWL_WNDPROC);
+      WNDPROC pfnOrigProcUptime = (WNDPROC) GetWindowLongIF(hwndUptime, GWx_WNDPROC);
       SetProp(hwndUptime, PROP_KBD_PROC, (HANDLE) pfnOrigProcUptime); //lint !e611
-      SetWindowLong(hwndUptime, GWL_WNDPROC, (LONG) (WNDPROC) KbdFlagsProc);
+      SetWindowLongIF(hwndUptime, GWx_WNDPROC, (LONG_PTR) (WNDPROC) KbdFlagsProc);
       }
 
       update_data_fields() ;

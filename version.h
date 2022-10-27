@@ -30,6 +30,7 @@
 //    1.17     Add support for substituting login time for Uptime
 //             Enable left-click on Uptime field to toggle uptime/login display
 //    1.18     Add tooltips to Options dialog controls
+//    1.19     Converted to 64-bit compiler
 //**************************************************************************************
-#define VerNum    "V1.18"
+#define VerNum    "V1.19"
 

@@ -50,9 +50,9 @@
 //  PARTICULAR PURPOSE.
 //
 //*****************************************************************************************
-//  version		changes
-//	 =======		======================================
-// 	1.00		Initial release
+//  version    changes
+//  =======    ======================================
+//    1.00     Initial release
 //*****************************************************************************************
 
 //lint -esym(767, _WIN32_WINNT)
@@ -162,8 +162,10 @@ void reset_icon_colors(bool my_select_color)
    }
 
    //  finally, set screen colors
-   ListView_SetTextBkColor(hwnd, CLR_NONE);  //lint !e522
-   ListView_SetTextColor(hwnd, ci_attr) ; //lint !e522
+   //  the preceding (void) declaration, is merely to avoid warnings about
+   //  not using the return values from the macro functions.
+   (void) ListView_SetTextBkColor(hwnd, CLR_NONE);  //lint !e522
+   (void) ListView_SetTextColor(hwnd, ci_attr) ; //lint !e522
    InvalidateRect(hwnd, NULL, TRUE);
    UpdateWindow(hwnd);
 }

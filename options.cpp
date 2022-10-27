@@ -34,13 +34,13 @@ extern void add_program_tooltips(HWND hwnd, HWND hwndToolTip);
 // extern void fill_eth_iface_combobox(HWND hwndIpIface, uint init_idx);
 
 //******************************************************************
-static BOOL CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
+static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
    uint tempEditLength ;
    char msgstr[81] ;
 
    //***************************************************
-   //  debug: log all windows messages
+   //  debug: log all windows messages 
    //***************************************************
    if (show_winmsgs) {
       switch (msg) {
@@ -61,8 +61,14 @@ static BOOL CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
    //********************************************************************
    switch(msg) {
    case WM_INITDIALOG:
+// #ifdef  __x86_64__      
+#ifdef _WIN64
+      SetClassLongPtr(hwnd, GCLP_HICON,   (LONG_PTR)LoadIcon(g_hinst, (LPCTSTR)IDI_MAINICON));
+      SetClassLongPtr(hwnd, GCLP_HICONSM, (LONG_PTR)LoadIcon(g_hinst, (LPCTSTR)IDI_MAINICON));
+#else
       SetClassLong(hwnd, GCL_HICON,   (LONG)LoadIcon(g_hinst, (LPCTSTR)IDI_MAINICON));
       SetClassLong(hwnd, GCL_HICONSM, (LONG)LoadIcon(g_hinst, (LPCTSTR)IDI_MAINICON));
+#endif      
 
       //  label the dialog
       hwndEditFgnd = GetDlgItem(hwnd, IDC_EDIT_FGND) ;  // EDITTEXT   

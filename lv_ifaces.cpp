@@ -21,7 +21,7 @@
 //**********************************************************************
 #include <windows.h>
 #include <tchar.h>
-#define  _WIN32_IE   0x0500
+// #define  _WIN32_IE   0x0500
 #include <commctrl.h>
 #include <iphlpapi.h>
 
@@ -30,6 +30,31 @@
 #include "derbar.h"
 #include "images.h"
 #include "ip_iface.h"
+
+//  constants requiring specific values of _WIN32_IE 
+#ifndef _WIN64
+#define LVM_SETEXTENDEDLISTVIEWSTYLE   (LVM_FIRST+54)
+#define LVS_EX_GRIDLINES               1
+#define LVS_EX_SUBITEMIMAGES           2
+#define LVM_SUBITEMHITTEST (LVM_FIRST+57)
+
+//lint -esym(751, NMITEMACTIVATE)
+//lint -esym(754, tagNMITEMACTIVATE::hdr, tagNMITEMACTIVATE::iItem, tagNMITEMACTIVATE::iSubItem)
+//lint -esym(754, tagNMITEMACTIVATE::uNewState, tagNMITEMACTIVATE::uOldState)
+//lint -esym(754, tagNMITEMACTIVATE::uChanged, tagNMITEMACTIVATE::lParam, tagNMITEMACTIVATE::uKeyFlags)
+
+typedef struct tagNMITEMACTIVATE {
+   NMHDR hdr;
+   int iItem;
+   int iSubItem;
+   UINT uNewState;
+   UINT uOldState;
+   UINT uChanged;
+   POINT ptAction;
+   LPARAM lParam;
+   UINT uKeyFlags;
+} NMITEMACTIVATE, *LPNMITEMACTIVATE;
+#endif
 
 //  images.cpp
 extern HIMAGELIST get_image_list(void) ;
@@ -223,7 +248,7 @@ static int find_selected_row(NMHDR* pNMHDR)
 }
 
 //******************************************************************
-static BOOL CALLBACK IfaceListProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
+static INT_PTR CALLBACK IfaceListProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
    //***************************************************
    //  debug: log all windows messages

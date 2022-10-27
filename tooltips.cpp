@@ -15,6 +15,7 @@
 #include <tchar.h>
 #include <commctrl.h>
 
+#include "iface_32_64.h"
 #include "resource.h"
 #include "common.h"
 
@@ -48,7 +49,7 @@ static void add_tooltip_target(HWND parent, HWND target, HWND hToolTip, TCHAR *m
    ti.cbSize = sizeof(TOOLINFO);
    ti.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
    ti.hwnd = parent;
-   ti.uId = (UINT) target;
+   ti.uId = (UINTx) target;
    ti.lpszText = msg ;
    LRESULT bresult = SendMessage(hToolTip, TTM_ADDTOOL, 0, (LPARAM)&ti);
    if (bresult == 0) {
