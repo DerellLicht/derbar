@@ -306,12 +306,19 @@ static void update_uptime(void)
    gtc /= 24 ; //  convert to days
    // int slen = wsprintf(uptime_str, "Uptime: ") ;
    int slen = 0 ;
-   if (gtc > 0) 
-      slen += wsprintf(&uptime_str[slen], "%ud %uh %um %us", gtc, hours, mins, secs) ;
-   else if (hours > 0)
-      slen += wsprintf(&uptime_str[slen], "%uh %um %us", hours, mins, secs) ;
-   else
-      slen += wsprintf(&uptime_str[slen], "%um %us", mins, secs) ;
+   if (gtc > 0) {
+      slen += wsprintf(&uptime_str[slen], "%ud %uh %um", gtc, hours, mins) ;
+   }
+   else if (hours > 0) {
+      slen += wsprintf(&uptime_str[slen], "%uh %um", hours, mins) ;
+   }
+   else {
+      slen += wsprintf(&uptime_str[slen], "%um", mins) ;
+   }
+      
+   if (show_seconds_for_uptime) {
+      slen += wsprintf(&uptime_str[slen], " %us", secs) ;
+   }
 }
 
 //*******************************************************************
@@ -458,7 +465,7 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
          use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
          update_uptime_label();
          save_cfg_file() ;
-      } 
+      }
       break;
 
    default:

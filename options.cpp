@@ -19,6 +19,7 @@
 bool show_winmsgs = false ;
 bool keep_on_top = false ;
 bool use_logon_time_for_uptime = false ;
+bool show_seconds_for_uptime = true ;
 
 static HWND hwndEditFgnd ;
 static HWND hwndEditBgnd ;
@@ -79,9 +80,10 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
       wsprintf(msgstr, " 0x%06X", bgnd_edit) ;
       SetWindowText(hwndEditBgnd, msgstr);
 
-      PostMessage(GetDlgItem(hwnd, IDM_WINMSGS),      BM_SETCHECK, show_winmsgs, 0) ;
-      PostMessage(GetDlgItem(hwnd, IDM_ONTOP),        BM_SETCHECK, keep_on_top, 0) ;
-      PostMessage(GetDlgItem(hwnd, IDM_LOGIN_UPTIME), BM_SETCHECK, use_logon_time_for_uptime, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_WINMSGS),       BM_SETCHECK, show_winmsgs, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_ONTOP),         BM_SETCHECK, keep_on_top, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_LOGIN_UPTIME),  BM_SETCHECK, use_logon_time_for_uptime, 0) ;
+      PostMessage(GetDlgItem(hwnd, IDM_LOGIN_SECONDS), BM_SETCHECK, show_seconds_for_uptime, 0) ;
 
       {
       HWND hToolTip = create_tooltips(hwnd, 150, 100, 10000) ;
@@ -101,7 +103,6 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
          switch(LOWORD(wParam)) {
             
          case IDM_WINMSGS:
-            // show_winmsgs ^= 1 ;  //  unthematic
             show_winmsgs = (show_winmsgs) ? false : true ;
             return TRUE;
 
@@ -112,6 +113,10 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
 
          case IDM_LOGIN_UPTIME:
             use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
+            return TRUE;
+
+         case IDM_LOGIN_SECONDS:
+            show_seconds_for_uptime = (show_seconds_for_uptime) ? false : true ;
             return TRUE;
 
          case IDC_CLR_FGND:

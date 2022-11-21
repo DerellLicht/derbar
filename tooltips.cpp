@@ -69,6 +69,7 @@ static tooltip_data_t const program_tooltips[] = {
 { IDC_CLR_BGND,      _T("View color selector for background color" )},
 { IDM_ONTOP,         _T("Keep main dialog on top of other applications" )},
 { IDM_LOGIN_UPTIME,  _T("Show login label vs uptime, as appropriate" )},
+{ IDM_LOGIN_SECONDS, _T("Show/hide seconds in uptime/login field" )},
 { IDM_WINMSGS,       _T("Show WinAPI debug messages in DebugView" )},
 { IDOK,              _T("Close this dialog and accept changes" )},
 
