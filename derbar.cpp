@@ -235,21 +235,21 @@ static void set_window_position(HWND hwnd)
 }
 
 //***********************************************************************
+//  this is a debug function to verify the 1000-msec main-loop timer
+//***********************************************************************
 #ifdef  USE_TIMER_TEST
 
-//lint -esym(843, cpu_freq_hz)
-static uint cpu_freq_hz = 0 ;
-// static uint cpu_freq_mhz = 0 ;
-// static uint prev_ticks = 0 ;
-static u64 prev_ticks = 0 ;
+//  if timer debugging was actually active,
+//  we would want to be monitoring these two variables somewhere
 static uint min_second_ticks = 0 ;
 static uint max_second_ticks = 0 ;
 
-//***********************************************************************
-//  this is a debug function to verify the 1000-msec main-loop timer
-//***********************************************************************
 static void update_time_count(void)
 {
+//lint -esym(843, cpu_freq_hz)   // Variable could be declared as const
+   static uint cpu_freq_hz = 0 ;
+   static u64 prev_ticks = 0 ;
+   
    LARGE_INTEGER li_value ;
    if (cpu_freq_hz == 0) {
       QueryPerformanceFrequency(&li_value) ;
