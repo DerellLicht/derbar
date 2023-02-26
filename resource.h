@@ -40,16 +40,22 @@
 
 //  dialog objects
 #define  IDC_DERBAR           1000
-#define  IDC_FREEMEM          1001
-#define  IDC_TOTALMEM         1002
-#define  IDC_UPTIME           1003
-#define  IDS_UPTIME           1004
-#define  IDC_RXBYTES          1005
-#define  IDC_TXBYTES          1006
-#define  IDC_CPUTIME          1007
-#define  IDC_KBD_CAPS         1008
-#define  IDC_KBD_NUM          1009
-#define  IDC_KBD_SCRL         1010
+#define  IDS_MEMORY           1001
+#define  IDS_FREEMEM          1002
+#define  IDC_FREEMEM          1003
+#define  IDS_TOTALMEM         1004
+#define  IDC_TOTALMEM         1005
+#define  IDC_UPTIME           1006
+#define  IDS_UPTIME           1007
+#define  IDS_RXBYTES          1008
+#define  IDC_RXBYTES          1009
+#define  IDS_TXBYTES          1010
+#define  IDC_TXBYTES          1011
+#define  IDS_CPUTIME          1012
+#define  IDC_CPUTIME          1013
+#define  IDC_KBD_CAPS         1014
+#define  IDC_KBD_NUM          1015
+#define  IDC_KBD_SCRL         1016
 
 #define  IDC_WEBLINK          2000
 #define  IDS_CLR_FGND         2001

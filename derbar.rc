@@ -59,30 +59,30 @@ BEGIN
 
    LTEXT           " ",         IDC_STATIC,    36,  0,  2, DY, SS_SUNKEN      //lint !e2  Unclosed Quote
 
-   LTEXT           "Mem:",      IDC_STATIC,    40, Y0, 20,  9
-   LTEXT           "Free",      IDC_STATIC,    64, Y0, 16,  9
-   CTEXT           " ",         IDC_FREEMEM,   80, Y0, 35,  9, SS_SUNKEN
+   LTEXT           "Mem:",      IDS_MEMORY,    40, Y0, 20,  9,SS_NOTIFY
+   LTEXT           "Free",      IDS_FREEMEM,   64, Y0, 16,  9,SS_NOTIFY
+   CTEXT           " ",         IDC_FREEMEM,   80, Y0, 35,  9, SS_SUNKEN | SS_NOTIFY
 
-   LTEXT           "Total",     IDC_STATIC,   118, Y0, 20,  9
-   CTEXT           " ",         IDC_TOTALMEM, 138, Y0, 35,  9, SS_SUNKEN
+   LTEXT           "Total",     IDS_TOTALMEM, 118, Y0, 20,  9,SS_NOTIFY
+   CTEXT           " ",         IDC_TOTALMEM, 138, Y0, 35,  9, SS_SUNKEN | SS_NOTIFY
 
    LTEXT           " ",         IDC_STATIC,   176,  0,  2, DY, SS_SUNKEN
 
-   LTEXT           "Uptime:",   IDS_UPTIME,   181, Y0, 25,  9
+   LTEXT           "Uptime:",   IDS_UPTIME,   181, Y0, 25,  9,SS_NOTIFY
    CTEXT           " ",         IDC_UPTIME,   206, Y0, 60,  9, SS_SUNKEN | SS_NOTIFY
 
    LTEXT           " ",         IDC_STATIC,   268,  0,  2, DY, SS_SUNKEN
 
-   LTEXT           "RX:",       IDC_STATIC,   273, Y0, 12,  9
-   CTEXT           " ",         IDC_RXBYTES,  286, Y0, 30,  9, SS_SUNKEN
+   LTEXT           "RX:",       IDS_RXBYTES,  273, Y0, 12,  9,SS_NOTIFY
+   CTEXT           " ",         IDC_RXBYTES,  286, Y0, 30,  9, SS_SUNKEN | SS_NOTIFY
 
-   LTEXT           "TX:",       IDC_STATIC,   321, Y0, 12,  9
-   CTEXT           " ",         IDC_TXBYTES,  336, Y0, 30,  9, SS_SUNKEN
+   LTEXT           "TX:",       IDS_TXBYTES,  321, Y0, 12,  9,SS_NOTIFY
+   CTEXT           " ",         IDC_TXBYTES,  336, Y0, 30,  9, SS_SUNKEN | SS_NOTIFY
 
    LTEXT           " ",         IDC_STATIC,   368,  0,  2, DY, SS_SUNKEN
 
-   LTEXT           "CPU:",      IDC_STATIC,   373, Y0, 18,  9
-   CTEXT           " ",         IDC_CPUTIME,  393, Y0, 15,  9, SS_SUNKEN
+   LTEXT           "CPU:",      IDS_CPUTIME,  373, Y0, 18,  9,SS_NOTIFY
+   CTEXT           " ",         IDC_CPUTIME,  393, Y0, 15,  9, SS_SUNKEN | SS_NOTIFY
 
    LTEXT           " ",         IDC_STATIC,   410,  0,  2, DY, SS_SUNKEN
 
@@ -158,7 +158,7 @@ BEGIN
     ICON            IDI_MAINICON,IDC_STATIC,9,12
     LTEXT           "DerBar System Monitor",IDC_STATIC,        36,15, 75,12
     LTEXT           VerNum,IDC_VERNUM,                        111,15, 50,12
-    LTEXT           "Copyright (c) 2008-2022",IDC_STATIC,      36,28,100,12
+    LTEXT           "Copyright (c) 2008-2023",IDC_STATIC,      36,28,100,12
     LTEXT           "Daniel D Miller",IDC_STATIC,              36,41,100,12
     // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
     LTEXT           "http://www.derelllicht.com/DerBar.html",IDC_WEBLINK,  36,54,140,12
@@ -192,7 +192,7 @@ BEGIN
             VALUE "FileDescription", "DerBar Windows performance monitor"
             VALUE "FileVersion", VerNum
             VALUE "InternalName", "DerBar"
-            VALUE "LegalCopyright", "Copyright © 2008-2022"
+            VALUE "LegalCopyright", "Copyright © 2008-2023"
             VALUE "OriginalFilename", "DerBar.exe"
             VALUE "ProductName", "DerBar Windows performance monitor"
             VALUE "ProductVersion", VerNum

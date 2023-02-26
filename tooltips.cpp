@@ -1,29 +1,22 @@
 //****************************************************************************
-//  Copyright (c) 2008-2022  Daniel D Miller
+//  Copyright (c) 2008-2023  Daniel D Miller
 //  tooltips.cpp - tooltip functions/data
 //
-//  Written by:  Dan Miller 
+//  Written by:  Daniel D Miller 
 //****************************************************************************
 //  Usage:
 //    HWND hToolTip = create_tooltips(hwnd, 150, 100, 10000) ;
-//    add_program_tooltips(hwnd, hToolTip) ;
+//    add_tooltips(hwnd, hToolTip, name_of_tooltip_array) ;
 //****************************************************************************
 
 #define _WIN32_WINNT 0x0501
 #define _WIN32_IE 0x0501
 #include <windows.h>
-#include <tchar.h>
 #include <commctrl.h>
 
 #include "iface_32_64.h"
-#include "resource.h"
 #include "common.h"
-
-//  static tooltip-list struct
-typedef struct tooltip_data_s {
-   uint ControlID ;
-   TCHAR *msg ;
-} tooltip_data_t ;
+#include "tooltips.h"
 
 //****************************************************************************
 HWND create_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec)
@@ -58,34 +51,13 @@ static void add_tooltip_target(HWND parent, HWND target, HWND hToolTip, TCHAR *m
 }  //lint !e550  ti
 
 //****************************************************************************
-//  CommPort dialog tooltips
-//****************************************************************************
-static tooltip_data_t const program_tooltips[] = {
-{ IDS_CLR_FGND,      _T("Select foreground color of data fields")},
-{ IDC_EDIT_FGND,     _T("Select foreground color of data fields")},
-{ IDC_CLR_FGND,      _T("View color selector for foreground color" )},
-{ IDS_CLR_BGND,      _T("Select background color of data fields")},
-{ IDC_EDIT_BGND,     _T("Select background color of data fields")},
-{ IDC_CLR_BGND,      _T("View color selector for background color" )},
-{ IDM_ONTOP,         _T("Keep main dialog on top of other applications" )},
-{ IDM_LOGIN_UPTIME,  _T("Show login label vs uptime, as appropriate" )},
-{ IDM_LOGIN_SECONDS, _T("Show/hide seconds in uptime/login field" )},
-{ IDM_WINMSGS,       _T("Show WinAPI debug messages in DebugView" )},
-{ IDOK,              _T("Close this dialog and accept changes" )},
-
-//  This is how to enter multi-line tooltips:
-// { IDS_CP_SERNUM,     _T("The SEND CMD button will send COMMAND to the device with")
-//                      _T("this Serial Number.  If Serial Number is 0, COMMAND is sent ")
-//                      _T("to the broadcast address on the current port.") },
-
-{ 0, NULL }} ;
-
-void add_program_tooltips(HWND hwnd, HWND hwndToolTip)
+void add_tooltips(HWND hwnd, HWND hwndToolTip, tooltip_data_t const * const tooltip_array)
 {
    unsigned idx ;
-   for (idx=0; program_tooltips[idx].ControlID != 0; idx++) {
-      add_tooltip_target(hwnd, GetDlgItem(hwnd, program_tooltips[idx].ControlID),
-         hwndToolTip, program_tooltips[idx].msg) ;
+   
+   for (idx=0; tooltip_array[idx].ControlID != 0; idx++) {
+      add_tooltip_target(hwnd, GetDlgItem(hwnd, tooltip_array[idx].ControlID),
+         hwndToolTip, tooltip_array[idx].msg) ;
    }
 }
 

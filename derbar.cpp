@@ -1,5 +1,5 @@
 //**************************************************************************************
-//  Copyright (c) 2009-2022  Daniel D Miller
+//  Copyright (c) 2009-2023  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  
 //  DerBar, its source code and executables, are Copyrighted in their
@@ -25,6 +25,7 @@
 #include <windows.h>
 #include <stdio.h>   //  for sprintf, for %f support
 #include <time.h>
+#include <tchar.h>
 
 #include "iface_32_64.h"
 #include "resource.h"
@@ -34,6 +35,7 @@
 #include "images.h"
 #include "winmsgs.h"
 #include "systray.h"
+#include "tooltips.h"
 
 #define  USE_TIMER_TEST
 
@@ -101,6 +103,35 @@ static HWND hwndMainDialog = 0 ;
 static HWND hwndKbdCaps ;
 static HWND hwndKbdNum  ;
 static HWND hwndKbdScrl ;
+
+//****************************************************************************
+//  Main dialog tooltips
+//****************************************************************************
+static tooltip_data_t const main_tooltips[] = {
+{ IDS_MEMORY,   _T("Show Memory info" )},
+{ IDS_FREEMEM,  _T("Show Free Memory" )},
+{ IDC_FREEMEM,  _T("Show Free Memory" )},
+{ IDS_TOTALMEM, _T("Show Total Memory" )},
+{ IDC_TOTALMEM, _T("Show Total Memory" )},
+{ IDS_UPTIME,   _T("Show Uptime/Login Time" )},
+{ IDC_UPTIME,   _T("Show Uptime/Login Time" )},
+{ IDS_RXBYTES,  _T("Show Network Receive rate (KBytes/second)" )},
+{ IDC_RXBYTES,  _T("Show Network Receive rate (KBytes/second)" )},
+{ IDS_TXBYTES,  _T("Show Network Transmit rate (KBytes/second)" )},
+{ IDC_TXBYTES,  _T("Show Network Transmit rate (KBytes/second)" )},
+{ IDS_CPUTIME,  _T("Show CPU Utilization" )},
+{ IDC_CPUTIME,  _T("Show CPU Utilization" )},
+{ IDC_KBD_CAPS, _T("Show/toggle CapsLock state" )},
+{ IDC_KBD_NUM , _T("Show/toggle NumLock state" )},
+{ IDC_KBD_SCRL, _T("Show/toggle ScrollLock state" )},
+
+
+//  This is how to enter multi-line tooltips:
+// { IDS_CP_SERNUM,     _T("The SEND CMD button will send COMMAND to the device with")
+//                      _T("this Serial Number.  If Serial Number is 0, COMMAND is sent ")
+//                      _T("to the broadcast address on the current port.") },
+
+{ 0, NULL }} ;
 
 //*******************************************************************
 static uint screen_width  = 0 ;
@@ -383,7 +414,13 @@ static void update_data_fields(void)
 
    SetWindowText(hwndUptime, uptime_str) ;
 
-   sprintf(msgstr, "%.2f", (double) RxBytesPerSec / SampleMsec) ;
+   double rxBps = (double) RxBytesPerSec / SampleMsec ;
+   if (rxBps < 20000.0) {
+      sprintf(msgstr, "%.1f", rxBps) ;
+   } 
+   else {
+      sprintf(msgstr, "%.0f", rxBps) ;
+   }
    SetWindowText(hwndRxBytes, msgstr) ;
    sprintf(msgstr, "%.2f", (double) TxBytesPerSec / SampleMsec) ;
    SetWindowText(hwndTxBytes, msgstr) ;
@@ -570,6 +607,11 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       attach_tray_icon(hwnd, szClassName);
 
       update_uptime_label();
+      {
+      HWND hToolTip = create_tooltips(hwnd, 150, 100, 10000) ;
+      add_tooltips(hwnd, hToolTip, main_tooltips);
+      // add_main_tooltips(hwnd, hToolTip) ;
+      }
       //  start timer for program update
       //  Note that Windows timers do not actually count 1000 msec per second,
       //  they count 1024 msec per second; thus, they are off by about 1.5%

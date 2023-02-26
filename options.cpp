@@ -7,6 +7,7 @@
 //**********************************************************************
 #include <windows.h>
 #include <time.h>
+#include <tchar.h>
 #ifdef _lint
 #include <stdlib.h>
 #endif
@@ -15,6 +16,7 @@
 #include "common.h"
 #include "derbar.h"
 #include "winmsgs.h"
+#include "tooltips.h"
 
 bool show_winmsgs = false ;
 bool keep_on_top = false ;
@@ -23,16 +25,34 @@ bool show_seconds_for_uptime = true ;
 
 static HWND hwndEditFgnd ;
 static HWND hwndEditBgnd ;
-// static HWND hwndIpIface ;
 
 extern void update_keep_on_top(void);
 
-//  tooltips.cpp
-extern HWND create_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec);
-extern void add_program_tooltips(HWND hwnd, HWND hwndToolTip);
-
 //  system.cpp
 // extern void fill_eth_iface_combobox(HWND hwndIpIface, uint init_idx);
+
+//****************************************************************************
+//  Options dialog tooltips
+//****************************************************************************
+static tooltip_data_t const options_tooltips[] = {
+{ IDS_CLR_FGND,      _T("Select foreground color of data fields")},
+{ IDC_EDIT_FGND,     _T("Select foreground color of data fields")},
+{ IDC_CLR_FGND,      _T("View color selector for foreground color" )},
+{ IDS_CLR_BGND,      _T("Select background color of data fields")},
+{ IDC_EDIT_BGND,     _T("Select background color of data fields")},
+{ IDC_CLR_BGND,      _T("View color selector for background color" )},
+{ IDM_ONTOP,         _T("Keep main dialog on top of other applications" )},
+{ IDM_LOGIN_UPTIME,  _T("Show login label vs uptime, as appropriate" )},
+{ IDM_LOGIN_SECONDS, _T("Show/hide seconds in uptime/login field" )},
+{ IDM_WINMSGS,       _T("Show WinAPI debug messages in DebugView" )},
+{ IDOK,              _T("Close this dialog and accept changes" )},
+
+//  This is how to enter multi-line tooltips:
+// { IDS_CP_SERNUM,     _T("The SEND CMD button will send COMMAND to the device with")
+//                      _T("this Serial Number.  If Serial Number is 0, COMMAND is sent ")
+//                      _T("to the broadcast address on the current port.") },
+
+{ 0, NULL }} ;
 
 //******************************************************************
 static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
@@ -87,7 +107,8 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
 
       {
       HWND hToolTip = create_tooltips(hwnd, 150, 100, 10000) ;
-      add_program_tooltips(hwnd, hToolTip) ;
+      // add_options_tooltips(hwnd, hToolTip) ;
+      add_tooltips(hwnd, hToolTip, options_tooltips);
       }
       return TRUE ;
 
