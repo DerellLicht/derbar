@@ -422,7 +422,14 @@ static void update_data_fields(void)
       sprintf(msgstr, "%.0f", rxBps) ;
    }
    SetWindowText(hwndRxBytes, msgstr) ;
-   sprintf(msgstr, "%.2f", (double) TxBytesPerSec / SampleMsec) ;
+   
+   double txBps = (double) TxBytesPerSec / SampleMsec ;
+   if (txBps < 1000.0) {
+      sprintf(msgstr, "%.1f", txBps) ;
+   }
+   else {
+      sprintf(msgstr, "%.0f", txBps) ;
+   }
    SetWindowText(hwndTxBytes, msgstr) ;
 
    sprintf(msgstr, "%u", (unsigned) (CpuTime + 0.5)) ;
