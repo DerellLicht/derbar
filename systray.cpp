@@ -5,11 +5,21 @@
 //  Collected by:   Daniel D. Miller
 //**************************************************************************************
 #include <windows.h>
+// #define  SET_POPUP_MENU_BGND  1
+
+#ifdef   SET_POPUP_MENU_BGND
+//  from winuser.h, requires WINVER   0x0500
+#define MIM_MAXHEIGHT   1
+#define MIM_BACKGROUND  2
+#define MIM_HELPID      4
+#define MIM_MENUDATA    8
+#define MIM_STYLE       16
+#define MIM_APPLYTOSUBMENUS 0x80000000L
+#endif
 
 #include "resource.h"
 #include "common.h"
 #include "systray.h"
-// #include "ClearIconTray.h"
 
 extern HINSTANCE g_hinst ;
 
@@ -19,14 +29,27 @@ static HMENU hMenu = NULL ;
 //***************************************************************
 void load_tray_menu(void)
 {
-   hMenu = LoadMenu (g_hinst, MAKEINTRESOURCE(IDM_POPMENU)) ;
-   if (hMenu == NULL) {
+   HMENU hTopMenu = LoadMenu (g_hinst, MAKEINTRESOURCE(IDM_POPMENU)) ;
+   if (hTopMenu == NULL) {
       syslog("LoadMenu: %s\n", get_system_message()) ;
    } 
-   hMenu = GetSubMenu(hMenu, 0) ;
+   
+   hMenu = GetSubMenu(hTopMenu, 0) ;
    if (hMenu == NULL) {
       syslog("GetSubMenu: %s\n", get_system_message()) ;
    } 
+   
+#ifdef   SET_POPUP_MENU_BGND
+   // https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-menuinfo
+   // change the menu backcolor:  doesn't work with MinGW32
+   MENUINFO mnuInfo = {0};
+   mnuInfo.cbSize   = sizeof(mnuInfo);
+   mnuInfo.fMask    = MIM_BACKGROUND | MIM_APPLYTOSUBMENUS;
+   mnuInfo.hbrBack  = CreateSolidBrush(RGB(128,128,128));
+   if(SetMenuInfo(hTopMenu,&mnuInfo)==FALSE) {
+      syslog("Popup Menu background not changed");
+   }   
+#endif   
 }
 
 //***************************************************************
