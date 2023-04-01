@@ -1,5 +1,5 @@
 //**************************************************************************************
-//  Copyright (c) 2017  Daniel D Miller
+//  Copyright (c) 2017-2023  Daniel D Miller
 //  Handlers for system-tray access
 //  
 //  Collected by:   Daniel D. Miller
@@ -17,8 +17,7 @@
 #define MIM_APPLYTOSUBMENUS 0x80000000L
 #endif
 
-#include "resource.h"
-#include "common.h"
+#include "common.h"  //  syslog(), get_system_message()
 #include "systray.h"
 
 extern HINSTANCE g_hinst ;
@@ -58,14 +57,14 @@ void load_tray_menu(WORD menuID)
 //***************************************************************
 //lint -esym(18, _NOTIFYICONDATAA::szTip) // c:\mingw\include\shellapi.h  166  Error 18: Symbol '_NOTIFYICONDATAA::szTip' redeclared (size) 
 //lint -esym(18, _NOTIFYICONDATAW::szTip) // c:\mingw\include\shellapi.h  166  Error 18: Symbol '_NOTIFYICONDATAA::szTip' redeclared (size) 
-void attach_tray_icon(HWND hwnd, char const * const szClassName)
+void attach_tray_icon(HWND hwnd, char const * const szClassName, WORD iconID)
 {
    NotifyIconData.cbSize = sizeof (NOTIFYICONDATA);
    NotifyIconData.hWnd = hwnd;
-   NotifyIconData.uID = IDI_MAINICON ;
+   NotifyIconData.uID = iconID ;
    NotifyIconData.uFlags = NIF_ICON | NIF_TIP | NIF_MESSAGE;
    NotifyIconData.uCallbackMessage = WM_USER; // tray events will generate WM_USER event
-   NotifyIconData.hIcon = (HICON) LoadIcon (g_hinst, MAKEINTRESOURCE (IDI_MAINICON));
+   NotifyIconData.hIcon = (HICON) LoadIcon (g_hinst, MAKEINTRESOURCE (iconID));
    lstrcpy (NotifyIconData.szTip, szClassName); // max 64 characters
    //  getting string from STRINGTABLE in .rc file
    // LoadString(hInstance, IDS_APPTOOLTIP,nidApp.szTip,MAX_LOADSTRING);

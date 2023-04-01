@@ -610,7 +610,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 
       // put the icon into a system tray
       load_tray_menu(IDM_POPMENU);
-      attach_tray_icon(hwnd, szClassName);
+      attach_tray_icon(hwnd, szClassName, IDI_MAINICON);
 
       update_uptime_label();
       {

@@ -75,7 +75,7 @@ rc.o: derbar.rc
 # DO NOT DELETE
 
 derbar.o: iface_32_64.h resource.h version.h common.h derbar.h images.h
-derbar.o: winmsgs.h systray.h
+derbar.o: winmsgs.h systray.h tooltips.h
 config.o: common.h derbar.h
 common_funcs.o: common.h
 system.o: common.h derbar.h ip_iface.h PdhMsg.h
@@ -84,7 +84,7 @@ options.o: resource.h common.h derbar.h winmsgs.h tooltips.h
 lv_ifaces.o: resource.h common.h derbar.h images.h ip_iface.h
 images.o: resource.h images.h common.h derbar.h
 hyperlinks.o: iface_32_64.h hyperlinks.h
-systray.o: resource.h common.h systray.h
+systray.o: common.h systray.h
 ClearIcon.o: common.h derbar.h
 login_lsa.o: common.h derbar.h
-tooltips.o: iface_32_64.h resource.h common.h tooltips.h
+tooltips.o: iface_32_64.h common.h tooltips.h
