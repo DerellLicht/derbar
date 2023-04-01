@@ -606,11 +606,10 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       SendMessage(hwnd, WM_SETICON, ICON_BIG,   (LPARAM) LoadIcon(g_hinst, MAKEINTRESOURCE(IDI_MAINICON)));
       SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM) LoadIcon(g_hinst, MAKEINTRESOURCE(IDI_MAINICON)));
 
-      load_tray_menu();
-
       set_window_position(hwnd) ;
 
       // put the icon into a system tray
+      load_tray_menu(IDM_POPMENU);
       attach_tray_icon(hwnd, szClassName);
 
       update_uptime_label();

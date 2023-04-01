@@ -27,9 +27,9 @@ static NOTIFYICONDATA NotifyIconData;
 
 static HMENU hMenu = NULL ;
 //***************************************************************
-void load_tray_menu(void)
+void load_tray_menu(WORD menuID)
 {
-   HMENU hTopMenu = LoadMenu (g_hinst, MAKEINTRESOURCE(IDM_POPMENU)) ;
+   HMENU hTopMenu = LoadMenu (g_hinst, MAKEINTRESOURCE(menuID)) ;
    if (hTopMenu == NULL) {
       syslog("LoadMenu: %s\n", get_system_message()) ;
    } 
