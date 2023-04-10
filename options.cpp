@@ -105,11 +105,7 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
       PostMessage(GetDlgItem(hwnd, IDM_LOGIN_UPTIME),  BM_SETCHECK, use_logon_time_for_uptime, 0) ;
       PostMessage(GetDlgItem(hwnd, IDM_LOGIN_SECONDS), BM_SETCHECK, show_seconds_for_uptime, 0) ;
 
-      {
-      HWND hToolTip = create_tooltips(hwnd, 150, 100, 10000) ;
-      // add_options_tooltips(hwnd, hToolTip) ;
-      add_tooltips(hwnd, hToolTip, options_tooltips);
-      }
+      create_and_add_tooltips(hwnd, 150, 100, 10000, options_tooltips);
       return TRUE ;
 
    //********************************************************************

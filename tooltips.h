@@ -16,5 +16,6 @@ typedef struct tooltip_data_s {
 } tooltip_data_t ;
 
 //  tooltips.cpp
-extern HWND create_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec);
-extern void add_tooltips(HWND hwnd, HWND hwndToolTip, tooltip_data_t const * const tooltip_array);
+void create_and_add_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec,
+                             tooltip_data_t const * const tooltip_array);
+

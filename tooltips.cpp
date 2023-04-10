@@ -19,7 +19,7 @@
 #include "tooltips.h"
 
 //****************************************************************************
-HWND create_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec)
+static HWND create_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec)
 {
    HWND hToolTip = CreateWindowEx(0, TOOLTIPS_CLASS, NULL, TTS_ALWAYSTIP,
          CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, //lint !e569
@@ -51,7 +51,7 @@ static void add_tooltip_target(HWND parent, HWND target, HWND hToolTip, TCHAR *m
 }  //lint !e550  ti
 
 //****************************************************************************
-void add_tooltips(HWND hwnd, HWND hwndToolTip, tooltip_data_t const * const tooltip_array)
+static void add_tooltips(HWND hwnd, HWND hwndToolTip, tooltip_data_t const * const tooltip_array)
 {
    unsigned idx ;
    
@@ -61,3 +61,10 @@ void add_tooltips(HWND hwnd, HWND hwndToolTip, tooltip_data_t const * const tool
    }
 }
 
+//****************************************************************************
+void create_and_add_tooltips(HWND hwnd, uint max_width, uint popup_msec, uint stayup_msec,
+                             tooltip_data_t const * const tooltip_array)
+{
+   HWND hToolTip = create_tooltips(hwnd, max_width, popup_msec, stayup_msec);
+   add_tooltips(hwnd, hToolTip, tooltip_array);
+}                             

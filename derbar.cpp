@@ -613,11 +613,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       attach_tray_icon(hwnd, szClassName, IDI_MAINICON);
 
       update_uptime_label();
-      {
-      HWND hToolTip = create_tooltips(hwnd, 150, 100, 10000) ;
-      add_tooltips(hwnd, hToolTip, main_tooltips);
-      // add_main_tooltips(hwnd, hToolTip) ;
-      }
+      create_and_add_tooltips(hwnd, 150, 100, 10000, main_tooltips);
+      
       //  start timer for program update
       //  Note that Windows timers do not actually count 1000 msec per second,
       //  they count 1024 msec per second; thus, they are off by about 1.5%
