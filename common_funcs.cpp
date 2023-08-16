@@ -982,7 +982,7 @@ int hex_dump(u8 const * const bfr, int bytes, unsigned addr)
    tail[0] = 0 ;
    int idx = 0 ;
    int plen = 0 ;
-   while (1) {
+   while (LOOP_FOREVER) {
       int leftovers = bytes - idx ;
       if (leftovers > 16)
           leftovers = 16 ;
