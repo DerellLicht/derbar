@@ -696,7 +696,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 
    case WM_COMMAND:
       {
-      DWORD cmd = HIWORD (wParam) ;
+      DWORD cmd    = HIWORD(wParam) ;
       DWORD target = LOWORD(wParam) ;
       if (show_winmsgs) {
          syslog("WM_COMMAND: cmd: %08X, target: %08X\n", cmd, target);
