@@ -706,8 +706,6 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
          switch (target) {
          //  Open Network Ifaces listview
          case IDM_IFACES:
-            // show_winmsgs ^= 1 ;  //  unthematic
-            // show_winmsgs = (show_winmsgs) ? FALSE : TRUE ;
             spawn_ifaces_lview(hwnd) ;
             return TRUE;
 
@@ -742,7 +740,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       } 
       }
       break;
-
+      
    case WM_CTLCOLORSTATIC:
       hdc = (HDC) wParam;
       if ((HWND) lParam == hwndDerBar) {
