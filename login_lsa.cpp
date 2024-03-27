@@ -179,7 +179,7 @@ static bool load_LSA_library_pointers(void)
 
 //*******************************************************************************
 //lint -esym(765, get_max_logon_time)
-time_t get_max_logon_time(void)
+time_t get_max_logon_time(time_t curr_time)
 {
    static time_t max_logon_time = 0 ;
 
@@ -217,8 +217,10 @@ time_t get_max_logon_time(void)
                // logon_time = filetime_to_timet(ft);
                logon_time = u64_to_timet(pData->LogonTime);
 
-               if (max_logon_time < logon_time) {
-                   max_logon_time = logon_time ;
+               if (logon_time < curr_time) {
+                  if (max_logon_time < logon_time) {
+                      max_logon_time = logon_time ;
+                  }
                }
 
                // SYSTEMTIME st_utc, st_local;
@@ -244,7 +246,16 @@ time_t get_max_logon_time(void)
 //*******************************************************************************
 time_t get_logon_time(void)
 {
-   time_t max_logon_time = get_max_logon_time();
+   //  look at current time
+   _tzset();
+   time_t curr_time ;
+   time(&curr_time);
+#ifdef STAND_ALONE
+   printf("current time: %"PRIu64"\n", (u64) curr_time);  //lint !e571
+#endif
+
+   //  now look up max logon time
+   time_t max_logon_time = get_max_logon_time(curr_time);
    if (max_logon_time == 0) {
       return 0;
    }
@@ -256,13 +267,6 @@ time_t get_logon_time(void)
    printf("Last logon: %s [%"PRIu64"]\n", ctm, (u64) max_logon_time) ;  //lint !e571
 #endif
    
-   //  look at current time
-   _tzset();
-   time_t curr_time ;
-   time(&curr_time);
-#ifdef STAND_ALONE
-   printf("current time: %"PRIu64"\n", (u64) curr_time);  //lint !e571
-#endif
    time_t delta_time = curr_time - max_logon_time ;
    return delta_time;
 }

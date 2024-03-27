@@ -31,8 +31,8 @@
 //*****************************************************************************************
 //  Bugs:
 //  This color-setting technique will not work if "drop shadows" are enabled
-//  on the desktop.  Unfortunately, the technique for turning off drop shadows,
-//  varies from OS to OS...
+//  on the desktop.  
+//  Unfortunately, the technique for turning off drop shadows, varies from OS to OS...
 //*****************************************************************************************
 //  Wei Ke's original notes:
 //  
@@ -41,8 +41,7 @@
 //  file created: 5/16/98 3:46:29 PM
 //  file last modified: 5/20/98 6:12:21 PM
 //
-//  Toggles desktop icon text background between transparent 
-//  and Windows' default.
+//  Toggles desktop icon text background between transparent and Windows' default.
 //  
 //  THIS CODE, PROGRAM AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY 
 //  OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
