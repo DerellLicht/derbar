@@ -49,9 +49,12 @@ _Revision history_
 | 1.17 | Add support for substituting login time for Uptime |
 |      | Enable left-click on Uptime field to toggle uptime/login display |
 | 1.18 | Add tooltips to Options dialog controls |
-| 1.19 | Converted to 64-bit compiler
-| 1.20 | Add option to show/hide seconds on uptime/login field
-| 1.21 | > If RX Bytes/second is arbitrarily large (>20000), drop fractional
-|      | portion of value in display, so rates > 100MB/sec will be readable
-|      | > Add tooltips to main dialog
+| 1.19 | Converted to 64-bit compiler |
+| 1.20 | Add option to show/hide seconds on uptime/login field |
+| 1.21 | > If RX Bytes/second is arbitrarily large (>20000), drop fractional |
+|      | portion of value in display, so rates > 100MB/sec will be readable |
+|      | > Add tooltips to main dialog |
+| 1.22 | fixed - Windows could end up with logon entries which were later than current time. |
+|      | This would result in invalid logon time being displayed. |
+
 
