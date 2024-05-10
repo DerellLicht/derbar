@@ -161,7 +161,7 @@ BEGIN
     LTEXT           "Copyright (c) 2008-2024",IDC_STATIC,      36,28,100,12
     LTEXT           "Daniel D Miller",IDC_STATIC,              36,41,100,12
     // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
-    LTEXT           "http://www.derelllicht.com/DerBar.html",IDC_WEBLINK,  36,54,140,12
+    LTEXT           "http://derelllicht.42web.io/DerBar.html",IDC_WEBLINK,  36,54,140,12
     DEFPUSHBUTTON   "Close",IDOK,36,70,100,14
 END
 
