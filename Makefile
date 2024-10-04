@@ -29,6 +29,10 @@ ifeq ($(USE_UNICODE),YES)
 CFLAGS += -DUNICODE -D_UNICODE
 endif
 
+ifeq ($(USE_64BIT),YES)
+CFLAGS += -DUSE_64BIT
+endif
+
 CPPSRC=derbar.cpp config.cpp common_funcs.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp hyperlinks.cpp systray.cpp winmsgs.cpp ClearIcon.cpp \
 login_lsa.cpp tooltips.cpp

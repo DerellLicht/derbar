@@ -5,8 +5,9 @@
 //  Collected by:   Daniel D. Miller
 //**************************************************************************************
 #include <windows.h>
-// #define  SET_POPUP_MENU_BGND  1
+#define  SET_POPUP_MENU_BGND  1
 
+#ifndef  USE_64BIT
 #ifdef   SET_POPUP_MENU_BGND
 //  from winuser.h, requires WINVER   0x0500
 #define MIM_MAXHEIGHT   1
@@ -15,6 +16,7 @@
 #define MIM_MENUDATA    8
 #define MIM_STYLE       16
 #define MIM_APPLYTOSUBMENUS 0x80000000L
+#endif
 #endif
 
 #include "common.h"  //  syslog(), get_system_message()
@@ -45,8 +47,9 @@ void load_tray_menu(WORD menuID)
    mnuInfo.cbSize   = sizeof(mnuInfo);
    mnuInfo.fMask    = MIM_BACKGROUND | MIM_APPLYTOSUBMENUS;
    mnuInfo.hbrBack  = CreateSolidBrush(RGB(128,128,128));
-   if(SetMenuInfo(hTopMenu,&mnuInfo)==FALSE) {
-      syslog("Popup Menu background not changed");
+   // if(SetMenuInfo(hTopMenu,&mnuInfo)==FALSE) {
+   if(SetMenuInfo(hMenu,&mnuInfo)==FALSE) {
+      syslog("Popup Menu background not changed: %s\n", get_system_message());
    }   
 #endif   
 }
