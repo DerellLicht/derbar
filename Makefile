@@ -25,6 +25,7 @@ LFLAGS=-s -mwindows
 endif
 CFLAGS += -Wno-write-strings
 CFLAGS += -Ider_libs
+LiFLAGS += -Ider_libs
 
 ifeq ($(USE_UNICODE),YES)
 CFLAGS += -DUNICODE -D_UNICODE
@@ -61,7 +62,7 @@ depend:
 	makedepend $(CPPSRC)
 
 wc:
-	wc -l *.cpp *.rc
+	wc -l $(CPPSRC) *.rc
 
 lint:
 	cmd /C "c:\lint9\lint-nt +v -width(160,4) $(LiFLAGS) +fcp -ic:\lint9 mingw.lnt -os(_lint.tmp) lintdefs.cpp *.rc $(CPPSRC)"
