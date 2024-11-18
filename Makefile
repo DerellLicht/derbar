@@ -24,6 +24,7 @@ CFLAGS=-Wall -O2
 LFLAGS=-s -mwindows
 endif
 CFLAGS += -Wno-write-strings
+CFLAGS += -Ider_libs
 
 ifeq ($(USE_UNICODE),YES)
 CFLAGS += -DUNICODE -D_UNICODE
@@ -33,16 +34,20 @@ ifeq ($(USE_64BIT),YES)
 CFLAGS += -DUSE_64BIT
 endif
 
-CPPSRC=derbar.cpp config.cpp common_funcs.cpp system.cpp about.cpp options.cpp \
-lv_ifaces.cpp images.cpp hyperlinks.cpp systray.cpp winmsgs.cpp ClearIcon.cpp \
-login_lsa.cpp tooltips.cpp
+CPPSRC=derbar.cpp login_lsa.cpp config.cpp system.cpp about.cpp options.cpp \
+lv_ifaces.cpp images.cpp ClearIcon.cpp \
+der_libs/common_funcs.cpp \
+der_libs/hyperlinks.cpp \
+der_libs/winmsgs.cpp \
+der_libs/systray.cpp \
+der_libs/tooltips.cpp 
 
 OBJS = $(CPPSRC:.cpp=.o) rc.o
 
 BINS=derbar.exe
 
 %.o: %.cpp
-	$(TOOLS)\g++ $(CFLAGS) -c $<
+	g++ $(CFLAGS) -Weffc++ -c $< -o $@
 
 #**************************************************************
 #  generic build rules
@@ -50,7 +55,7 @@ BINS=derbar.exe
 all: $(BINS)
 
 clean:
-	rm -f $(BINS) *.o *.bak *.zip
+	rm -f $(BINS) *.o der_libs/*.o *.bak *.zip
 
 depend:
 	makedepend $(CPPSRC)
@@ -78,17 +83,17 @@ rc.o: derbar.rc
 
 # DO NOT DELETE
 
-derbar.o: iface_32_64.h resource.h version.h common.h derbar.h images.h
-derbar.o: winmsgs.h systray.h tooltips.h
-config.o: common.h derbar.h
-common_funcs.o: common.h
-system.o: common.h derbar.h ip_iface.h PdhMsg.h
-about.o: resource.h version.h hyperlinks.h
-options.o: resource.h common.h derbar.h winmsgs.h tooltips.h
-lv_ifaces.o: resource.h common.h derbar.h images.h ip_iface.h
-images.o: resource.h images.h common.h derbar.h
-hyperlinks.o: iface_32_64.h hyperlinks.h
-systray.o: common.h systray.h
-ClearIcon.o: common.h derbar.h
-login_lsa.o: common.h derbar.h
-tooltips.o: iface_32_64.h common.h tooltips.h
+derbar.o: resource.h version.h derbar.h images.h
+login_lsa.o: derbar.h
+config.o: derbar.h
+system.o: derbar.h ip_iface.h PdhMsg.h
+about.o: resource.h version.h
+options.o: resource.h derbar.h
+lv_ifaces.o: resource.h derbar.h images.h ip_iface.h
+images.o: resource.h images.h derbar.h
+ClearIcon.o: derbar.h
+der_libs/common_funcs.o: der_libs/common.h
+der_libs/hyperlinks.o: der_libs/iface_32_64.h der_libs/hyperlinks.h
+der_libs/systray.o: der_libs/common.h der_libs/systray.h
+der_libs/tooltips.o: der_libs/iface_32_64.h der_libs/common.h
+der_libs/tooltips.o: der_libs/tooltips.h
