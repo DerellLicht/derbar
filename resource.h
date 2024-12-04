@@ -65,6 +65,8 @@
 #define  IDC_EDIT_BGND        2005
 #define  IDC_CLR_BGND         2006
 #define  IDC_VERNUM           2007
+#define  IDS_MIN_FREEMEM      2008
+#define  IDC_MIN_FREEMEM      2009
 // #define  IDC_CBOX_IFACE       2006
 
 //  network-interface listview constants

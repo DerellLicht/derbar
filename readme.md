@@ -56,5 +56,5 @@ _Revision history_
 |      | > Add tooltips to main dialog |
 | 1.22 | fixed - Windows could end up with logon entries which were later than current time. |
 |      | This would result in invalid logon time being displayed. |
-
+| 1.23 | Show minimum free memory - analyze low-memory condition status |
 

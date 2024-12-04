@@ -96,11 +96,11 @@ END
 //  options dialog
 //*******************************************************************
 // #define  OPT_DX       160
-#define  OPT_DX       163
+#define  OPT_DX       160
 #define  OPT_DONE_DX   70
 #define  OPT_DONE_X   ((OPT_DX - OPT_DONE_DX) / 2)
 
-IDD_OPTIONS DIALOGEX 200, 200, OPT_DX, 102
+IDD_OPTIONS DIALOGEX 300, 200, OPT_DX, 116
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "DerBar Options"
@@ -126,7 +126,10 @@ BEGIN
    CONTROL         "Enable WinMsgs (debug)",IDM_WINMSGS,"Button",
                    BS_AUTOCHECKBOX | WS_TABSTOP,           5,66,140,10
 
-   DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,80,OPT_DONE_DX,14
+   LTEXT           "Min Free Memory (MB): ",IDS_MIN_FREEMEM,  5,81, 77,10,SS_NOTIFY
+   CTEXT           "",                      IDC_MIN_FREEMEM, 85,80, 71,10,SS_NOTIFY | SS_SUNKEN
+   
+   DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,97,OPT_DONE_DX,14
 END
 
 //***************************************************************************

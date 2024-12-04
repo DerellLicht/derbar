@@ -33,6 +33,7 @@ uint TxBytesPerSec = 0 ;
 static DWORD PrevTickCount = 0 ;
 DWORD SampleMsec = 0 ;
 u64 freemem = 0 ;
+u64 min_freemem = 0 ;
 u64 totalmem = 0 ;
 
 static ip_iface_entry_p itable_top = NULL ;
@@ -66,6 +67,9 @@ void update_memory_readings(void)
    //         WIDTH, statex.ullAvailExtendedVirtual/DIV, divisor);
    freemem  = statex.ullAvailPhys ;
    totalmem = statex.ullTotalPhys ;
+   if (min_freemem == 0  ||  min_freemem > freemem) {
+      min_freemem = freemem ;
+   }
 }
 
 //***********************************************************************
@@ -253,7 +257,7 @@ void update_iface_counters(void)
          iptr->dwInErrors  = pIfRow->dwInErrors ;
          iptr->dwOutErrors = pIfRow->dwOutErrors ;
 
-   		// syslog("[%u/%u] %s\n", iptr->dwInOctets, iptr->dwOutOctets, iptr->iface_name) ;
+         // syslog("[%u/%u] %s\n", iptr->dwInOctets, iptr->dwOutOctets, iptr->iface_name) ;
          rxb += pIfRow->dwInOctets ;
          txb += pIfRow->dwOutOctets ;
 

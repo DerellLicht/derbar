@@ -28,6 +28,8 @@ static HWND hwndEditBgnd ;
 
 extern void update_keep_on_top(void);
 
+extern u64 min_freemem ;
+
 //  system.cpp
 // extern void fill_eth_iface_combobox(HWND hwndIpIface, uint init_idx);
 
@@ -45,6 +47,8 @@ static tooltip_data_t const options_tooltips[] = {
 { IDM_LOGIN_UPTIME,  _T("Show login label vs uptime, as appropriate" )},
 { IDM_LOGIN_SECONDS, _T("Show/hide seconds in uptime/login field" )},
 { IDM_WINMSGS,       _T("Show WinAPI debug messages in DebugView" )},
+{ IDS_MIN_FREEMEM,   _T("Display minimum observed free memory (debug)" )},
+{ IDC_MIN_FREEMEM,   _T("Display minimum observed free memory (debug)" )},
 { IDOK,              _T("Close this dialog and accept changes" )},
 
 //  This is how to enter multi-line tooltips:
@@ -104,6 +108,13 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
       PostMessage(GetDlgItem(hwnd, IDM_ONTOP),         BM_SETCHECK, keep_on_top, 0) ;
       PostMessage(GetDlgItem(hwnd, IDM_LOGIN_UPTIME),  BM_SETCHECK, use_logon_time_for_uptime, 0) ;
       PostMessage(GetDlgItem(hwnd, IDM_LOGIN_SECONDS), BM_SETCHECK, show_seconds_for_uptime, 0) ;
+      
+      //  show minimum free memory
+      {
+      u64 min_free_mb = min_freemem / (1024 * 1024);
+      convert_to_commas(min_free_mb, msgstr);
+      SetWindowText(GetDlgItem(hwnd, IDC_MIN_FREEMEM), msgstr);
+      }
 
       create_and_add_tooltips(hwnd, 150, 100, 10000, options_tooltips);
       return TRUE ;
