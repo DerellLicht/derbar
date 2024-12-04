@@ -67,7 +67,7 @@
 #define  IDC_VERNUM           2007
 #define  IDS_MIN_FREEMEM      2008
 #define  IDC_MIN_FREEMEM      2009
-// #define  IDC_CBOX_IFACE       2006
+#define  IDC_CLR_MIN_FMEM     2010
 
 //  network-interface listview constants
 #define  IDC_LV_IFACES        3000

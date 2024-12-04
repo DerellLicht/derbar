@@ -126,8 +126,9 @@ BEGIN
    CONTROL         "Enable WinMsgs (debug)",IDM_WINMSGS,"Button",
                    BS_AUTOCHECKBOX | WS_TABSTOP,           5,66,140,10
 
-   LTEXT           "Min Free Memory (MB): ",IDS_MIN_FREEMEM,  5,81, 77,10,SS_NOTIFY
-   CTEXT           "",                      IDC_MIN_FREEMEM, 85,80, 71,10,SS_NOTIFY | SS_SUNKEN
+   LTEXT           "Min Free Memory (MB): ",IDS_MIN_FREEMEM,   5,81, 77,10,SS_NOTIFY
+   CTEXT           "",                      IDC_MIN_FREEMEM,  85,80, 37,10,SS_NOTIFY | SS_SUNKEN
+   PUSHBUTTON      "Reset",                 IDC_CLR_MIN_FMEM,126,80,30,10
    
    DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,97,OPT_DONE_DX,14
 END

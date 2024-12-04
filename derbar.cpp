@@ -86,7 +86,7 @@ static char szClassName[] = "DerBar" ;
 HINSTANCE g_hinst = 0;
 
 static UINT timerID = 0 ;
-static bool isMemoryLow = false ;
+bool isMemoryLow = false ;
 
 //  definitions for dialog controls
 //lint -esym(844, hwndDerBar)
