@@ -68,7 +68,7 @@ lint:
 	cmd /C "c:\lint9\lint-nt +v -width(160,4) $(LiFLAGS) +fcp -ic:\lint9 mingw.lnt -os(_lint.tmp) lintdefs.cpp *.rc $(CPPSRC)"
 
 dist:
-	zip DerBar.zip derbar.exe
+	zip DerBar.zip readme.md derbar.exe
 
 #**************************************************************
 #  build rules for executables                           
