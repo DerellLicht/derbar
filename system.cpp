@@ -98,7 +98,7 @@ static int build_IPAddress_table(void)
    // printf("Number of IP address entries: %u\n", (unsigned) pIpAddrTable->dwNumEntries) ;
    for (DWORD dwLoopIndex = 0; dwLoopIndex < pIpAddrTable->dwNumEntries; dwLoopIndex++) {
       ip_iface_entry_p iptr = new ip_iface_entry_t ;
-      memset((char *) iptr, 0, sizeof(ip_iface_entry_t)) ;
+      ZeroMemory((char *) iptr, sizeof(ip_iface_entry_t)) ;
       iptr->dwAddr      = pIpAddrTable->table[dwLoopIndex].dwAddr      ;
       iptr->dwIndex     = pIpAddrTable->table[dwLoopIndex].dwIndex     ;
       iptr->dwMask      = pIpAddrTable->table[dwLoopIndex].dwMask      ;
