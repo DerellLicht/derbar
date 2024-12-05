@@ -115,7 +115,7 @@ static void lv_assign_column_headers(void)
 
    // columns_created = true ;
    LVCOLUMN LvCol;                 // Make Column struct for ListView
-   memset (&LvCol, 0, sizeof (LvCol)); // Reset Column
+   ZeroMemory(&LvCol, sizeof (LvCol)); // Reset Column
    // LvCol.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;   // Type of mask
    //  I will try to center elements within the columns, hoping that my
    //  LEDs will be centered.  Of course, it didn't work that way...
@@ -161,7 +161,7 @@ static ip_iface_entry_p find_listview_row(uint lview_row)
 static void update_active_led(ip_iface_entry_p iftemp, uint led_idx)
 {
    LVITEM LvItem; //  ListView Item struct
-   memset (&LvItem, 0, sizeof (LvItem));  // Reset Item Struct
+   ZeroMemory(&LvItem, sizeof (LvItem));  // Reset Item Struct
    LvItem.iItem = iftemp->lview_row ;
    LvItem.iSubItem = 0 ;
    LvItem.mask = LVIF_IMAGE;   // Text Style
@@ -190,7 +190,7 @@ static void lv_add_data(void)
 {
    TCHAR msgstr[81] ;
    LVITEM LvItem; //  ListView Item struct
-   memset (&LvItem, 0, sizeof (LvItem));  // Reset Item Struct
+   ZeroMemory(&LvItem, sizeof (LvItem));  // Reset Item Struct
    LvItem.cchTextMax = 80;   // Max size of text
    uint curr_rows = 0 ;
    ip_iface_entry_p iftemp = NULL ;
