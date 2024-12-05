@@ -131,8 +131,9 @@ static PMIB_IFROW get_iface_entry(DWORD idx)
    ZeroMemory(pIfRow, sizeof(MIB_IFROW));
    pIfRow->dwIndex = idx ;
    DWORD result = GetIfEntry(pIfRow) ;
-   if (result == NO_ERROR) 
+   if (result == NO_ERROR) {
       return pIfRow ;
+   }
    delete pIfRow ;
    return NULL;
 }
