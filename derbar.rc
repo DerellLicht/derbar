@@ -55,7 +55,7 @@ EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "DerBar"
 FONT 11, "Times New Roman"
 BEGIN
-   CTEXT           "DerBar",    IDC_DERBAR,     0, Y0, 34,  9, SS_SUNKEN   //lint !e2  Unclosed Quote
+   CTEXT           "DerBar",    IDC_DERBAR,     2, Y0, 32,  9, SS_SUNKEN   //lint !e2  Unclosed Quote
 
    LTEXT           " ",         IDC_STATIC,    36,  0,  2, DY, SS_SUNKEN      //lint !e2  Unclosed Quote
 
