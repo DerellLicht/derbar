@@ -37,9 +37,13 @@
 #include "systray.h"
 #include "tooltips.h"
 
+//lint -e592  Non-literal format specifier used without arguments
+
 #define  USE_TIMER_TEST
 
 #define  USE_CPU_UTIL   1
+
+static TCHAR szClassName[] = _T("DerBar") ;
 
 //  system.cpp
 extern void update_memory_readings(void);
@@ -81,8 +85,6 @@ extern uint RxBytesPerSec ;
 extern uint TxBytesPerSec ;
 
 //***********************************************************************
-static char szClassName[] = "DerBar" ;
-
 HINSTANCE g_hinst = 0;
 
 static UINT timerID = 0 ;
@@ -181,10 +183,10 @@ static void save_window_position(HWND hwnd)
 void update_uptime_label(void)
 {
    if (use_logon_time_for_uptime) {
-      SetWindowText(hwndSUptime, "Login") ;
+      SetWindowText(hwndSUptime, _T("Login")) ;
    }
    else {
-      SetWindowText(hwndSUptime, "Uptime") ;
+      SetWindowText(hwndSUptime, _T("Uptime")) ;
    }
 }
 
@@ -317,7 +319,7 @@ static void update_time_count(void)
 #endif
 
 //*******************************************************************
-static char uptime_str[81] = "0" ;
+static TCHAR uptime_str[81] = _T("0") ;
 
 static void update_uptime(void)
 {
@@ -338,17 +340,17 @@ static void update_uptime(void)
    // int slen = wsprintf(uptime_str, "Uptime: ") ;
    int slen = 0 ;
    if (gtc > 0) {
-      slen += wsprintf(&uptime_str[slen], "%ud %uh %um", gtc, hours, mins) ;
+      slen += wsprintf(&uptime_str[slen], _T("%ud %uh %um"), gtc, hours, mins) ;
    }
    else if (hours > 0) {
-      slen += wsprintf(&uptime_str[slen], "%uh %um", hours, mins) ;
+      slen += wsprintf(&uptime_str[slen], _T("%uh %um"), hours, mins) ;
    }
    else {
-      slen += wsprintf(&uptime_str[slen], "%um", mins) ;
+      slen += wsprintf(&uptime_str[slen], _T("%um"), mins) ;
    }
       
    if (show_seconds_for_uptime) {
-      slen += wsprintf(&uptime_str[slen], " %us", secs) ;
+      slen += wsprintf(&uptime_str[slen], _T(" %us"), secs) ;
    }
 }
 
@@ -369,9 +371,9 @@ static void update_keyboard_state(void)
    if (kbd_status & KEY_ACTIVE)  kbd_state |= 1 ;
 
    // SetWindowText(hwndKbdState, kbd_state_str[kbd_state]) ;
-   SetWindowText(hwndKbdCaps, (kbd_state & 4) ? "C" : "c") ;
-   SetWindowText(hwndKbdNum , (kbd_state & 2) ? "N" : "n") ;
-   SetWindowText(hwndKbdScrl, (kbd_state & 1) ? "S" : "s") ;
+   SetWindowText(hwndKbdCaps, (kbd_state & 4) ? _T("C") : _T("c")) ;
+   SetWindowText(hwndKbdNum , (kbd_state & 2) ? _T("N") : _T("n")) ;
+   SetWindowText(hwndKbdScrl, (kbd_state & 1) ? _T("S") : _T("s")) ;
 }
 
 //*******************************************************************
@@ -395,44 +397,44 @@ static void read_system_data(void)
 //*******************************************************************
 static void update_data_fields(void)
 {
-   char msgstr[81] ;
+   TCHAR msgstr[81] ;
    //  update editable fields
 
    isMemoryLow = (freemem < (totalmem / 10)) ? true : false ;
    
    if (freemem < SZ1GB) 
-      sprintf(msgstr, "%u MB", (unsigned) (freemem / SZ1MB)) ;
+      _stprintf(msgstr, _T("%u MB"), (unsigned) (freemem / SZ1MB)) ;
    else
-      sprintf(msgstr, "%.2f GB", (double) freemem / SZ1GB) ;
+      _stprintf(msgstr, _T("%.2f GB"), (double) freemem / SZ1GB) ;
    SetWindowText(hwndFreeMem,  msgstr) ;
    
    if (totalmem < 1000000000U) 
-      sprintf(msgstr, "%u MB", (unsigned) (totalmem / SZ1MB)) ;
+      _stprintf(msgstr, _T("%u MB"), (unsigned) (totalmem / SZ1MB)) ;
    else
-      sprintf(msgstr, "%.2f GB", (double) totalmem / SZ1GB) ;
+      _stprintf(msgstr, _T("%.2f GB"), (double) totalmem / SZ1GB) ;
    SetWindowText(hwndTotalMem, msgstr) ;
 
    SetWindowText(hwndUptime, uptime_str) ;
 
    double rxBps = (double) RxBytesPerSec / SampleMsec ;
    if (rxBps < 20000.0) {
-      sprintf(msgstr, "%.1f", rxBps) ;
+      _stprintf(msgstr, _T("%.1f"), rxBps) ;
    } 
    else {
-      sprintf(msgstr, "%.0f", rxBps) ;
+      _stprintf(msgstr, _T("%.0f"), rxBps) ;
    }
    SetWindowText(hwndRxBytes, msgstr) ;
    
    double txBps = (double) TxBytesPerSec / SampleMsec ;
    if (txBps < 1000.0) {
-      sprintf(msgstr, "%.1f", txBps) ;
+      _stprintf(msgstr, _T("%.1f"), txBps) ;
    }
    else {
-      sprintf(msgstr, "%.0f", txBps) ;
+      _stprintf(msgstr, _T("%.0f"), txBps) ;
    }
    SetWindowText(hwndTxBytes, msgstr) ;
 
-   sprintf(msgstr, "%u", (unsigned) (CpuTime + 0.5)) ;
+   _stprintf(msgstr, _T("%u"), (unsigned) (CpuTime + 0.5)) ;
    SetWindowText(hwndCpuTime, msgstr) ;
 }
 
@@ -472,7 +474,7 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
       case WM_MOUSEMOVE:
          break;
       default:
-         syslog("DerBarSC [%X]: [%s]\n", hwnd, lookup_winmsg_name(message)) ;
+         syslog(_T("DerBarSC [%X]: [%s]\n"), hwnd, lookup_winmsg_name(message)) ;
          break;
       }
    }
@@ -525,7 +527,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
    // int result ;
    // static bool show_winmsgs = true ;
    // static bool lbutton_active = false ;
-   char msgstr[81] ;
+   TCHAR msgstr[81] ;
    static bool first_pass_done = false ;
    static bool moving_via_title_bar = false ;
    HDC hdc ;
@@ -544,7 +546,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
          break;
       default:
          // syslog("MON: [%s]\n", get_winmsg_name(result));
-         syslog("DerBar: [%s] %08X\n", lookup_winmsg_name(message), message) ;
+         syslog(_T("DerBar: [%s] %08X\n"), lookup_winmsg_name(message), message) ;
          break;
       }
    }
@@ -552,7 +554,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
    switch (message) {
    // case WM_CREATE:
    case WM_INITDIALOG:
-      wsprintf(msgstr, "DerBar %s", VerNum) ;
+      _stprintf(msgstr, _T("DerBar %s"), VerNum) ; //lint !e719
       SetWindowText(hwnd, msgstr) ;
       hwndMainDialog = hwnd ;
       get_monitor_dimens(hwnd);
@@ -699,7 +701,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       DWORD cmd    = HIWORD(wParam) ;
       DWORD target = LOWORD(wParam) ;
       if (show_winmsgs) {
-         syslog("WM_COMMAND: cmd: %08X, target: %08X\n", cmd, target);
+         syslog(_T("WM_COMMAND: cmd: %08X, target: %08X\n"), cmd, target);
       }
       // If a button is clicked...
       if (cmd == BN_CLICKED) {
@@ -882,7 +884,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 }  //lint !e715
 
 //***********************************************************************
-static BOOL WeAreAlone(LPSTR szName)
+static BOOL WeAreAlone(TCHAR *szName)
 {
    HANDLE hMutex = CreateMutex (NULL, TRUE, szName);
    if (GetLastError() == ERROR_ALREADY_EXISTS)
@@ -895,10 +897,10 @@ static BOOL WeAreAlone(LPSTR szName)
 
 //*********************************************************************
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
-   LPSTR lpszArgument, int nFunsterStil)
+   PSTR lpszArgument, int nFunsterStil)
 {
    if (!WeAreAlone (szClassName)) {
-      MessageBox(NULL, "DerBar is already running!!", "collision", MB_OK | MB_ICONEXCLAMATION) ;
+      MessageBox(NULL, _T("DerBar is already running!!"), _T("collision"), MB_OK | MB_ICONEXCLAMATION) ;
       return 0;
    }
 
@@ -921,7 +923,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
    HWND hwnd = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), NULL, (DLGPROC) WndProc);
    if (hwnd == NULL) {
       // Notified your about the failure
-      syslog("CreateDialog (main): %s [%u]\n", get_system_message(), GetLastError()) ;
+      syslog(_T("CreateDialog (main): %s [%u]\n"), get_system_message(), GetLastError()) ;
       // Set the return value
       return FALSE;
    }

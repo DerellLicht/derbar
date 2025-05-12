@@ -38,6 +38,8 @@
 //    1.22     fixed: Windows could end up with logon entries which were later than current time.
 //             This would result in invalid logon time being displayed.
 //    1.23     Show minimum free memory - analyze low-memory condition status
+//    1.24     Convert to Unicode, for compatibility with current der_libs
 //**************************************************************************************
-#define VerNum    "V1.23"
+#define VerNum    _T("V1.24")
+#define VerNumA    "V1.24"
 

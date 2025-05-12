@@ -1,16 +1,12 @@
 //**********************************************************************
-//  Copyright (c) 2009-2021  Daniel D Miller
-//  derbar.exe - Another WinBar application
-//  derbar.cpp: main interface functions
+//  Copyright (c) 2009-2025  Daniel D Miller
+//  options handler for DerBar application
 //  
 //  Written by:   Daniel D. Miller
 //**********************************************************************
 #include <windows.h>
 #include <time.h>
 #include <tchar.h>
-#ifdef _lint
-#include <stdlib.h>
-#endif
 
 #include "resource.h"
 #include "common.h"
@@ -63,7 +59,7 @@ extern bool isMemoryLow ;
 //*******************************************************************
 static void show_min_free_memory(HWND hwnd)
 {
-   char msgstr[81] ;
+   TCHAR msgstr[81] ;
    u64 min_free_mb = min_freemem / (1024 * 1024);
    convert_to_commas(min_free_mb, msgstr);
    SetWindowText(GetDlgItem(hwnd, IDC_MIN_FREEMEM), msgstr);
@@ -81,7 +77,7 @@ static void reset_low_memory_indicators(HWND hwnd)
 static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
    uint tempEditLength ;
-   char msgstr[81] ;
+   TCHAR msgstr[81] ;
 
    //***************************************************
    //  debug: log all windows messages 
@@ -95,7 +91,7 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
       case WM_NCMOUSEMOVE:
          break;
       default:
-         syslog("Opt [%s]\n", lookup_winmsg_name(msg)) ;
+         syslog(_T("Opt [%s]\n"), lookup_winmsg_name(msg)) ;
          break;
       }
    }
@@ -118,9 +114,9 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
       hwndEditFgnd = GetDlgItem(hwnd, IDC_EDIT_FGND) ;  // EDITTEXT   
       hwndEditBgnd = GetDlgItem(hwnd, IDC_EDIT_BGND) ;  // EDITTEXT   
 
-      wsprintf(msgstr, " 0x%06X", fgnd_edit) ;
+      wsprintf(msgstr, L" 0x%06X", fgnd_edit) ;
       SetWindowText(hwndEditFgnd, msgstr);
-      wsprintf(msgstr, " 0x%06X", bgnd_edit) ;
+      wsprintf(msgstr, L" 0x%06X", bgnd_edit) ;
       SetWindowText(hwndEditBgnd, msgstr);
 
       PostMessage(GetDlgItem(hwnd, IDM_WINMSGS),       BM_SETCHECK, show_winmsgs, 0) ;
@@ -138,7 +134,7 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
    //********************************************************************
    case WM_COMMAND:
       if (HIWORD (wParam) == BN_CLICKED) {
-         char *tptr ;
+         TCHAR *tptr ;
          COLORREF temp_attr ;
          bool changed ;
 
@@ -170,7 +166,7 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
             //  if user cancels color entry, stick with 
             //  existing color selection.
             if (temp_attr != 0) {
-               wsprintf(msgstr, " 0x%06X", temp_attr) ;
+               wsprintf(msgstr, L" 0x%06X", temp_attr) ;
                SetWindowText(hwndEditFgnd, msgstr);
             }
             return TRUE;
@@ -180,7 +176,7 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
             //  if user cancels color entry, stick with 
             //  existing color selection.
             if (temp_attr != 0) {
-               wsprintf(msgstr, " 0x%06X", temp_attr) ;
+               wsprintf(msgstr, L" 0x%06X", temp_attr) ;
                SetWindowText(hwndEditBgnd, msgstr);
             }
             return TRUE;
@@ -191,11 +187,11 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
             GetWindowText (hwndEditFgnd, msgstr, tempEditLength + 1);
             msgstr[tempEditLength] = 0;
             tptr = strip_leading_spaces(msgstr) ;
-            temp_attr = (uint) strtoul(tptr, 0, 0) ;
+            temp_attr = (uint) _tcstoul(tptr, 0, 0) ;
             if (temp_attr != fgnd_edit) {
                fgnd_edit = temp_attr ;
                changed = true ;
-               wsprintf(msgstr, " 0x%06X", fgnd_edit) ;
+               wsprintf(msgstr, L" 0x%06X", fgnd_edit) ;
                SetWindowText(hwndEditFgnd, msgstr);
             }
 
@@ -203,12 +199,12 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
             GetWindowText (hwndEditBgnd, msgstr, tempEditLength + 1);
             msgstr[tempEditLength] = 0;
             tptr = strip_leading_spaces(msgstr) ;
-            temp_attr = (uint) strtoul(tptr, 0, 0) ;
+            temp_attr = (uint) _tcstoul(tptr, 0, 0) ;
             if (temp_attr != fgnd_edit) {
                bgnd_edit = temp_attr ;
                changed = true ;
                hbEdit = CreateSolidBrush(bgnd_edit) ;
-               wsprintf(msgstr, " 0x%06X", bgnd_edit) ;
+               wsprintf(msgstr, L" 0x%06X", bgnd_edit) ;
                SetWindowText(hwndEditBgnd, msgstr);
             }
 

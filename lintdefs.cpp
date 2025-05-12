@@ -18,6 +18,15 @@
 //  case NM_CLICK:
 //lint -e650  Constant '-2' out of range for operator 'case'
 
+//  later C++ constructs that PcLint V9.00L does not support
+//lint -esym(628, std::__is_trivially_copyable, std::__is_base_of)
+//lint -e740   Unusual pointer cast (incompatible indirect types)
+//lint -e1055  Symbol undeclared, assumed to return int (except it *is* declared)
+//lint -e78    Symbol typedef'ed at location unknown used in expression
+//lint -e18    Symbol redeclared conflicts with ... (no, it doesn't)
+//lint -e61    Bad type (no, it isn't)
+//lint -e78
+
 //lint -e731   Boolean argument to equal/not equal
 //lint -e801   Use of goto is deprecated
 //lint -e818   Pointer parameter could be declared as pointing to const

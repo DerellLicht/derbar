@@ -28,16 +28,21 @@
 #include <stdio.h>   //  fopen, etc
 #include <stdlib.h>  //  atoi()
 #include <limits.h>  //  PATH_MAX
+#include <tchar.h>
+
+//lint -esym(746, _wfopen, fgetws)
+//lint -esym(1055, _wfopen, fgetws)
+//lint -e64  Type mismatch (initialization) (struct _iobuf * = int)
 
 #include "common.h"
 #include "derbar.h"
 
 //  system.cpp
-extern void update_iface_flags(char *cfg_str);
+extern void update_iface_flags(TCHAR *cfg_str);
 extern void write_iface_enables(FILE *fd);
 
 //****************************************************************************
-static char ini_name[PATH_MAX+1] = "" ;
+static TCHAR ini_name[PATH_MAX+1] = _T("") ;
 
 uint x_pos = 0 ;
 uint y_pos = 200 ;
@@ -45,9 +50,9 @@ uint tbar_on = 0 ;
 // uint ip_iface_idx = 0 ;  //  0 means read all, otherwise read selected iface
 
 //****************************************************************************
-static void strip_comments(char *bfr)
+static void strip_comments(TCHAR *bfr)
 {
-   char *hd = strchr(bfr, '#') ;
+   TCHAR *hd = _tcschr(bfr, _T('#')) ;
    if (hd != 0)
       *hd = 0 ;
 }
@@ -55,24 +60,24 @@ static void strip_comments(char *bfr)
 //****************************************************************************
 static LRESULT save_default_ini_file(void)
 {
-   FILE *fd = fopen(ini_name, "wt") ;
+   FILE *fd = _tfopen(ini_name, _T("wt")) ;
    if (fd == 0) {
       LRESULT result = (LRESULT) GetLastError() ;
-      syslog("%s open: %s\n", ini_name, get_system_message(result)) ;
+      syslog(_T("%s open: %s\n"), ini_name, get_system_message(result)) ;
       return result;
    }
    //  save any global vars
-   fprintf(fd, "x_pos=%u\n", x_pos) ;
-   fprintf(fd, "y_pos=%u\n", y_pos) ;
-   fprintf(fd, "tbar=%u\n", tbar_on) ;
-   fprintf(fd, "ontop=%u\n", keep_on_top) ;
-   fprintf(fd, "login_uptime=%u\n", use_logon_time_for_uptime) ;
-   fprintf(fd, "uptime_seconds=%u\n", show_seconds_for_uptime) ;
-   fprintf(fd, "editfg=0x%06X\n", (uint) fgnd_edit) ;
-   fprintf(fd, "editbg=0x%06X\n", (uint) bgnd_edit) ;
-   fprintf(fd, "ci_attr=%u\n", ci_attr) ;
-   fprintf(fd, "debug=%u\n", (show_winmsgs) ? 1U : 0U) ;
-   // fprintf(fd, "ip_iface=%u\n", ip_iface_idx) ;
+   _ftprintf(fd, _T("x_pos=%u\n"), x_pos) ;
+   _ftprintf(fd, _T("y_pos=%u\n"), y_pos) ;
+   _ftprintf(fd, _T("tbar=%u\n"), tbar_on) ;
+   _ftprintf(fd, _T("ontop=%u\n"), keep_on_top) ;
+   _ftprintf(fd, _T("login_uptime=%u\n"), use_logon_time_for_uptime) ;
+   _ftprintf(fd, _T("uptime_seconds=%u\n"), show_seconds_for_uptime) ;
+   _ftprintf(fd, _T("editfg=0x%06X\n"), (uint) fgnd_edit) ;
+   _ftprintf(fd, _T("editbg=0x%06X\n"), (uint) bgnd_edit) ;
+   _ftprintf(fd, _T("ci_attr=%u\n"), ci_attr) ;
+   _ftprintf(fd, _T("debug=%u\n"), (show_winmsgs) ? 1U : 0U) ;
+   // _ftprintf(fd, _T("ip_iface=%u\n"), ip_iface_idx) ;
    write_iface_enables(fd) ;
    fclose(fd) ;
    return ERROR_SUCCESS;
@@ -93,64 +98,64 @@ LRESULT save_cfg_file(void)
 //****************************************************************************
 LRESULT read_config_file(void)
 {
-   char inpstr[128] ;
+   TCHAR inpstr[128] ;
    uint uvalue ;
-   LRESULT result = derive_filename_from_exec(ini_name, (char *) ".ini") ;
+   LRESULT result = derive_filename_from_exec(ini_name, (TCHAR *) _T(".ini")) ;
    if (result != 0)
       return result;
 
    if (show_winmsgs) {
-      syslog("ini file: %s\n", ini_name);
+      syslog(_T("ini file: %s\n"), ini_name);
    }
-   FILE *fd = fopen(ini_name, "rt") ;
+   FILE *fd = _tfopen(ini_name, _T("rt")) ;
    if (fd == 0) {
       return save_default_ini_file() ;
    }
 
-   while (fgets(inpstr, sizeof(inpstr), fd) != 0) {
+   while (_fgetts(inpstr, sizeof(inpstr), fd) != 0) {
       strip_comments(inpstr) ;
       strip_newlines(inpstr) ;
-      if (strlen(inpstr) == 0)
+      if (_tcslen(inpstr) == 0)
          continue;
 
-      if (strncmp(inpstr, "x_pos=", 6) == 0) {
+      if (_tcsncmp(inpstr, _T("x_pos="), 6) == 0) {
          // syslog("enabling factory mode\n") ;
-         x_pos = (uint) strtoul(&inpstr[6], 0, 0) ;
+         x_pos = (uint) _tcstoul(&inpstr[6], 0, 0) ;
       } else
-      if (strncmp(inpstr, "y_pos=", 6) == 0) {
-         y_pos = (uint) strtoul(&inpstr[6], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("y_pos="), 6) == 0) {
+         y_pos = (uint) _tcstoul(&inpstr[6], 0, 0) ;
       } else
-      if (strncmp(inpstr, "tbar=", 5) == 0) {
-         tbar_on = (uint) strtoul(&inpstr[5], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("tbar="), 5) == 0) {
+         tbar_on = (uint) _tcstoul(&inpstr[5], 0, 0) ;
       } else
-      if (strncmp(inpstr, "ontop=", 6) == 0) {
-         keep_on_top = (bool) (uint) strtoul(&inpstr[6], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("ontop="), 6) == 0) {
+         keep_on_top = (bool) (uint) _tcstoul(&inpstr[6], 0, 0) ;
       } else
-      if (strncmp(inpstr, "login_uptime=", 13) == 0) {
-         use_logon_time_for_uptime = (bool) (uint) strtoul(&inpstr[13], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("login_uptime="), 13) == 0) {
+         use_logon_time_for_uptime = (bool) (uint) _tcstoul(&inpstr[13], 0, 0) ;
       } else
-      if (strncmp(inpstr, "uptime_seconds=", 15) == 0) {
-         show_seconds_for_uptime = (bool) (uint) strtoul(&inpstr[15], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("uptime_seconds="), 15) == 0) {
+         show_seconds_for_uptime = (bool) (uint) _tcstoul(&inpstr[15], 0, 0) ;
       } else
-      if (strncmp(inpstr, "editfg=", 7) == 0) {
-         fgnd_edit = (uint) strtoul(&inpstr[7], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("editfg="), 7) == 0) {
+         fgnd_edit = (uint) _tcstoul(&inpstr[7], 0, 0) ;
       } else
-      if (strncmp(inpstr, "editbg=", 7) == 0) {
-         bgnd_edit = (uint) strtoul(&inpstr[7], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("editbg="), 7) == 0) {
+         bgnd_edit = (uint) _tcstoul(&inpstr[7], 0, 0) ;
       } else
-      if (strncmp(inpstr, "ci_attr=", 8) == 0) {
-         ci_attr = (uint) strtoul(&inpstr[8], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("ci_attr="), 8) == 0) {
+         ci_attr = (uint) _tcstoul(&inpstr[8], 0, 0) ;
       } else
-      if (strncmp(inpstr, "debug=", 6) == 0) {
-         uvalue = (uint) strtoul(&inpstr[6], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("debug="), 6) == 0) {
+         uvalue = (uint) _tcstoul(&inpstr[6], 0, 0) ;
          show_winmsgs = (uvalue == 0) ? false : true ;
       } else
-      if (strncmp(inpstr, "ip_iface=", 9) == 0) {
-         // ip_iface_idx = (uint) strtoul(&inpstr[9], 0, 0) ;
+      if (_tcsncmp(inpstr, _T("ip_iface="), 9) == 0) {
+         // ip_iface_idx = (uint) _tcstoul(&inpstr[9], 0, 0) ;
          update_iface_flags(&inpstr[9]) ;
       } else
       {
-         syslog("unknown: [%s]\n", inpstr) ;
+         syslog(_T("unknown: [%s]\n"), inpstr) ;
       }
    }
    return 0;

@@ -14,13 +14,15 @@
 #include <windows.h>
 #include <stdio.h>   //  for sprintf, for %f support
 #include <time.h>
+#include <tchar.h>
 #include <iphlpapi.h>
 #include <pdh.h>
-#ifdef _lint
-#include <stdlib.h>  //  atoi()
-#endif
+// #ifdef _lint
+// #include <stdlib.h>  //  atoi()
+// #endif
 
 #include "common.h"
+#include "commonw.h"
 #include "derbar.h"
 #include "ip_iface.h"
 #include "PdhMsg.h"
@@ -84,7 +86,7 @@ static int build_IPAddress_table(void)
    if (dwRet != ERROR_INSUFFICIENT_BUFFER) {
       return dwRet;
    }
-   pIpAddrTable = (PMIB_IPADDRTABLE) new char[dwSize];   //lint !e433 !e826
+   pIpAddrTable = (PMIB_IPADDRTABLE) new TCHAR[dwSize];   //lint !e433 !e826
    if (pIpAddrTable == NULL) {
       return ERROR_NOT_ENOUGH_MEMORY;
    }
@@ -98,7 +100,7 @@ static int build_IPAddress_table(void)
    // printf("Number of IP address entries: %u\n", (unsigned) pIpAddrTable->dwNumEntries) ;
    for (DWORD dwLoopIndex = 0; dwLoopIndex < pIpAddrTable->dwNumEntries; dwLoopIndex++) {
       ip_iface_entry_p iptr = new ip_iface_entry_t ;
-      ZeroMemory((char *) iptr, sizeof(ip_iface_entry_t)) ;
+      ZeroMemory((TCHAR *) iptr, sizeof(ip_iface_entry_t)) ;
       iptr->dwAddr      = pIpAddrTable->table[dwLoopIndex].dwAddr      ;
       iptr->dwIndex     = pIpAddrTable->table[dwLoopIndex].dwIndex     ;
       iptr->dwMask      = pIpAddrTable->table[dwLoopIndex].dwMask      ;
@@ -111,7 +113,7 @@ static int build_IPAddress_table(void)
          itable_tail->next = iptr ;
       itable_tail = iptr ;
 
-      // syslog("Adding index %u: 0x%08X\n", iptr->dwIndex, iptr->dwAddr) ;
+      // syslog(_T("Adding index %u: 0x%08X\n"), iptr->dwIndex, iptr->dwAddr) ;
    }
    puts("") ;
 
@@ -145,19 +147,24 @@ static void build_iface_table(void)
    // uint cbox_row = 1 ;
    uint lview_row = 0 ;
    for (iptr = itable_top; iptr != NULL; iptr = iptr->next) {
-      // syslog("found index %u: %s\n", iptr->dwIndex, iptr->ipaddr_str) ;
+      // syslog(_T("found index %u: %s\n"), iptr->dwIndex, iptr->ipaddr_str) ;
       PMIB_IFROW pIfRow = get_iface_entry(iptr->dwIndex) ;
       if (pIfRow != NULL) {
          ul2uc_t uconv ;
          uconv.ul = iptr->dwAddr ;
-         sprintf(iptr->ipaddr_str, "%u.%u.%u.%u", 
+         _stprintf(iptr->ipaddr_str, _T("%u.%u.%u.%u"), 
            (u8) uconv.uc[0], (u8) uconv.uc[1], (u8) uconv.uc[2], (u8) uconv.uc[3]) ;
-         // syslog("found index %u: %s\n", iptr->dwIndex, iptr->ipaddr_str) ;
+         // syslog(_T("found index %u: %s\n"), iptr->dwIndex, iptr->ipaddr_str) ;
 
          // WideCharToMultiByte(CP_ACP, 0, pIfRow->wszName, -1, SomeAsciiStr, MAX_INTERFACE_NAME_LEN, NULL, NULL);
-         // printf("Index[%u]:  %s\n", (unsigned) pIfRow->dwIndex, (char *) SomeAsciiStr);
-         memcpy(iptr->iface_name, pIfRow->bDescr, pIfRow->dwDescrLen) ;
-         iptr->iface_name[pIfRow->dwDescrLen] = 0 ;
+         // printf("Index[%u]:  %s\n", (unsigned) pIfRow->dwIndex, (TCHAR *) SomeAsciiStr);
+         // memcpy(iptr->iface_name, pIfRow->bDescr, pIfRow->dwDescrLen) ;
+         // iptr->iface_name[pIfRow->dwDescrLen] = 0 ;
+         // \DEVICE\TCPIP_{E0EC89D8-2A3A-11EB-BA6E-806E6F6E6963}
+         // \DEVICE\TCPIP_{D029C36D-06CF-4093-A60C-D7DF971E87D7}
+         // \DEVICE\TCPIP_{6FA7BCC6-6B01-4D83-8B5A-CB85A1B0B6B8}
+         // WCHAR *ascii2unicode(pIfRow->bDescr, pIfRow->dwDescrLen)
+         _tcscpy(iptr->iface_name, ascii2unicode((char *)pIfRow->bDescr, pIfRow->dwDescrLen)) ;
          // iptr->cbox_row = cbox_row++ ;
          iptr->lview_row = lview_row++ ;
 
@@ -167,9 +174,9 @@ static void build_iface_table(void)
 }
 
 //***********************************************************************
-static void enable_if_row(char *cfg_str)
+static void enable_if_row(TCHAR *cfg_str)
 {
-   uint idx = (unsigned) atoi(cfg_str) ;
+   uint idx = (unsigned) _ttoi(cfg_str) ;
    for (ip_iface_entry_p iptr = itable_top; iptr != NULL; iptr = iptr->next) {
       if (iptr->lview_row == idx) {
          iptr->if_active = true ;
@@ -186,14 +193,14 @@ static void disable_all_ifaces(void)
 }
 
 //***********************************************************************
-void update_iface_flags(char *cfg_str)
+void update_iface_flags(TCHAR *cfg_str)
 {
    disable_all_ifaces() ;
    while (LOOP_FOREVER) {
       if (cfg_str == 0)
          break;
       enable_if_row(cfg_str) ;
-      char *tl = strchr(cfg_str, ',') ;
+      TCHAR *tl = _tcschr(cfg_str, _T(',')) ;
       if (tl == NULL)
          break;
       cfg_str = tl+1 ;
@@ -203,17 +210,18 @@ void update_iface_flags(char *cfg_str)
 //***********************************************************************
 void write_iface_enables(FILE *fd)
 {
-   char bfr[81] ;
+   TCHAR bfr[81] ;
    int slen = 0 ;
    for (ip_iface_entry_p iptr = itable_top; iptr != NULL; iptr = iptr->next) {
       if (iptr->if_active) {
          if (slen > 0) 
-            slen += wsprintf(bfr+slen, ",") ;
-         slen += wsprintf(bfr+slen, "%u", iptr->lview_row) ;
+            slen += wsprintf(bfr+slen, L",") ;
+         slen += wsprintf(bfr+slen, L"%u", iptr->lview_row) ;
       }
    }
-   if (slen > 0)
-      fprintf(fd, "ip_iface=%s\n", bfr) ;
+   if (slen > 0) {
+      _ftprintf(fd, _T("ip_iface=%s\n"), bfr) ; //lint !e559
+   }
 }
 
 //***********************************************************************
@@ -258,7 +266,7 @@ void update_iface_counters(void)
          iptr->dwInErrors  = pIfRow->dwInErrors ;
          iptr->dwOutErrors = pIfRow->dwOutErrors ;
 
-         // syslog("[%u/%u] %s\n", iptr->dwInOctets, iptr->dwOutOctets, iptr->iface_name) ;
+         // syslog(_T("[%u/%u] %s\n"), iptr->dwInOctets, iptr->dwOutOctets, iptr->iface_name) ;
          rxb += pIfRow->dwInOctets ;
          txb += pIfRow->dwOutOctets ;
 
@@ -313,13 +321,13 @@ void cpu_usage_setup(void)
    PDH_STATUS presult ;
    presult = PdhOpenQuery(NULL, 0, &hQuery);
    if (presult != ERROR_SUCCESS) {
-      syslog("PdhOpenQuery: 0x%08X\n", (uint) presult) ;
+      syslog(_T("PdhOpenQuery: 0x%08X\n"), (uint) presult) ;
       return ;
    }
 
-   presult = PdhAddCounter(hQuery, "\\Processor(_Total)\\% Processor Time", 0, &hCounter);
+   presult = PdhAddCounter(hQuery, _T("\\Processor(_Total)\\% Processor Time"), 0, &hCounter);
    if (presult != ERROR_SUCCESS) {
-      syslog("PdhAddCounter: 0x%08X\n", (uint) presult) ;
+      syslog(_T("PdhAddCounter: 0x%08X\n"), (uint) presult) ;
       return ;
    }
 }
@@ -331,7 +339,7 @@ double cpu_usage_report(void)
    static bool first_query_done = false ;
    PDH_STATUS presult = PdhCollectQueryData(hQuery);
    if (presult != ERROR_SUCCESS) {
-      syslog("PdhCollectQueryData1: 0x%08X\n", (uint) presult) ;
+      syslog(_T("PdhCollectQueryData1: 0x%08X\n"), (uint) presult) ;
       return 0.0 ;
    }
    //  this returns PDH_INVALID_DATA: 
@@ -363,7 +371,7 @@ double cpu_usage_report(void)
    presult = PdhGetFormattedCounterValue(hCounter, PDH_FMT_DOUBLE | PDH_FMT_NOCAP100, NULL, &FmtValue);
    if (presult != ERROR_SUCCESS) {
       if ((uint) presult != PDH_CALC_NEGATIVE_DENOMINATOR)
-         syslog("PdhGetFormattedCounterValue: 0x%08X\n", (uint) presult) ;
+         syslog(_T("PdhGetFormattedCounterValue: 0x%08X\n"), (uint) presult) ;
       return 0.0 ;
    }
    // printf("The cpu usage is : %f%%\n", FmtValue.doubleValue);

@@ -59,6 +59,7 @@
 
 #include <windows.h>
 #include <commctrl.h>
+#include <tchar.h>
 
 #include "common.h"
 #include "derbar.h"
@@ -130,22 +131,22 @@ unsigned select_color(COLORREF orig_attr)
 //***************************************************************************
 void reset_icon_colors(bool my_select_color)
 {
-   HWND hwnd = FindWindow("Progman", "Program Manager");
+   HWND hwnd = FindWindow(L"Progman", L"Program Manager");
    if ( hwnd == NULL ) {
-      syslog("FindWindow failed\n") ;
+      syslog(L"FindWindow failed\n") ;
       return;
    }
-   hwnd = FindWindowEx(hwnd, NULL, "SHELLDLL_DefView", "");
+   hwnd = FindWindowEx(hwnd, NULL, L"SHELLDLL_DefView", L"");
    if ( hwnd == NULL ) {
-      syslog("FindWindowEx SHELLDLL_DefView failed\n") ;
+      syslog(L"FindWindowEx SHELLDLL_DefView failed\n") ;
       return;
    }
-   hwnd = FindWindowEx(hwnd, NULL, "SysListView32", NULL);
+   hwnd = FindWindowEx(hwnd, NULL, L"SysListView32", NULL);
    if ( hwnd == NULL ) {
       //  Under WinXP:
       //  FindWindowEx SysListView32: 
       //    Cannot create a file when that file already exists.
-      syslog("FindWindowEx SysListView32: %s\n", get_system_message()) ;
+      syslog(L"FindWindowEx SysListView32: %s\n", get_system_message()) ;
       return;
    }
       

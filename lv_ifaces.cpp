@@ -31,31 +31,6 @@
 #include "images.h"
 #include "ip_iface.h"
 
-//  constants requiring specific values of _WIN32_IE 
-#ifndef _WIN64
-#define LVM_SETEXTENDEDLISTVIEWSTYLE   (LVM_FIRST+54)
-#define LVS_EX_GRIDLINES               1
-#define LVS_EX_SUBITEMIMAGES           2
-#define LVM_SUBITEMHITTEST (LVM_FIRST+57)
-
-//lint -esym(751, NMITEMACTIVATE)
-//lint -esym(754, tagNMITEMACTIVATE::hdr, tagNMITEMACTIVATE::iItem, tagNMITEMACTIVATE::iSubItem)
-//lint -esym(754, tagNMITEMACTIVATE::uNewState, tagNMITEMACTIVATE::uOldState)
-//lint -esym(754, tagNMITEMACTIVATE::uChanged, tagNMITEMACTIVATE::lParam, tagNMITEMACTIVATE::uKeyFlags)
-
-typedef struct tagNMITEMACTIVATE {
-   NMHDR hdr;
-   int iItem;
-   int iSubItem;
-   UINT uNewState;
-   UINT uOldState;
-   UINT uChanged;
-   POINT ptAction;
-   LPARAM lParam;
-   UINT uKeyFlags;
-} NMITEMACTIVATE, *LPNMITEMACTIVATE;
-#endif
-
 //  images.cpp
 extern HIMAGELIST get_image_list(void) ;
 
@@ -212,7 +187,7 @@ static void lv_add_data(void)
                     ? LED_IDX_GREEN
                     : LED_IDX_OFF ;
 
-      wsprintf(msgstr, " %u", curr_rows);
+      wsprintf(msgstr, L" %u", curr_rows);
       LvItem.pszText = msgstr ;
       SendMessage(hwndLVtop, LVM_INSERTITEM, 0, (LPARAM) &LvItem);  // Send to the Listview
 
@@ -332,7 +307,7 @@ static DWORD WINAPI IfaceThread(LPVOID iValue)
    HWND hwnd = CreateDialog(g_hinst, MAKEINTRESOURCE(IDD_LV_IFACES), 
       NULL, IfaceListProc) ;
    if (hwnd == NULL) {
-      syslog("CreateDialog: %s\n", get_system_message()) ;
+      syslog(L"CreateDialog: %s\n", get_system_message()) ;
       return 0;
    }
    MSG Msg;
@@ -356,7 +331,7 @@ void spawn_ifaces_lview(HWND hwnd)
    lv_running = true ;
    lv_thread = CreateThread(NULL, 0, IfaceThread, (VOID *) 0, 0, &dwRxThread);
    if(lv_thread == NULL) {
-      syslog("CreateThread: %s\n", get_system_message()) ;
+      syslog(L"CreateThread: %s\n", get_system_message()) ;
    }
 }  //lint !e715
 

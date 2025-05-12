@@ -161,8 +161,8 @@ FONT 10, "Times New Roman"
 BEGIN
     ICON            IDI_MAINICON,IDC_STATIC,9,12
     LTEXT           "DerBar System Monitor",IDC_STATIC,        36,15, 75,12
-    LTEXT           VerNum,IDC_VERNUM,                        111,15, 50,12
-    LTEXT           "Copyright (c) 2008-2024",IDC_STATIC,      36,28,100,12
+    LTEXT           VerNumA,IDC_VERNUM,                        111,15, 50,12
+    LTEXT           "Copyright (c) 2008-2025",IDC_STATIC,      36,28,100,12
     LTEXT           "Daniel D Miller",IDC_STATIC,              36,41,100,12
     // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
     LTEXT           "http://derelllicht.42web.io/DerBar.html",IDC_WEBLINK,  36,54,140,12
@@ -194,12 +194,12 @@ BEGIN
             VALUE "Comments", "DerBar - Windows performance monitor."
             VALUE "CompanyName", "Cathartes Aura"
             VALUE "FileDescription", "DerBar Windows performance monitor"
-            VALUE "FileVersion", VerNum
+            VALUE "FileVersion", VerNumA
             VALUE "InternalName", "DerBar"
-            VALUE "LegalCopyright", "Copyright © 2008-2024"
+            VALUE "LegalCopyright", "Copyright © 2008-2025"
             VALUE "OriginalFilename", "DerBar.exe"
             VALUE "ProductName", "DerBar Windows performance monitor"
-            VALUE "ProductVersion", VerNum
+            VALUE "ProductVersion", VerNumA
         END
     END
     BLOCK "VarFileInfo"

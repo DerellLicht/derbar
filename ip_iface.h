@@ -35,8 +35,8 @@ typedef struct ip_iface_entry_s {
    DWORD dwInErrors ;
    DWORD dwOutErrors ;
 
-   char  iface_name[MAX_INTERFACE_NAME_LEN+1] ;  //  256 bytes under Vista
-   char  ipaddr_str[16] ;
+   TCHAR  iface_name[MAX_INTERFACE_NAME_LEN+1] ;  //  256 bytes under Vista
+   TCHAR  ipaddr_str[16] ;
    // uint  cbox_row ;
 
    //  listview data (will probably supercede cbox_row)

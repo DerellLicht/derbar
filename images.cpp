@@ -1,50 +1,32 @@
 //****************************************************************************
-//  Copyright (c) 2009-2017  Daniel D Miller
+//  Copyright (c) 2009-2025  Daniel D Miller
 //  images.cpp - handle ImageList functions for LED bitmaps
 //
 //  Produced and Directed by:  Dan Miller
 //****************************************************************************
 #include <windows.h>
+// #include <vector>
 #include <commctrl.h>
+#include <tchar.h>
 
 #include "resource.h"
-#include "images.h"
 #include "common.h"
+#include "images.h"
 #include "derbar.h"
 
 //  led-image data
 static HIMAGELIST hiSpriteList = 0 ;
 static HICON hiLeds[6] = { 0, 0, 0, 0, 0, 0 } ;
-static int image_height = 0 ;
-static int el_width = 0 ;
-
-//****************************************************************************
-// HWND resize_led_control(HWND hwnd, unsigned ctrl_id)
-// {
-//    HWND hwndBmp = GetDlgItem(hwnd, ctrl_id) ;
-//    SetWindowPos(hwndBmp, NULL, 0, 0, el_width, image_height, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE);
-//    draw_led(hwndBmp, LED_IDX_OFF) ;
-//    return hwndBmp ;
-// }
-
-//****************************************************************************
-// HWND resize_led_control(HWND hwnd, unsigned ctrl_id, bool indicator_active)
-// {
-//    HWND hwndBmp = GetDlgItem(hwnd, ctrl_id) ;
-//    SetWindowPos(hwndBmp, NULL, 0, 0, el_width, image_height, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE);
-//    if (indicator_active) 
-//       draw_led(hwndBmp, LED_IDX_GREEN) ;
-//    else
-//       draw_led(hwndBmp, LED_IDX_OFF) ;
-//    return hwndBmp ;
-// }
+// static std::vector<HICON> hiLeds { 0, 0, 0, 0, 0, 0 } ;
 
 //****************************************************************************
 bool load_led_images(void)
 {
+   int image_height = 0 ;
+   int el_width = 0 ;
    hiSpriteList = ImageList_LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDC_LEDBMPS), image_height, 0, CLR_DEFAULT, IMAGE_BITMAP, LR_CREATEDIBSECTION) ;
    if (hiSpriteList == NULL) {
-      syslog("ImageList_LoadBitmap: %s\n", get_system_message()) ;
+      syslog(L"ImageList_LoadBitmap: %s\n", get_system_message()) ;
       return false;
    }
    ImageList_GetIconSize(hiSpriteList, &el_width, &image_height) ;
@@ -52,7 +34,7 @@ bool load_led_images(void)
    for (unsigned idx=0; idx<6; idx++) {
       hiLeds[idx] = ImageList_ExtractIcon(NULL, hiSpriteList, idx) ;
       if (hiLeds[idx] == NULL) {
-         syslog("ImageList_ExtractIcon: %s\n", get_system_message()) ;
+         syslog(L"ImageList_ExtractIcon: %s\n", get_system_message()) ;
       }
    }
 

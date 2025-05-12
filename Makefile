@@ -1,7 +1,7 @@
 #  SHELL=cmd.exe
 USE_DEBUG = NO
 USE_64BIT = NO
-USE_UNICODE = NO
+USE_UNICODE = YES
 
 # Note about 64-bit mingw/tdm builds:
 # Working include files are in:
@@ -13,7 +13,7 @@ USE_UNICODE = NO
 ifeq ($(USE_64BIT),YES)
 TOOLS=d:\tdm64\bin
 else
-TOOLS=c:\mingw\bin
+TOOLS=c:\tdm32\bin
 endif
 
 ifeq ($(USE_DEBUG),YES)
@@ -29,6 +29,7 @@ LiFLAGS += -Ider_libs
 
 ifeq ($(USE_UNICODE),YES)
 CFLAGS += -DUNICODE -D_UNICODE
+LiFLAGS += -dUNICODE -d_UNICODE
 endif
 
 ifeq ($(USE_64BIT),YES)
@@ -38,6 +39,7 @@ endif
 CPPSRC=derbar.cpp login_lsa.cpp config.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp ClearIcon.cpp \
 der_libs/common_funcs.cpp \
+der_libs/common_win.cpp \
 der_libs/hyperlinks.cpp \
 der_libs/winmsgs.cpp \
 der_libs/systray.cpp \
@@ -48,7 +50,7 @@ OBJS = $(CPPSRC:.cpp=.o) rc.o
 BINS=derbar.exe
 
 %.o: %.cpp
-	g++ $(CFLAGS) -Weffc++ -c $< -o $@
+	$(TOOLS)\g++ $(CFLAGS) -Weffc++ -c $< -o $@
 
 #**************************************************************
 #  generic build rules
@@ -94,6 +96,7 @@ lv_ifaces.o: resource.h derbar.h images.h ip_iface.h
 images.o: resource.h images.h derbar.h
 ClearIcon.o: derbar.h
 der_libs/common_funcs.o: der_libs/common.h
+der_libs/common_win.o: der_libs/common.h der_libs/commonw.h
 der_libs/hyperlinks.o: der_libs/iface_32_64.h der_libs/hyperlinks.h
 der_libs/systray.o: der_libs/common.h der_libs/systray.h
 der_libs/tooltips.o: der_libs/iface_32_64.h der_libs/common.h

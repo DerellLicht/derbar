@@ -20,6 +20,7 @@
 -----------------------------------------------------------------------------*/
 
 #include <windows.h>
+#include <tchar.h>
 
 #include "resource.h"
 #include "version.h"
@@ -57,7 +58,7 @@ static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LP
    case WM_COMMAND:
       switch (LOWORD(wparam)) {
       case IDC_WEBLINK:
-         ShellExecute(hdlg, "open", "http://derelllicht.42web.io/DerBar.html", "", "", SW_SHOW);
+         ShellExecute(hdlg, _T("open"), _T("http://derelllicht.42web.io/DerBar.html"), _T(""), _T(""), SW_SHOW);
          return TRUE;
          
       case IDOK:
