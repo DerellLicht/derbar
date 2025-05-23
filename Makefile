@@ -66,6 +66,9 @@ depend:
 wc:
 	wc -l $(CPPSRC) *.rc
 
+check:
+	d:\apps\cppcheck\cppcheck.exe --check-level=exhaustive $(CPPSRC)	
+
 lint:
 	cmd /C "c:\lint9\lint-nt +v -width(160,4) $(LiFLAGS) +fcp -ic:\lint9 mingw.lnt -os(_lint.tmp) lintdefs.cpp *.rc $(CPPSRC)"
 
