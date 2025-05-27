@@ -39,6 +39,9 @@ endif
 #  clang-tidy options
 CHFLAGS = -header-filter=.*
 CHTAIL = -- -Ider_libs
+ifeq ($(USE_64BIT),YES)
+CHTAIL += -DUSE_64BIT
+endif
 ifeq ($(USE_UNICODE),YES)
 CHTAIL += -DUNICODE -D_UNICODE
 endif
