@@ -38,7 +38,11 @@ endif
 
 #  clang-tidy options
 CHFLAGS = -header-filter=.*
-CHTAIL = -- -Ider_libs -DUNICODE -D_UNICODE
+CHTAIL = -- -Ider_libs
+ifeq ($(USE_UNICODE),YES)
+CHTAIL += -DUNICODE -D_UNICODE
+endif
+
 
 CPPSRC=derbar.cpp login_lsa.cpp config.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp ClearIcon.cpp \
