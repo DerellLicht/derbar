@@ -350,7 +350,8 @@ static void update_uptime(void)
    }
       
    if (show_seconds_for_uptime) {
-      slen += wsprintf(&uptime_str[slen], _T(" %us"), secs) ;
+      // slen += 
+      wsprintf(&uptime_str[slen], _T(" %us"), secs) ;
    }
 }
 
