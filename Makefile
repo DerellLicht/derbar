@@ -46,7 +46,6 @@ ifeq ($(USE_UNICODE),YES)
 CHTAIL += -DUNICODE -D_UNICODE
 endif
 
-
 CPPSRC=derbar.cpp login_lsa.cpp config.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp ClearIcon.cpp \
 der_libs/common_funcs.cpp \
