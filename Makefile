@@ -36,7 +36,9 @@ ifeq ($(USE_64BIT),YES)
 CFLAGS += -DUSE_64BIT
 endif
 
+#  clang-tidy options
 CHFLAGS = -header-filter=.*
+CHTAIL = -- -Ider_libs -DUNICODE -D_UNICODE
 
 CPPSRC=derbar.cpp login_lsa.cpp config.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp ClearIcon.cpp \
@@ -69,7 +71,7 @@ wc:
 	wc -l $(CPPSRC) *.rc
 
 check:
-	cmd /C "d:\clang\bin\clang-tidy.exe $(CHFLAGS) $(CPPSRC) -- -Ider_libs -DUNICODE -D_UNICODE"
+	cmd /C "d:\clang\bin\clang-tidy.exe $(CHFLAGS) $(CPPSRC) $(CHTAIL)"
 
 lint:
 	cmd /C "c:\lint9\lint-nt +v -width(160,4) $(LiFLAGS) +fcp -ic:\lint9 mingw.lnt -os(_lint.tmp) lintdefs.cpp *.rc $(CPPSRC)"
