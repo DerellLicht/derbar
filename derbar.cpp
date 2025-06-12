@@ -126,13 +126,6 @@ static tooltip_data const main_tooltips[] = {
 { IDC_KBD_CAPS, _T("Show/toggle CapsLock state" )},
 { IDC_KBD_NUM , _T("Show/toggle NumLock state" )},
 { IDC_KBD_SCRL, _T("Show/toggle ScrollLock state" )},
-
-
-//  This is how to enter multi-line tooltips:
-// { IDS_CP_SERNUM,     _T("The SEND CMD button will send COMMAND to the device with")
-//                      _T("this Serial Number.  If Serial Number is 0, COMMAND is sent ")
-//                      _T("to the broadcast address on the current port.") },
-
 { 0, NULL }} ;
 
 //*******************************************************************
