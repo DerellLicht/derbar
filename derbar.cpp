@@ -109,7 +109,7 @@ static HWND hwndKbdScrl ;
 //****************************************************************************
 //  Main dialog tooltips
 //****************************************************************************
-static tooltip_data_t const main_tooltips[] = {
+static tooltip_data const main_tooltips[] = {
 { IDS_MEMORY,   _T("Show Memory info" )},
 { IDS_FREEMEM,  _T("Show Free Memory" )},
 { IDC_FREEMEM,  _T("Show Free Memory" )},

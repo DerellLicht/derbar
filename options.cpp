@@ -27,7 +27,7 @@ extern void update_keep_on_top(void);
 //****************************************************************************
 //  Options dialog tooltips
 //****************************************************************************
-static tooltip_data_t const options_tooltips[] = {
+static tooltip_data const options_tooltips[] = {
 { IDS_CLR_FGND,      _T("Select foreground color of data fields")},
 { IDC_EDIT_FGND,     _T("Select foreground color of data fields")},
 { IDC_CLR_FGND,      _T("View color selector for foreground color" )},

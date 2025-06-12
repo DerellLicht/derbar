@@ -13,7 +13,7 @@ USE_UNICODE = YES
 ifeq ($(USE_64BIT),YES)
 TOOLS=d:\tdm64\bin
 else
-TOOLS=c:\tdm32\bin
+TOOLS=d:\tdm32\bin
 endif
 
 ifeq ($(USE_DEBUG),YES)
