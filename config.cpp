@@ -27,7 +27,6 @@
 #include <windows.h>
 #include <stdio.h>   //  fopen, etc
 #include <stdlib.h>  //  atoi()
-#include <limits.h>  //  PATH_MAX
 #include <tchar.h>
 
 //lint -esym(746, _wfopen, fgetws)
@@ -42,7 +41,7 @@ extern void update_iface_flags(TCHAR *cfg_str);
 extern void write_iface_enables(FILE *fd);
 
 //****************************************************************************
-static TCHAR ini_name[PATH_MAX+1] = _T("") ;
+static TCHAR ini_name[MAX_PATH_LEN+1] = _T("") ;
 
 uint x_pos = 0 ;
 uint y_pos = 200 ;
