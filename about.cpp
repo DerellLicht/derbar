@@ -20,7 +20,7 @@
 -----------------------------------------------------------------------------*/
 
 #include <windows.h>
-#include <tchar.h>
+#include <tchar.h>   //  required for version.h
 
 #include "resource.h"
 #include "version.h"
@@ -49,6 +49,9 @@ HISTORY:    Date:      Author:     Comment:
 //static BOOL CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LPARAM lparam)
 static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LPARAM lparam)
 {
+#define  BUF_LEN  255
+   wchar_t buf[BUF_LEN+1];
+   
    switch(uMessage) {
    case WM_INITDIALOG:
       SetWindowText(GetDlgItem(hdlg, IDC_VERNUM), VerNum) ;
@@ -58,7 +61,9 @@ static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LP
    case WM_COMMAND:
       switch (LOWORD(wparam)) {
       case IDC_WEBLINK:
-         ShellExecute(hdlg, _T("open"), _T("http://derelllicht.42web.io/DerBar.html"), _T(""), _T(""), SW_SHOW);
+         // ShellExecute(hdlg, _T("open"), _T("http://derelllicht.42web.io/DerBar.html"), _T(""), _T(""), SW_SHOW);
+         GetDlgItemText(hdlg, IDC_WEBLINK, buf, BUF_LEN);
+         ShellExecute(hdlg, L"open", buf, L"", L"", SW_SHOW);
          return TRUE;
          
       case IDOK:
