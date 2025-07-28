@@ -61,8 +61,7 @@ static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LP
    case WM_COMMAND:
       switch (LOWORD(wparam)) {
       case IDC_WEBLINK:
-         // ShellExecute(hdlg, _T("open"), _T("http://derelllicht.42web.io/DerBar.html"), _T(""), _T(""), SW_SHOW);
-         GetDlgItemText(hdlg, IDC_WEBLINK, buf, BUF_LEN);
+         GetDlgItemText(hdlg, LOWORD(wparam), buf, BUF_LEN);
          ShellExecute(hdlg, L"open", buf, L"", L"", SW_SHOW);
          return TRUE;
          
