@@ -1,5 +1,5 @@
 //**************************************************************************************
-//  Copyright (c) 2009-2023  Daniel D Miller
+//  Copyright (c) 2009-2025  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  
 //  DerBar, its source code and executables, are Copyrighted in their
@@ -18,9 +18,6 @@
 //  
 //  Written by:   Daniel D. Miller
 //**************************************************************************************
-
-//lint -esym(767, _WIN32_WINNT)
-#define _WIN32_WINNT 0x0500
 
 #include <windows.h>
 #include <stdio.h>   //  for sprintf, for %f support
