@@ -1,5 +1,5 @@
 //**********************************************************************
-//  Copyright (c) 2009-2022  Daniel D Miller
+//  Copyright (c) 2009-2025  Daniel D Miller
 //  derbar.exe - Another WinBar application
 //  derbar.h: global declarations
 //  
@@ -11,6 +11,7 @@ extern HINSTANCE g_hinst ;
 extern HBRUSH hbEdit ;
 extern COLORREF fgnd_edit ;
 extern COLORREF bgnd_edit ;
+extern COLORREF fgnd_static ;
 
 //  config.cpp
 extern uint x_pos ;

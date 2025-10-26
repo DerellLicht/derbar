@@ -39,6 +39,8 @@
 
 //lint -e592  Non-literal format specifier used without arguments
 
+//lint -esym(844, hwndSFree, hwndSCPU, hwndSMem, hwndSRX, hwndSTX, hwndSTotal, hwndSUpTime)
+
 #define  USE_TIMER_TEST
 
 #define  USE_CPU_UTIL   1
@@ -70,9 +72,13 @@ time_t get_logon_time(void);
 
 //  dialog color settings    0Oo 1lIi|  
 static HBRUSH hbLogo = 0 ;
+static HBRUSH hbStatic = 0 ;
 HBRUSH hbEdit = 0 ;
-COLORREF fgnd_edit = WIN_BGREEN ;
-COLORREF bgnd_edit = WIN_GREY ;
+
+COLORREF fgnd_edit   = WIN_BGREEN ;
+COLORREF bgnd_edit   = WIN_GREY ;
+COLORREF fgnd_static = WIN_BLACK ;
+static COLORREF bgnd_static = WIN_GREEN ;
 
 //********************************************************
 static const unsigned SZ1GB = (unsigned) (1024 * 1024 * 1024) ;
@@ -92,6 +98,7 @@ bool isMemoryLow = false ;
 
 //  definitions for dialog controls
 //lint -esym(844, hwndDerBar)
+static HWND hwndMainDialog = 0 ;
 static HWND hwndDerBar ;
 static HWND hwndFreeMem ;
 static HWND hwndTotalMem ;
@@ -100,7 +107,13 @@ static HWND hwndSUptime ;
 static HWND hwndRxBytes ;
 static HWND hwndTxBytes ;
 static HWND hwndCpuTime ;
-static HWND hwndMainDialog = 0 ;
+static HWND hwndSMem    = NULL ;
+static HWND hwndSFree   = NULL ;
+static HWND hwndSTotal  = NULL ;
+static HWND hwndSUpTime = NULL ;
+static HWND hwndSRX     = NULL ;
+static HWND hwndSTX     = NULL ;
+static HWND hwndSCPU    = NULL ;
 
 static HWND hwndKbdCaps ;
 static HWND hwndKbdNum  ;
@@ -570,7 +583,26 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       hwndKbdCaps  = GetDlgItem(hwnd, IDC_KBD_CAPS) ;
       hwndKbdNum   = GetDlgItem(hwnd, IDC_KBD_NUM ) ;
       hwndKbdScrl  = GetDlgItem(hwnd, IDC_KBD_SCRL) ;
+      
+      //  static controls
+      hwndSMem    = GetDlgItem(hwnd, IDS_MEMORY) ;
+      hwndSFree   = GetDlgItem(hwnd, IDS_FREEMEM) ;
+      hwndSTotal  = GetDlgItem(hwnd, IDS_TOTALMEM) ;
+      hwndSUpTime = GetDlgItem(hwnd, IDS_UPTIME) ;
+      hwndSRX     = GetDlgItem(hwnd, IDS_RXBYTES) ;
+      hwndSTX     = GetDlgItem(hwnd, IDS_TXBYTES) ;
+      hwndSCPU    = GetDlgItem(hwnd, IDS_CPUTIME) ;
 
+      // fgnd_static = GetSysColor(COLOR_WINDOWTEXT) ;
+      bgnd_static = GetSysColor(COLOR_3DFACE) ;
+
+      // LTEXT           "Mem:",      IDS_MEMORY,    40, Y0, 20,  9,SS_NOTIFY
+      // LTEXT           "Free",      IDS_FREEMEM,   64, Y0, 16,  9,SS_NOTIFY
+      // LTEXT           "Total",     IDS_TOTALMEM, 118, Y0, 20,  9,SS_NOTIFY
+      // LTEXT           "Uptime:",   IDS_UPTIME,   181, Y0, 25,  9,SS_NOTIFY
+      // LTEXT           "RX:",       IDS_RXBYTES,  273, Y0, 12,  9,SS_NOTIFY
+      // LTEXT           "TX:",       IDS_TXBYTES,  321, Y0, 12,  9,SS_NOTIFY
+      // LTEXT           "CPU:",      IDS_CPUTIME,  373, Y0, 18,  9,SS_NOTIFY
 
       //  Subclass the existing key-state controls, 
       //  to allow toggling their states
@@ -746,6 +778,20 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
             hbLogo = CreateSolidBrush(WIN_BLUE) ;
          return (LRESULT) hbLogo ;   // hilight colour
       } 
+      if ((HWND) lParam == hwndSMem    ||
+          (HWND) lParam == hwndSFree   ||
+          (HWND) lParam == hwndSTotal  ||
+          (HWND) lParam == hwndSUpTime ||
+          (HWND) lParam == hwndSRX     ||
+          (HWND) lParam == hwndSTX     ||
+          (HWND) lParam == hwndSCPU     ) {
+                              
+         SetTextColor(hdc, fgnd_static);
+         SetBkColor(hdc, bgnd_static);
+         if (hbStatic == 0) 
+            hbStatic = CreateSolidBrush(bgnd_static) ;
+         return (LRESULT) hbStatic ;
+      }
       if ((HWND) lParam == hwndFreeMem  ||
           (HWND) lParam == hwndTotalMem ||
           (HWND) lParam == hwndUptime   ||

@@ -39,7 +39,8 @@
 //             This would result in invalid logon time being displayed.
 //    1.23     Show minimum free memory - analyze low-memory condition status
 //    1.24     Convert to Unicode, for compatibility with current der_libs
+//    1.25     Add option to set colors of main-dialog static controls
 //**************************************************************************************
-#define VerNum    _T("V1.24")
-#define VerNumA    "V1.24"
+#define VerNum    _T("V1.25")
+#define VerNumA    "V1.25"
 

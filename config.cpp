@@ -74,6 +74,7 @@ static LRESULT save_default_ini_file(void)
    _ftprintf(fd, _T("uptime_seconds=%u\n"), show_seconds_for_uptime) ;
    _ftprintf(fd, _T("editfg=0x%06X\n"), (uint) fgnd_edit) ;
    _ftprintf(fd, _T("editbg=0x%06X\n"), (uint) bgnd_edit) ;
+   _ftprintf(fd, _T("staticfg=0x%06X\n"), (uint) fgnd_static) ;
    _ftprintf(fd, _T("ci_attr=%u\n"), ci_attr) ;
    _ftprintf(fd, _T("debug=%u\n"), (show_winmsgs) ? 1U : 0U) ;
    // _ftprintf(fd, _T("ip_iface=%u\n"), ip_iface_idx) ;
@@ -141,6 +142,9 @@ LRESULT read_config_file(void)
       } else
       if (_tcsncmp(inpstr, _T("editbg="), 7) == 0) {
          bgnd_edit = (uint) _tcstoul(&inpstr[7], 0, 0) ;
+      } else
+      if (_tcsncmp(inpstr, _T("staticfg="), 9) == 0) {
+         fgnd_static = (uint) _tcstoul(&inpstr[9], 0, 0) ;
       } else
       if (_tcsncmp(inpstr, _T("ci_attr="), 8) == 0) {
          ci_attr = (uint) _tcstoul(&inpstr[8], 0, 0) ;

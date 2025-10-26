@@ -21,6 +21,7 @@ bool show_seconds_for_uptime = true ;
 
 static HWND hwndEditFgnd ;
 static HWND hwndEditBgnd ;
+static HWND hwndStaticFgnd ;
 
 extern void update_keep_on_top(void);
 
@@ -113,11 +114,14 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
       //  label the dialog
       hwndEditFgnd = GetDlgItem(hwnd, IDC_EDIT_FGND) ;  // EDITTEXT   
       hwndEditBgnd = GetDlgItem(hwnd, IDC_EDIT_BGND) ;  // EDITTEXT   
+      hwndStaticFgnd = GetDlgItem(hwnd, IDC_EDIT_SFGND) ;  // EDITTEXT   
 
       wsprintf(msgstr, L" 0x%06X", fgnd_edit) ;
       SetWindowText(hwndEditFgnd, msgstr);
       wsprintf(msgstr, L" 0x%06X", bgnd_edit) ;
       SetWindowText(hwndEditBgnd, msgstr);
+      wsprintf(msgstr, L" 0x%06X", fgnd_static) ;
+      SetWindowText(hwndStaticFgnd, msgstr);
 
       PostMessage(GetDlgItem(hwnd, IDM_WINMSGS),       BM_SETCHECK, show_winmsgs, 0) ;
       PostMessage(GetDlgItem(hwnd, IDM_ONTOP),         BM_SETCHECK, keep_on_top, 0) ;
@@ -181,6 +185,16 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
             }
             return TRUE;
             
+         case IDC_CLR_SFGND:
+            temp_attr = select_color(fgnd_static) ;
+            //  if user cancels color entry, stick with 
+            //  existing color selection.
+            if (temp_attr != 0) {
+               wsprintf(msgstr, L" 0x%06X", temp_attr) ;
+               SetWindowText(hwndStaticFgnd, msgstr);
+            }
+            return TRUE;
+            
          case IDOK: //  take the new settings
             changed = false ;
             tempEditLength = GetWindowTextLength (hwndEditFgnd);
@@ -206,6 +220,18 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
                hbEdit = CreateSolidBrush(bgnd_edit) ;
                wsprintf(msgstr, L" 0x%06X", bgnd_edit) ;
                SetWindowText(hwndEditBgnd, msgstr);
+            }
+
+            tempEditLength = GetWindowTextLength (hwndStaticFgnd);
+            GetWindowText (hwndStaticFgnd, msgstr, tempEditLength + 1);
+            msgstr[tempEditLength] = 0;
+            tptr = strip_leading_spaces(msgstr) ;
+            temp_attr = (uint) _tcstoul(tptr, 0, 0) ;
+            if (temp_attr != fgnd_static) {
+               fgnd_static = temp_attr ;
+               changed = true ;
+               wsprintf(msgstr, L" 0x%06X", fgnd_static) ;
+               SetWindowText(hwndStaticFgnd, msgstr);
             }
 
             // sel = SendMessageA(hwndIpIface, CB_GETCURSEL, 0, 0);

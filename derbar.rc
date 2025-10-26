@@ -96,41 +96,48 @@ END
 //  options dialog
 //*******************************************************************
 // #define  OPT_DX       160
-#define  OPT_DX       160
+#define  OPT_DX       166
+#define  OPT_DY        12
 #define  OPT_DONE_DX   70
 #define  OPT_DONE_X   ((OPT_DX - OPT_DONE_DX) / 2)
+#define  OPT_EDIT_X      89
+#define  OPT_BROWSE_X   130
 
-IDD_OPTIONS DIALOGEX 300, 200, OPT_DX, 116
+IDD_OPTIONS DIALOGEX 600, 300, OPT_DX, 130
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "DerBar Options"
 FONT 10, "Times New Roman"
 BEGIN
-   LTEXT           "Info Fgnd (0XBBGGRR): ",IDS_CLR_FGND,  5, 8,78,10,SS_NOTIFY
-   EDITTEXT        IDC_EDIT_FGND,                         85, 8,37,10,SS_NOTIFY
-   PUSHBUTTON      "Browse",IDC_CLR_FGND,                126, 8,30,10
+   LTEXT           "Info Fgnd (0XBBGGRR): ",IDS_CLR_FGND,     5, 8,78,10,SS_NOTIFY
+   EDITTEXT        IDC_EDIT_FGND,                           OPT_EDIT_X, 8,37,10,SS_NOTIFY
+   PUSHBUTTON      "Browse",IDC_CLR_FGND,                   OPT_BROWSE_X, 8,30,10
+                                                            
+   LTEXT           "Info Bgnd (0XBBGGRR): ",IDS_CLR_BGND,     5,22,78,10,SS_NOTIFY
+   EDITTEXT        IDC_EDIT_BGND,                            OPT_EDIT_X, 22,37,10,SS_NOTIFY
+   PUSHBUTTON      "Browse",IDC_CLR_BGND,                   OPT_BROWSE_X, 22,30,10
 
-   LTEXT           "Info Bgnd (0XBBGGRR): ",IDS_CLR_BGND,  5,22,78,10,SS_NOTIFY
-   EDITTEXT        IDC_EDIT_BGND,                         85,22,37,10,SS_NOTIFY
-   PUSHBUTTON      "Browse",IDC_CLR_BGND,                126,22,30,10
+   LTEXT           "Static Fgnd (0XBBGGRR): ",IDS_CLR_SFGND,  5, 36,82,10,SS_NOTIFY
+   EDITTEXT        IDC_EDIT_SFGND,                           OPT_EDIT_X, 36,37,10,SS_NOTIFY
+   PUSHBUTTON      "Browse",IDC_CLR_SFGND,                  OPT_BROWSE_X, 36,30,10
 
    CONTROL         "Keep On Top",IDM_ONTOP,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,           5,36,140,10
+                   BS_AUTOCHECKBOX | WS_TABSTOP,              5,36+OPT_DY,140,10
 
    CONTROL         "Use Login for Uptime",IDM_LOGIN_UPTIME,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,           5,46,140,10
+                   BS_AUTOCHECKBOX | WS_TABSTOP,              5,46+OPT_DY,140,10
 
    CONTROL         "Show seconds for Uptime",IDM_LOGIN_SECONDS,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,           5,56,140,10
+                   BS_AUTOCHECKBOX | WS_TABSTOP,              5,56+OPT_DY,140,10
 
    CONTROL         "Enable WinMsgs (debug)",IDM_WINMSGS,"Button",
-                   BS_AUTOCHECKBOX | WS_TABSTOP,           5,66,140,10
+                   BS_AUTOCHECKBOX | WS_TABSTOP,              5,66+OPT_DY,140,10
 
-   LTEXT           "Min Free Memory (MB): ",IDS_MIN_FREEMEM,   5,81, 77,10,SS_NOTIFY
-   CTEXT           "",                      IDC_MIN_FREEMEM,  85,80, 37,10,SS_NOTIFY | SS_SUNKEN
-   PUSHBUTTON      "Reset",                 IDC_CLR_MIN_FMEM,126,80,30,10
+   LTEXT           "Min Free Memory (MB): ",IDS_MIN_FREEMEM,   5,81+OPT_DY, 77,10,SS_NOTIFY
+   CTEXT           "",                      IDC_MIN_FREEMEM,  OPT_EDIT_X, 80+OPT_DY, 37,10,SS_NOTIFY | SS_SUNKEN
+   PUSHBUTTON      "Reset",                 IDC_CLR_MIN_FMEM,OPT_BROWSE_X, 80+OPT_DY,30,10
    
-   DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,97,OPT_DONE_DX,14
+   DEFPUSHBUTTON  "Accept Changes", IDOK,         OPT_DONE_X,97+OPT_DY,OPT_DONE_DX,14
 END
 
 //***************************************************************************
@@ -196,7 +203,7 @@ BEGIN
             VALUE "FileDescription", "DerBar Windows performance monitor"
             VALUE "FileVersion", VerNumA
             VALUE "InternalName", "DerBar"
-            VALUE "LegalCopyright", "Copyright © 2008-2025"
+            VALUE "LegalCopyright", "Copyright ï¿½ 2008-2025"
             VALUE "OriginalFilename", "DerBar.exe"
             VALUE "ProductName", "DerBar Windows performance monitor"
             VALUE "ProductVersion", VerNumA

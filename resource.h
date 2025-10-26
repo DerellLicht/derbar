@@ -68,6 +68,9 @@
 #define  IDS_MIN_FREEMEM      2008
 #define  IDC_MIN_FREEMEM      2009
 #define  IDC_CLR_MIN_FMEM     2010
+#define  IDS_CLR_SFGND        2011
+#define  IDC_EDIT_SFGND       2012
+#define  IDC_CLR_SFGND        2013
 
 //  network-interface listview constants
 #define  IDC_LV_IFACES        3000
