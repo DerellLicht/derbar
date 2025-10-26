@@ -9,6 +9,7 @@
 extern HINSTANCE g_hinst ;
 
 extern HBRUSH hbEdit ;
+extern bool static_fields_changed ;
 extern COLORREF fgnd_edit ;
 extern COLORREF bgnd_edit ;
 extern COLORREF fgnd_static ;

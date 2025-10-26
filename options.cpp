@@ -232,6 +232,7 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
                changed = true ;
                wsprintf(msgstr, L" 0x%06X", fgnd_static) ;
                SetWindowText(hwndStaticFgnd, msgstr);
+               static_fields_changed = true ;
             }
 
             // sel = SendMessageA(hwndIpIface, CB_GETCURSEL, 0, 0);

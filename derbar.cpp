@@ -74,6 +74,7 @@ time_t get_logon_time(void);
 static HBRUSH hbLogo = 0 ;
 static HBRUSH hbStatic = 0 ;
 HBRUSH hbEdit = 0 ;
+bool static_fields_changed = false ;
 
 COLORREF fgnd_edit   = WIN_BGREEN ;
 COLORREF bgnd_edit   = WIN_GREY ;
@@ -443,6 +444,23 @@ static void update_data_fields(void)
 
    _stprintf(msgstr, _T("%u"), (unsigned) (CpuTime + 0.5)) ;
    SetWindowText(hwndCpuTime, msgstr) ;
+}
+
+//*******************************************************************
+static void update_static_fields(void)
+{
+   if (static_fields_changed) {
+      //  redraw the static data fields
+      SetWindowText(hwndSMem   , L"Mem:") ;
+      SetWindowText(hwndSFree  , L"Free") ;
+      SetWindowText(hwndSTotal , L"Total") ;
+      update_uptime_label() ;
+      SetWindowText(hwndSRX    , L"RX:") ;
+      SetWindowText(hwndSTX    , L"TX:") ;
+      SetWindowText(hwndSCPU   , L"CPU:") ;
+      
+      static_fields_changed = false ;
+   }
 }
 
 //*******************************************************************
@@ -848,6 +866,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 #endif
          read_system_data() ;
          update_data_fields() ;
+         update_static_fields() ;
          if (!first_pass_done) {
             first_pass_done = true ;
             reset_icon_colors(false);
