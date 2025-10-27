@@ -18,6 +18,7 @@ bool show_winmsgs = false ;
 bool keep_on_top = false ;
 bool use_logon_time_for_uptime = false ;
 bool show_seconds_for_uptime = true ;
+static bool static_fields_changed = false ;
 
 static HWND hwndEditFgnd ;
 static HWND hwndEditBgnd ;
@@ -241,9 +242,14 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
             //    changed = TRUE ;
             // }
 
+            if (static_fields_changed) {
+               update_static_fields() ;
+               static_fields_changed = false ;
+            }
             update_uptime_label();
-            if (changed) 
+            if (changed) {
                save_cfg_file() ;
+            }
 
             DestroyWindow(hwnd);
             return TRUE ;

@@ -9,7 +9,6 @@
 extern HINSTANCE g_hinst ;
 
 extern HBRUSH hbEdit ;
-extern bool static_fields_changed ;
 extern COLORREF fgnd_edit ;
 extern COLORREF bgnd_edit ;
 extern COLORREF fgnd_static ;
@@ -28,6 +27,7 @@ extern bool show_seconds_for_uptime ;
 LRESULT save_cfg_file(void);
 LRESULT read_config_file(void);
 void update_uptime_label(void);
+void update_static_fields(void);
 
 //  ClearIcon.cpp
 extern unsigned ci_attr ;
