@@ -46,7 +46,7 @@ END
 //  removes the application bar from the Toolbar.
 //*******************************************************************
 #define Y0      1
-#define DY      11
+#define DY      9
 
 IDD_MAIN DIALOGEX 0, 200, 449, DY
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
