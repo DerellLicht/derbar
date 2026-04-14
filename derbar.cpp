@@ -724,8 +724,9 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       } 
       break;
 
-
-#define  WM_DWMCOLORIZATIONCOLORCHANGED   0x320
+//  huh... CLANG defines this in winuser.h, but tdm32 does not...
+//  So clang-tidy complains, but I cannot remove this
+#define  WM_DWMCOLORIZATIONCOLORCHANGED   0x320 // NOLINT
    //  DerBar: [WM_NCLBUTTONDBLCLK]
    case WM_DWMCOLORIZATIONCOLORCHANGED:
    case WM_NCLBUTTONDBLCLK:

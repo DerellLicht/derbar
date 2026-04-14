@@ -40,7 +40,8 @@
 //    1.23     Show minimum free memory - analyze low-memory condition status
 //    1.24     Convert to Unicode, for compatibility with current der_libs
 //    1.25     Add option to set colors of main-dialog static controls
+//    1.26     Set About dialog hyperlink color (in der_libs) to Windows COLOR_HOTLIGHT color
 //**************************************************************************************
-#define VerNum    _T("V1.25")
-#define VerNumA    "V1.25"
+#define VerNum    _T("V1.26")
+#define VerNumA    "V1.26"
 
