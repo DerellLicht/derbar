@@ -160,7 +160,7 @@ BEGIN
 END
 
 //*******************************************************************
-IDD_ABOUT DIALOG DISCARDABLE  200, 200, 180, 90
+IDD_ABOUT DIALOG DISCARDABLE  200, 200, 180, 80
 // STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "About DerBar"
 // FONT 8, "MS Sans Serif"
@@ -169,11 +169,12 @@ BEGIN
     ICON            IDI_MAINICON,IDC_STATIC,9,12
     LTEXT           "DerBar System Monitor",IDC_STATIC,        36,15, 75,12
     LTEXT           VerNumA,IDC_VERNUM,                        111,15, 50,12
-    LTEXT           "Copyright (c) 2008-2026",IDC_STATIC,      36,28,100,12
-    LTEXT           "Derell Licht",IDC_STATIC,                 36,41,100,12
+    LTEXT           "Copyright (c) 2008-2026",IDC_STATIC,      36,28,75,10
+    // LTEXT           "Derell Licht",IDC_STATIC,                 36,41,100,12
+    LTEXT           "Derell Licht",IDC_STATIC,                 112,28,100,10
     // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
-    LTEXT           "http://derelllicht.42web.io/DerBar.html",IDC_WEBLINK,  36,54,140,12
-    DEFPUSHBUTTON   "Close",IDOK,36,70,100,14
+    LTEXT           "http://derelllicht.42web.io/DerBar.html",IDC_WEBLINK,  36,42,140,10
+    DEFPUSHBUTTON   "Close",IDOK,36,55,100,14
 END
 
 /////////////////////////////////////////////////////////////////////////////
