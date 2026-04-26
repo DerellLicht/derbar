@@ -156,7 +156,7 @@ BEGIN
    // PUSHBUTTON      "Test",          IDM_APP_TEST,     300,TOP_Y, 50,14
    CONTROL         "List1", IDC_LV_IFACES,"SysListView32",
                     LVS_REPORT | LVS_EDITLABELS | WS_BORDER | WS_TABSTOP | LVS_SHAREIMAGELISTS,
-          0,0,LV_DX,LV_DY
+                    0,0,LV_DX,LV_DY
 END
 
 //*******************************************************************
