@@ -170,7 +170,6 @@ BEGIN
     LTEXT           "DerBar System Monitor",IDC_STATIC,        36,15, 75,12
     LTEXT           VerNumA,IDC_VERNUM,                        111,15, 50,12
     LTEXT           "Copyright (c) 2008-2026",IDC_STATIC,      36,28,75,10
-    // LTEXT           "Derell Licht",IDC_STATIC,                 36,41,100,12
     LTEXT           "Derell Licht",IDC_STATIC,                 112,28,100,10
     // PUSHBUTTON      "home.comcast.net/~derelict",IDC_WEBLINK,  36,54,100,12
     LTEXT           "http://derelllicht.42web.io/DerBar.html",IDC_WEBLINK,  36,42,140,10
