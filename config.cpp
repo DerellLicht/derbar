@@ -1,21 +1,17 @@
 //****************************************************************************
-//  Copyright (c) 2009  Daniel D Miller
+//  Copyright (c) 2009-2026  Derell Licht
 //  derbar.exe - Another WinBar application
 //  config.cpp - manage configuration data file
 //
-//  DerBar, its source code and executables, are Copyrighted in their
-//  unmodified form by Daniel D Miller, and are distributed as free
-//  software, with only one restriction:
-//  
-//  Any modified version of the program cannot be distributed with
-//  the name DerBar.
-//  
-//  Other than this, the source code, executables, help files, and any
-//  other related files are provided with absolutely no restriction 
-//  on use, distribution, modification, commercial adaptation, 
-//  or any other conditions.
-//  
-//  Written by:  Dan Miller
+//  This program is licenced under Creative Commons CC0 1.0 Universal
+// 
+//  The person who associated a work with this deed has dedicated the work to the public domain 
+//  by waiving all of his or her rights to the work worldwide under copyright law, including all 
+//  related and neighboring rights, to the extent allowed by law.
+// 
+//  You can copy, modify, distribute and perform the work, even for commercial purposes, 
+//  all without asking permission.
+// 
 //****************************************************************************
 //  Filename will be same as executable, but will have .ini extensions.
 //  Config file will be stored in same location as executable file.

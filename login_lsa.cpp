@@ -1,9 +1,7 @@
 //**********************************************************************
-//  Copyright (c) 2021  Daniel D Miller
+//  Copyright (c) 2021  Derell Licht
 //  derbar.exe - Another WinBar application
 //  login_lsa.cpp: determine most-recent logon time
-//  
-//  Written by:   Daniel D. Miller
 //  
 //  Last Update:  06/06/21 17:51
 //**********************************************************************

@@ -1,8 +1,7 @@
 //****************************************************************************
-//  Copyright (c) 2009-2025  Daniel D Miller
+//  Copyright (c) 2009-2025  Derell Licht
 //  images.cpp - handle ImageList functions for LED bitmaps
 //
-//  Produced and Directed by:  Dan Miller
 //****************************************************************************
 #include <windows.h>
 // #include <vector>

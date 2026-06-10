@@ -1,8 +1,6 @@
 //**********************************************************************
-//  Copyright (c) 2009-2025  Daniel D Miller
+//  Copyright (c) 2009-2025  Derell Licht
 //  options handler for DerBar application
-//  
-//  Written by:   Daniel D. Miller
 //**********************************************************************
 #include <windows.h>
 #include <time.h>

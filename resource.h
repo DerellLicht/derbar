@@ -1,9 +1,7 @@
 //**********************************************************************
-//  Copyright (c) 2009-2017  Daniel D Miller
+//  Copyright (c) 2009-2026  Derell Licht
 //  derbar.exe - Another WinBar application
 //  resources.h: Windows resource IDs
-//  
-//  Written by:   Daniel D. Miller
 //**********************************************************************
 
 #define  IDC_STATIC           65000

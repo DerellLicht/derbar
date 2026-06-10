@@ -1,9 +1,7 @@
 //**********************************************************************
-//  Copyright (c) 2009-2025  Daniel D Miller
+//  Copyright (c) 2009-2025  Derell Licht
 //  derbar.exe - Another WinBar application
 //  derbar.h: global declarations
-//  
-//  Written by:   Daniel D. Miller
 //**********************************************************************
 
 extern HINSTANCE g_hinst ;

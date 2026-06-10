@@ -1,5 +1,5 @@
 //**********************************************************************
-//  Copyright (c) 2009-2023  Daniel D Miller
+//  Copyright (c) 2009-2023  Derell Licht
 //  lintdefs.cpp: PcLint rules for DerBar utility
 //  This file is not linked into the project, 
 //  it is only used for running Lint on the sources

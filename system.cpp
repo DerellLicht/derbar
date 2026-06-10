@@ -1,11 +1,8 @@
 //**********************************************************************
-//  Copyright (c) 2009-2014  Daniel D Miller
+//  Copyright (c) 2009-2014  Derell Licht
 //  derbar.exe - Another WinBar application
 //  system.cpp: functions for gathering system information
 //  
-//  Written by:   Daniel D. Miller
-//  
-//  Last Update:  04/10/09 09:50
 //**********************************************************************
 
 //lint -esym(767, _WIN32_WINNT)
@@ -363,7 +360,7 @@ double cpu_usage_report(void)
    //  either a bug in the provider or overflow of values in data storage. In these 
    //  situations, you have an option to ignore this return value and retry a bit 
    //  later like 1 second to get the new values. This is not a fatal error that 
-   //  application can’t continue correctly, like INVALID_HANDLE or INVALID_DATA. 
+   //  application canï¿½t continue correctly, like INVALID_HANDLE or INVALID_DATA. 
    //  
    //  08/20/14 - adding PDH_FMT_NOCAP100 to the function call did NOT solve this 
    //  issue.  BTW, this mostly occurs on WinXP systems, I think.
