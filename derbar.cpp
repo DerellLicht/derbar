@@ -471,7 +471,7 @@ void update_keep_on_top(void)
 
 static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   BYTE keyState[256];
+   BYTE keyState[256];  // 256-byte array that will receive the status data for each virtual key
    //  debug function: see what messages are being received
    if (show_winmsgs) {
       switch (message) {
