@@ -1,5 +1,5 @@
 //**********************************************************************
-//  Copyright (c) 2021  Derell Licht
+//  Copyright (c) 2021-2026  Derell Licht
 //  derbar.exe - Another WinBar application
 //  login_lsa.cpp: determine most-recent logon time
 //  
@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <ntsecapi.h>
-#define __STDC_FORMAT_MACROS
+// #define __STDC_FORMAT_MACROS
 #include <inttypes.h>   // required for %"PRIu64" printf artifact
 
 #ifndef STAND_ALONE

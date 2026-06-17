@@ -60,7 +60,7 @@ extern bool isMemoryLow ;
 static void show_min_free_memory(HWND hwnd)
 {
    TCHAR msgstr[81] ;
-   u64 min_free_mb = min_freemem / (1024 * 1024);
+   u64 min_free_mb = min_freemem / static_cast<unsigned long long>(1024 * 1024);
    convert_to_commas(min_free_mb, msgstr);
    SetWindowText(GetDlgItem(hwnd, IDC_MIN_FREEMEM), msgstr);
 }

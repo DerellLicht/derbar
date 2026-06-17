@@ -5,18 +5,12 @@
 //  
 //**********************************************************************
 
-//lint -esym(767, _WIN32_WINNT)
-#define _WIN32_WINNT 0x0500
-
 #include <windows.h>
 #include <stdio.h>   //  for sprintf, for %f support
 #include <time.h>
 #include <tchar.h>
 #include <iphlpapi.h>
 #include <pdh.h>
-// #ifdef _lint
-// #include <stdlib.h>  //  atoi()
-// #endif
 
 #include "common.h"
 #include "commonw.h"
@@ -147,7 +141,7 @@ static void build_iface_table(void)
       // syslog(_T("found index %u: %s\n"), iptr->dwIndex, iptr->ipaddr_str) ;
       PMIB_IFROW pIfRow = get_iface_entry(iptr->dwIndex) ;
       if (pIfRow != NULL) {
-         ul2uc_t uconv ;
+         ul2uc_t uconv {};
          uconv.ul = iptr->dwAddr ;
          _stprintf(iptr->ipaddr_str, _T("%u.%u.%u.%u"), 
            (u8) uconv.uc[0], (u8) uconv.uc[1], (u8) uconv.uc[2], (u8) uconv.uc[3]) ;

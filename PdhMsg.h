@@ -20,7 +20,7 @@ Revision History:
 --*/
 //lint -esym(553, _MSC_VER)
 #ifndef _PDH_MSG_H_
-#define _PDH_MSG_H_
+#define _PDH_MSG_H_  // NOLINT
 #if _MSC_VER > 1000
 #pragma once
 #endif
