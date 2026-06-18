@@ -56,11 +56,13 @@ static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LP
    case WM_INITDIALOG:
       SetWindowText(GetDlgItem(hdlg, IDC_VERNUM), VerNum) ;
       ConvertStaticToHyperlink(hdlg, IDC_WEBLINK);
+      ConvertStaticToHyperlink(hdlg, IDC_WEBLINK2);
       break;
 
    case WM_COMMAND:
       switch (LOWORD(wparam)) {
       case IDC_WEBLINK:
+      case IDC_WEBLINK2:
          GetDlgItemText(hdlg, LOWORD(wparam), buf, BUF_LEN);
          ShellExecute(hdlg, L"open", buf, L"", L"", SW_SHOW);
          return TRUE;

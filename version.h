@@ -42,7 +42,8 @@
 //    1.25     Add option to set colors of main-dialog static controls
 //    1.26     Set About dialog hyperlink color (in der_libs) to Windows COLOR_HOTLIGHT color
 //    1.27     Clean up unused ImageList code in images.cpp
+//    1.28     Add hyperlink to the Github source code page, in About dialog
 //**************************************************************************************
-#define VerNum    _T("V1.27")
-#define VerNumA    "V1.27"
+#define VerNum    _T("V1.28")
+#define VerNumA    "V1.28"
 

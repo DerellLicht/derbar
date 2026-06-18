@@ -69,6 +69,7 @@
 #define  IDS_CLR_SFGND        2011
 #define  IDC_EDIT_SFGND       2012
 #define  IDC_CLR_SFGND        2013
+#define  IDC_WEBLINK2         2014
 
 //  network-interface listview constants
 #define  IDC_LV_IFACES        3000

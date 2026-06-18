@@ -72,4 +72,6 @@ _Revision history_
 | 1.24 | Convert to Unicode, for compatibility with current der_libs |
 | 1.25 | Add option to set colors of main-dialog static controls |
 | 1.26 | Set About dialog hyperlink color (in der_libs) to Windows COLOR_HOTLIGHT color |
+| 1.27 | Clean up unused ImageList code in images.cpp
+| 1.28 | Add hyperlink to the Github source code page, in About dialog
 
