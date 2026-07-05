@@ -31,6 +31,12 @@ I recommend the [TDM](http://tdm-gcc.tdragon.net/) distribution,
 to avoid certain issues with library accessibility. 
 The makefile also requires certain Cygwin tools (rm, make, etc).
 
+### NOTE: this program requires my der_libs submodule
+If you clone the repository without the --recursive flag, 
+you can recover the submodule with this command:
+
+```git submodule update --init --recursive```
+
 _Revision history_
 
 | Version | description |
