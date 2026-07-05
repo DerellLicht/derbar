@@ -1,0 +1,272 @@
+[
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "derbar.cpp",
+   "-o",
+   "derbar.o"
+  ],
+  "file": "derbar.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "login_lsa.cpp",
+   "-o",
+   "login_lsa.o"
+  ],
+  "file": "login_lsa.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "config.cpp",
+   "-o",
+   "config.o"
+  ],
+  "file": "config.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "system.cpp",
+   "-o",
+   "system.o"
+  ],
+  "file": "system.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "about.cpp",
+   "-o",
+   "about.o"
+  ],
+  "file": "about.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "options.cpp",
+   "-o",
+   "options.o"
+  ],
+  "file": "options.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "lv_ifaces.cpp",
+   "-o",
+   "lv_ifaces.o"
+  ],
+  "file": "lv_ifaces.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "images.cpp",
+   "-o",
+   "images.o"
+  ],
+  "file": "images.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "ClearIcon.cpp",
+   "-o",
+   "ClearIcon.o"
+  ],
+  "file": "ClearIcon.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "der_libs/common_funcs.cpp",
+   "-o",
+   "der_libs/common_funcs.o"
+  ],
+  "file": "der_libs/common_funcs.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "der_libs/common_win.cpp",
+   "-o",
+   "der_libs/common_win.o"
+  ],
+  "file": "der_libs/common_win.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "der_libs/hyperlinks.cpp",
+   "-o",
+   "der_libs/hyperlinks.o"
+  ],
+  "file": "der_libs/hyperlinks.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "der_libs/winmsgs.cpp",
+   "-o",
+   "der_libs/winmsgs.o"
+  ],
+  "file": "der_libs/winmsgs.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "der_libs/systray.cpp",
+   "-o",
+   "der_libs/systray.o"
+  ],
+  "file": "der_libs/systray.cpp"
+ },
+ {
+  "directory": "D:\\SourceCode\\Git\\derbar",
+  "arguments": [
+   "D:/llvm/bin/i686-w64-mingw32-clang++.exe",
+   "-Wall",
+   "-O2",
+   "-Wno-write-strings",
+   "-Ider_libs",
+   "-DUNICODE",
+   "-D_UNICODE",
+   "-Weffc++",
+   "-c",
+   "der_libs/tooltips.cpp",
+   "-o",
+   "der_libs/tooltips.o"
+  ],
+  "file": "der_libs/tooltips.cpp"
+ }
+]
