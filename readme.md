@@ -26,6 +26,7 @@ Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 DerBar is written in C++, using standard Windows library calls.  
 
 <hr>
+
 #### building the application  
 This application is built using the MinGW toolchain; 
 I recommend the [TDM](http://tdm-gcc.tdragon.net/) distribution, 
