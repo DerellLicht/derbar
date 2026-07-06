@@ -83,4 +83,6 @@ _Revision history_
 | 1.26 | Set About dialog hyperlink color (in der_libs) to Windows COLOR_HOTLIGHT color |
 | 1.27 | Clean up unused ImageList code in images.cpp
 | 1.28 | Add hyperlink to the Github source code page, in About dialog
+| 1.29 | Tweak positioning of controls in main dialog, make them more centered
+
 
