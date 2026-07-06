@@ -66,6 +66,9 @@ depend:
 wc:
 	wc -l $(CPPSRC) *.rc
 
+cppc:
+	cmd /C "cppcheck --project=compile_commands.json --std=c++14 --suppressions-list=./.suppress.cppcheck"
+
 check:
 	cmd /C "d:\llvm\bin\clang-tidy.exe $(CPPSRC)"
 
