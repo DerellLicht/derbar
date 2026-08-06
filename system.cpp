@@ -109,7 +109,7 @@ static int build_IPAddress_table(void)
    puts("") ;
 
 error_cleanup:
-   if (pIpAddrTable != NULL) 
+   if (pIpAddrTable != NULL)  // NOLINT(readability-delete-null-pointer)
       delete[] pIpAddrTable ;
    return dwRet;
 }
@@ -144,7 +144,7 @@ static void build_iface_table(void)
          ul2uc_t uconv {};
          uconv.ul = iptr->dwAddr ;
          _stprintf(iptr->ipaddr_str, _T("%u.%u.%u.%u"), 
-           (u8) uconv.uc[0], (u8) uconv.uc[1], (u8) uconv.uc[2], (u8) uconv.uc[3]) ;
+                   uconv.uc[0], uconv.uc[1], uconv.uc[2], uconv.uc[3]) ;
          // syslog(_T("found index %u: %s\n"), iptr->dwIndex, iptr->ipaddr_str) ;
 
          // WideCharToMultiByte(CP_ACP, 0, pIfRow->wszName, -1, SomeAsciiStr, MAX_INTERFACE_NAME_LEN, NULL, NULL);

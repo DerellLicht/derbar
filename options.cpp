@@ -144,20 +144,20 @@ static INT_PTR CALLBACK OptionsProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lPar
          switch(LOWORD(wParam)) {
             
          case IDM_WINMSGS:
-            show_winmsgs = (show_winmsgs) ? false : true ;
+            show_winmsgs = !(show_winmsgs) ;
             return TRUE;
 
          case IDM_ONTOP:
-            keep_on_top = (keep_on_top) ? false : true ;
+            keep_on_top = !(keep_on_top) ;
             update_keep_on_top() ;
             return TRUE;
 
          case IDM_LOGIN_UPTIME:
-            use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
+            use_logon_time_for_uptime = !(use_logon_time_for_uptime) ;
             return TRUE;
 
          case IDM_LOGIN_SECONDS:
-            show_seconds_for_uptime = (show_seconds_for_uptime) ? false : true ;
+            show_seconds_for_uptime = !(show_seconds_for_uptime) ;
             return TRUE;
 
          case IDC_CLR_MIN_FMEM:

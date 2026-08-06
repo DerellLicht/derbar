@@ -97,7 +97,7 @@ static time_t u64_to_timet(LARGE_INTEGER const& ull)
    // ULARGE_INTEGER ull;    
    // ull.LowPart  = ft.dwLowDateTime;    
    // ull.HighPart = ft.dwHighDateTime;    
-   return ull.QuadPart / 10000000ULL - 11644473600ULL;  //lint !e737 !e573 !e712
+   return (ull.QuadPart / 10000000ULL) - 11644473600ULL;  //lint !e737 !e573 !e712
 }
 
 #ifdef STAND_ALONE
@@ -206,7 +206,7 @@ time_t get_max_logon_time(time_t curr_time)
          time_t logon_time ;
 
          // status = LsaGetLogonSessionData((PLUID)((INT_PTR)list + sizeof(LUID) * i), &pData);
-         status = (*pfLGLSD)((PLUID)((INT_PTR)list + sizeof(LUID) * i), &pData); //lint !e732 !e737
+         status = (*pfLGLSD)((PLUID)((INT_PTR)list + (sizeof(LUID) * i)), &pData); //lint !e732 !e737
          if (0 == status) {
             if (Interactive == pData->LogonType) { //lint !e641
                // FILETIME ft;

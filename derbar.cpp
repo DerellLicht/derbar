@@ -202,7 +202,8 @@ static void toggle_title_bar(HWND hwnd)
    DWORD CurrentStyles = GetWindowLong( hwnd, GWL_STYLE );
    CurrentStyles ^= WS_CAPTION ;
    SetWindowLong( hwnd, GWL_STYLE, CurrentStyles);
-   bool is_caption_visible = (CurrentStyles & WS_CAPTION) ? true : false ;
+   // bool is_caption_visible = (CurrentStyles & WS_CAPTION) ? true : false ;
+   bool is_caption_visible = ((CurrentStyles & WS_CAPTION) != 0);
    RECT rect ;
 
    //  SM_CYCAPTION gives the caption height for WS_EX_APPWINDOW.
@@ -398,7 +399,7 @@ static void update_data_fields(void)
    TCHAR msgstr[81] ;
    //  update editable fields
 
-   isMemoryLow = (freemem < (totalmem / 10)) ? true : false ;
+   isMemoryLow = (freemem < (totalmem / 10)) ;
    
    if (freemem < SZ1GB) 
       _stprintf(msgstr, _T("%u MB"), (unsigned) (freemem / SZ1MB)) ;
@@ -519,11 +520,11 @@ static LRESULT CALLBACK KbdFlagsProc(HWND hwnd, UINT message, WPARAM wParam, LPA
          keybd_event( VK_SCROLL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
       } else
       if (hwnd == hwndUptime) {
-         use_logon_time_for_uptime = (use_logon_time_for_uptime) ? false : true ;
+         use_logon_time_for_uptime = !(use_logon_time_for_uptime) ;
          update_uptime_label();
          save_cfg_file() ;
-      }
-      break;
+      }     // NOLINT(readability-misleading-indentation)
+      break;   // NOLINT(readability-misleading-indentation)
 
    default:
       break;   
