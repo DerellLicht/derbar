@@ -941,8 +941,7 @@ static BOOL WeAreAlone(TCHAR *szName)
 }
 
 //*********************************************************************
-int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
-   PSTR lpszArgument, int nFunsterStil)
+int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpszArgument, int nShowCmd)
 {
    if (!WeAreAlone (szClassName)) {
       MessageBox(NULL, _T("DerBar is already running!!"), _T("collision"), MB_OK | MB_ICONEXCLAMATION) ;

@@ -147,7 +147,8 @@ LRESULT read_config_file(void)
       } else
       if (_tcsncmp(inpstr, _T("debug="), 6) == 0) {
          uvalue = (uint) _tcstoul(&inpstr[6], 0, 0) ;
-         show_winmsgs = (uvalue == 0) ? false : true ;
+         // show_winmsgs = (uvalue == 0) ? false : true ;
+         show_winmsgs = (uvalue != 0) ;
       } else
       if (_tcsncmp(inpstr, _T("ip_iface="), 9) == 0) {
          // ip_iface_idx = (uint) _tcstoul(&inpstr[9], 0, 0) ;
