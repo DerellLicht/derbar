@@ -21,10 +21,6 @@ CFLAGS += -DUNICODE -D_UNICODE
 LiFLAGS += -dUNICODE -d_UNICODE
 endif
 
-ifeq ($(USE_64BIT),YES)
-CFLAGS += -DUSE_64BIT
-endif
-
 CPPSRC=derbar.cpp login_lsa.cpp config.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp ClearIcon.cpp \
 der_libs/common_funcs.cpp \
