@@ -3,7 +3,7 @@ USE_DEBUG = NO
 USE_64BIT = NO
 USE_UNICODE = YES
 
-include ..\tool_select.mak 
+include der_libs\tool_select.mak
 
 ifeq ($(USE_DEBUG),YES)
 CFLAGS=-Wall -ggdb -O
