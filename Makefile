@@ -3,18 +3,7 @@ USE_DEBUG = NO
 USE_64BIT = NO
 USE_UNICODE = YES
 
-# Note about 64-bit mingw/tdm builds:
-# Working include files are in:
-# D:\tdm64/x86_64-w64-mingw32/include
-# 
-# Note: selection of 64-bit options in code can be done via:
-# ifdef _WIN64
-
-ifeq ($(USE_64BIT),YES)
-TOOLS=d:\tdm64\bin
-else
-TOOLS=d:\tdm32\bin
-endif
+include ..\tool_select.mak 
 
 ifeq ($(USE_DEBUG),YES)
 CFLAGS=-Wall -ggdb -O
