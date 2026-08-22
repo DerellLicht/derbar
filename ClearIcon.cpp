@@ -56,6 +56,7 @@
 
 #include "common.h"
 #include "derbar.h"
+#include "commonw.h"
 
 //***********************************************************************
 // alt_fg_attr=0x41c345
@@ -76,8 +77,8 @@ static BOOL APIENTRY ChooseColorHookProc(
    switch (message) {
    case WM_INITDIALOG:
       {
-      DWORD UFLAGS = SWP_NOSIZE | SWP_NOZORDER | SWP_SHOWWINDOW;
-      SetWindowPos(hDlg, HWND_TOP, 400, 300, 0, 0, UFLAGS);
+      // DWORD UFLAGS = SWP_NOSIZE | SWP_NOZORDER | SWP_SHOWWINDOW;
+      MoveWindowPos(hDlg, 400, 300);
       }   
       break;
         
