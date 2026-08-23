@@ -1,0 +1,7 @@
+# ClaudeLint suppression file
+# One entry per line: path/relative/to/project:line
+# '#' starts a comment (full-line or trailing).
+#
+# Example (uncomment and edit to suppress a real finding):
+# der_libs/common.h:101  # SomeStruct::some_field
+

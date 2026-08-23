@@ -113,7 +113,7 @@ unsigned select_color(COLORREF orig_attr)
    cc.rgbResult      = orig_attr ;
    cc.lpCustColors   = crCustColors ;
    cc.Flags          = CC_RGBINIT | CC_FULLOPEN ;
-   cc.Flags          = CC_ENABLEHOOK;
+   cc.Flags         |= CC_ENABLEHOOK;
    cc.lpfnHook       = (LPCCHOOKPROC)ChooseColorHookProc;
    cc.lpTemplateName = (LPTSTR)NULL;
 
