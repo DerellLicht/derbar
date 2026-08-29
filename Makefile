@@ -32,14 +32,19 @@ der_libs/tooltips.cpp
 
 OBJS = $(CPPSRC:.cpp=.o) rc.o
 
-BINS=derbar.exe
+BASE=derbar
+BINS=$(BASE).exe
 
-%.o: %.cpp
-	$(TOOLS)\g++ $(CFLAGS) -Weffc++ -c $< -o $@
+# Automatically parse the latest version block
+VERSION := $(shell grep -oE '\[[0-9]+\.[0-9]+\]' CHANGELOG.md | head -n 1 | tr -d '[]')
+DIST_ZIP := $(BASE)V$(VERSION).zip
 
 #**************************************************************
 #  generic build rules
 #**************************************************************
+%.o: %.cpp
+	$(TOOLS)\g++ $(CFLAGS) -Weffc++ -c $< -o $@
+
 all: $(BINS)
 
 clean:
@@ -66,8 +71,17 @@ cstale:
 lint:
 	cmd /C "c:\lint9\lint-nt +v -width(160,4) $(LiFLAGS) +fcp -ic:\lint9 mingw.lnt -os(_lint.tmp) lintdefs.cpp lintdefs.ref.h *.rc $(CPPSRC)"
 
+# Your new automated release workflow
+release:
+	cmd /C "@echo Preparing GitHub release for v$(VERSION)..."
+	sed -n '/## \['$(VERSION)'\]/,/## \[/p' CHANGELOG.md | sed '$$d' > temp_notes.md
+	gh release create v$(VERSION) ./$(DIST_ZIP) ./CHANGELOG.md --notes-file temp_notes.md
+	rm temp_notes.md
+	cmd /C "@echo Release v$(VERSION) successfully uploaded to GitHub!"wc:
+	
 dist:
-	zip DerBar.zip readme.md derbar.exe LICENSE.txt
+	rm -f *.zip
+	zip $(DIST_ZIP) readme.md derbar.exe LICENSE.txt CHANGELOG.md
 
 #**************************************************************
 #  build rules for executables                           
