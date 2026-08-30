@@ -74,6 +74,10 @@ cstale:
 lint:
 	cmd /C "c:\lint9\lint-nt +v -width(160,4) $(LiFLAGS) +fcp -ic:\lint9 mingw.lnt -os(_lint.tmp) lintdefs.cpp lintdefs.ref.h *.rc $(CPPSRC)"
 
+dist:
+	rm -f *.zip
+	zip $(DIST_ZIP) readme.md derbar.exe LICENSE.txt CHANGELOG.md
+
 # Your new automated release workflow
 release:
 	cmd /C "@echo Preparing GitHub release for v$(VERSION)..."
@@ -82,9 +86,12 @@ release:
 	rm temp_notes.md
 	cmd /C "@echo Release v$(VERSION) successfully uploaded to GitHub!"wc:
 	
-dist:
-	rm -f *.zip
-	zip $(DIST_ZIP) readme.md derbar.exe LICENSE.txt CHANGELOG.md
+# Your new update-in-place pipeline
+update: dist
+	cmd /C "@echo Updating assets for existing release v$(VERSION)..."
+	@# Uploads and overwrites the .zip file and CHANGELOG.md on GitHub
+	gh release upload v$(VERSION) ./$(DIST_ZIP) ./CHANGELOG.md --clobber
+	cmd /C "@echo Release v$(VERSION) assets successfully updated on GitHub!"
 
 #**************************************************************
 #  build rules for executables                           
