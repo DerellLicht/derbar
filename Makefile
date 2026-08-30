@@ -1,7 +1,9 @@
-#  SHELL=cmd.exe
 USE_DEBUG = NO
 USE_64BIT = NO
 USE_UNICODE = YES
+USE_CLANG = NO
+# sadly, cygwin mingw does not support gdiplus...
+USE_CYGWIN = NO
 
 include der_libs\tool_select.mak
 
@@ -9,7 +11,7 @@ ifeq ($(USE_DEBUG),YES)
 CFLAGS=-Wall -ggdb -O
 LFLAGS=-mwindows
 else
-CFLAGS=-Wall -O2
+CFLAGS=-Wall -O2 -Weffc++ -c 
 LFLAGS=-s -mwindows
 endif
 CFLAGS += -Wno-write-strings
@@ -33,7 +35,9 @@ der_libs/tooltips.cpp
 OBJS = $(CPPSRC:.cpp=.o) rc.o
 
 BASE=derbar
-BINS=$(BASE).exe
+BINX=$(BASE).exe
+
+LIBS := -lcomctl32 -liphlpapi -lpdh
 
 # Automatically parse the latest version block
 VERSION := $(shell grep -oE '\[[0-9]+\.[0-9]+\]' CHANGELOG.md | head -n 1 | tr -d '[]')
@@ -46,12 +50,12 @@ DIST_ZIP := $(BASE)V$(VERSION).zip
 #  generic build rules
 #**************************************************************
 %.o: %.cpp
-	$(TOOLS)\g++ $(CFLAGS) -Weffc++ -c $< -o $@
+	$(TOOLS)\$(GNAME) $(CFLAGS) $< -o $@
 
-all: $(BINS)
+all: $(BINX)
 
 clean:
-	rm -f $(BINS) *.o der_libs/*.o *.bak *.zip
+	rm -f $(BINX) *.o der_libs/*.o *.bak *.zip
 
 depend:
 	makedepend $(CPPSRC)
@@ -76,10 +80,10 @@ lint:
 
 dist:
 	rm -f *.zip
-	zip $(DIST_ZIP) readme.md derbar.exe LICENSE.txt CHANGELOG.md
+	zip $(DIST_ZIP) $(BINX) readme.md LICENSE.txt CHANGELOG.md
 
 # Your new automated release workflow
-release:
+release: dist
 	cmd /C "@echo Preparing GitHub release for v$(VERSION)..."
 	sed -n '/## \['$(VERSION)'\]/,/## \[/p' CHANGELOG.md | sed '$$d' > temp_notes.md
 	gh release create v$(VERSION) ./$(DIST_ZIP) ./CHANGELOG.md --notes-file temp_notes.md
@@ -96,14 +100,14 @@ update: dist
 #**************************************************************
 #  build rules for executables                           
 #**************************************************************
-derbar.exe: $(OBJS)
-	$(TOOLS)\g++ $(CFLAGS) $(OBJS) $(LFLAGS) -o $@ -lcomctl32 -liphlpapi -lpdh
+$(BINX): $(OBJS)
+	$(TOOLS)/$(GNAME) $(OBJS) $(LFLAGS) -o $(BINX) $(LIBS) 
 
 #**************************************************************
 #  build rules for libraries and other components
 #**************************************************************
 rc.o: derbar.rc
-	$(TOOLS)\windres -O COFF $^ -o $@
+	$(TOOLS)\$(WRNAME) $< -O COFF -o $@
 
 # DO NOT DELETE
 
