@@ -39,6 +39,9 @@ BINS=$(BASE).exe
 VERSION := $(shell grep -oE '\[[0-9]+\.[0-9]+\]' CHANGELOG.md | head -n 1 | tr -d '[]')
 DIST_ZIP := $(BASE)V$(VERSION).zip
 
+# Force these action-only targets to always run
+.PHONY: dist release update
+
 #**************************************************************
 #  generic build rules
 #**************************************************************
