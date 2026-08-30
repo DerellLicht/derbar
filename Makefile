@@ -84,18 +84,18 @@ dist:
 
 # Your new automated release workflow
 release: dist
-	cmd /C "@echo Preparing GitHub release for v$(VERSION)..."
+	@cmd /C "@echo Preparing GitHub release for v$(VERSION)..."
 	sed -n '/## \['$(VERSION)'\]/,/## \[/p' CHANGELOG.md | sed '$$d' > temp_notes.md
 	gh release create v$(VERSION) ./$(DIST_ZIP) ./CHANGELOG.md --notes-file temp_notes.md
 	rm temp_notes.md
-	cmd /C "@echo Release v$(VERSION) successfully uploaded to GitHub!"wc:
+	@cmd /C "@echo Release v$(VERSION) successfully uploaded to GitHub!"
 	
 # Your new update-in-place pipeline
 update: dist
-	cmd /C "@echo Updating assets for existing release v$(VERSION)..."
+	@cmd /C "@echo Updating assets for existing release v$(VERSION)..."
 	@# Uploads and overwrites the .zip file and CHANGELOG.md on GitHub
 	gh release upload v$(VERSION) ./$(DIST_ZIP) ./CHANGELOG.md --clobber
-	cmd /C "@echo Release v$(VERSION) assets successfully updated on GitHub!"
+	@cmd /C "@echo Release v$(VERSION) assets successfully updated on GitHub!"
 
 #**************************************************************
 #  build rules for executables                           
