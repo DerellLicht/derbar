@@ -34,4 +34,9 @@ you can recover the submodule later, with this command:
 
 <hr>
 
+This project is licensed under _Creative Commons CC0 1.0 Universal_   
+
+See the [License](LICENSE.txt) file for detailed information about this license
+<hr>
+
 See [Changelog](CHANGELOG.md) for the full revision history.
