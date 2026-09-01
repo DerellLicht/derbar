@@ -13,7 +13,7 @@ This project is licensed under Creative Commons CC0 1.0 Universal;
 See the file LICENSE.txt for detailed information about this license
 <hr>
 
-Download [DerBar](https://derelllicht.42web.io/files/DerBar.zip) utility here  
+Download [DerBar](https://github.com/DerellLicht/derbar/releases/latest) utility here  
 Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 
 DerBar is written in C++, using standard Windows library calls.  
