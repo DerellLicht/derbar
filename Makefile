@@ -6,7 +6,7 @@ USE_CLANG = NO
 USE_CYGWIN = NO
 
 include der_libs\tool_select.mak
-include release.mak
+include der_libs\release.mak
 
 ifeq ($(USE_DEBUG),YES)
 CFLAGS=-Wall -ggdb -O
