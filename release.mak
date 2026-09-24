@@ -55,8 +55,10 @@ release: check-clean dist notes
 # Notes first, then assets ("--clobber" makes the asset re-upload safe with
 # no stale-link cleanup needed). "gh release edit" fails if the release
 # doesn't exist yet -- unlike "release" this is NOT self-healing, so run
-# "release" first for a tag's first publish.
-update: dist notes
+# "release" first for a tag's first publish. check-clean here for the same
+# reason as release: "dist" rebuilds from the working tree, so a dirty tree
+# would upload a binary that doesn't match what $(TAG) points to in git.
+update: check-clean dist notes
 	@cmd /C "@echo Updating release $(TAG)..."
 	gh release edit $(TAG) --notes-file temp_notes.md
 	rm temp_notes.md
