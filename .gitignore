@@ -8,3 +8,4 @@ _lint.tmp
 *.txt
 CodeProject/
 CHANGELOG.derbar.md
+Makefile.orig

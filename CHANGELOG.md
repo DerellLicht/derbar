@@ -1,5 +1,8 @@
 # derbar Changelog
 
+## [1.30] - 2026-09-24
+- `Makefile`: separate common targets into shared `release.mak`
+
 ## [1.29] - 2026-07-05
 - Tweak positioning of controls in main dialog, make them more centered
 

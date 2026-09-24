@@ -6,6 +6,7 @@ USE_CLANG = NO
 USE_CYGWIN = NO
 
 include der_libs\tool_select.mak
+include release.mak
 
 ifeq ($(USE_DEBUG),YES)
 CFLAGS=-Wall -ggdb -O
@@ -39,12 +40,13 @@ BINX=$(BASE).exe
 
 LIBS := -lcomctl32 -liphlpapi -lpdh
 
-# Automatically parse the latest version block
-VERSION := $(shell grep -oE '\[[0-9]+\.[0-9]+\]' CHANGELOG.md | head -n 1 | tr -d '[]')
+# VERSION comes from der_libs\release.mak (parsed from CHANGELOG.md)
 DIST_ZIP := $(BASE)V$(VERSION).zip
 
-# Force these action-only targets to always run
-.PHONY: dist release update
+# Force these action-only targets to always run.
+# check-clean/notes/release/update/retag/re-release/sha256 come from
+# der_libs\release.mak.
+.PHONY: dist
 
 #**************************************************************
 #  generic build rules
@@ -63,38 +65,18 @@ depend:
 wc:
 	wc -l $(CPPSRC) *.rc
 
-cppc:
-	cmd /C "cppcheck --project=compile_commands.json --std=c++14 --suppressions-list=./.suppress.cppcheck"
-
-check:
-	cmd /C "d:\llvm\bin\clang-tidy.exe $(CPPSRC)"
-
 clint:
 	cmd /C "python ..\ClaudeLint.py --exclude der_libs"
 	
-cstale:
-	cmd /C "python ..\check_compile_commands_stale.py"
+check:
+	cmd /C "d:\llvm\bin\clang-tidy.exe $(CPPSRC)"
 
-lint:
-	cmd /C "c:\lint9\lint-nt +v -width(160,4) $(LiFLAGS) +fcp -ic:\lint9 mingw.lnt -os(_lint.tmp) lintdefs.cpp lintdefs.ref.h *.rc $(CPPSRC)"
+cppc:
+	cmd /C "cppcheck --project=compile_commands.json --std=c++14 --suppressions-list=./.suppress.cppcheck"
 
 dist:
 	rm -f *.zip
 	zip $(DIST_ZIP) $(BINX) readme.md LICENSE.txt CHANGELOG.md
-
-# Your new automated release workflow
-release: dist
-	@cmd /C "@echo Preparing GitHub release for v$(VERSION)..."
-	sed -n '/## \['$(VERSION)'\]/,/## \[/p' CHANGELOG.md | sed '$$d' > temp_notes.md
-	gh release create v$(VERSION) ./$(DIST_ZIP) ./CHANGELOG.md --notes-file temp_notes.md
-	rm temp_notes.md
-	@cmd /C "@echo Release v$(VERSION) successfully uploaded to GitHub!"
-	
-# Your corrected, bulletproof update-in-place pipeline
-update: dist
-	@cmd /C "@echo Updating assets for existing release v$(VERSION)..."
-	gh release upload v$(VERSION) ./$(DIST_ZIP) ./CHANGELOG.md --clobber
-	@cmd /C "@echo Release v$(VERSION) assets successfully updated on GitHub!"
 
 #**************************************************************
 #  build rules for executables                           
