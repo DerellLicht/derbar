@@ -1,6 +1,6 @@
 //**************************************************************************************
 //  Remember to update CHANGELOG.md whenever this updates
 //**************************************************************************************
-#define VerNum    _T("V1.29")
-#define VerNumA    "V1.29"
+#define VerNum    _T("V1.30")
+#define VerNumA    "V1.30"
 

@@ -1,6 +1,6 @@
 # derbar Changelog
 
-## [1.30] - 2026-09-24
+## [1.30] - 2026-09-25
 - `Makefile`: separate common targets into shared `release.mak`
 
 ## [1.29] - 2026-07-05

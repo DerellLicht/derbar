@@ -25,6 +25,10 @@ CFLAGS += -DUNICODE -D_UNICODE
 LiFLAGS += -dUNICODE -d_UNICODE
 endif
 
+ifeq ($(USE_STATIC),YES)
+LFLAGS += -static
+endif
+
 CPPSRC=derbar.cpp login_lsa.cpp config.cpp system.cpp about.cpp options.cpp \
 lv_ifaces.cpp images.cpp ClearIcon.cpp \
 der_libs/common_funcs.cpp \
