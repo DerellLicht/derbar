@@ -4,7 +4,7 @@ USE_64BIT = NO
 USE_UNICODE = YES
 USE_CLANG = NO
 # sadly, cygwin mingw does not support gdiplus...
-USE_CYGWIN = NO
+USE_CYGWIN = YES
 
 include der_libs\tool_select.mak
 include der_libs\release.mak
@@ -93,7 +93,7 @@ $(BINX): $(OBJS)
 #  build rules for libraries and other components
 #**************************************************************
 rc.o: derbar.rc
-	$(TOOLS)\$(WRNAME) $< -O COFF -o $@
+	$(TOOLS)/$(WRNAME) $< -O COFF -o $@
 
 # DO NOT DELETE
 

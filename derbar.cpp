@@ -722,7 +722,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 
 //  huh... CLANG defines this in winuser.h, but tdm32 does not...
 //  So clang-tidy complains, but I cannot remove this
-#define  WM_DWMCOLORIZATIONCOLORCHANGED   0x320 // NOLINT
+// #define  WM_DWMCOLORIZATIONCOLORCHANGED   0x320 // NOLINT
    //  DerBar: [WM_NCLBUTTONDBLCLK]
    case WM_DWMCOLORIZATIONCOLORCHANGED:
    case WM_NCLBUTTONDBLCLK:
@@ -771,6 +771,9 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
          case IDM_APP_EXIT:
             DestroyWindow(hwnd);
             return TRUE;
+            
+         default:
+            return FALSE;
          }  //lint !e744
       } 
       }
@@ -924,8 +927,8 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       PostQuitMessage(0);
       return TRUE;
 
-   // default:
-   //    return DefWindowProc (hwnd, message, wParam, lParam);
+   default:
+      return FALSE ;
    }  //lint !e744
    return FALSE;
 }  //lint !e715

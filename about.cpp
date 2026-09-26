@@ -57,7 +57,8 @@ static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LP
       SetWindowText(GetDlgItem(hdlg, IDC_VERNUM), VerNum) ;
       ConvertStaticToHyperlink(hdlg, IDC_WEBLINK);
       ConvertStaticToHyperlink(hdlg, IDC_WEBLINK2);
-      break;
+      return TRUE;   //  we didn't call SetFocus() ourselves, so let the
+                     //  dialog manager set default keyboard focus
 
    case WM_COMMAND:
       switch (LOWORD(wparam)) {
@@ -71,11 +72,14 @@ static INT_PTR CALLBACK AboutDlgProc(HWND hdlg, UINT uMessage, WPARAM wparam, LP
       case IDCANCEL:
          EndDialog(hdlg, TRUE);
          return TRUE;
-      }  //lint !e744  switch with no default
-      break;
-   }  //lint !e744  switch with no default
+         
+      default:
+         return FALSE;
+      }
 
-   return FALSE;
+   default:
+      return FALSE;
+   }
 }  //lint !e715
 
 /*-----------------------------------------------------------------------------

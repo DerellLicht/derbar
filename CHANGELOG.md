@@ -2,6 +2,7 @@
 
 ## [1.30] - 2026-09-25
 - `Makefile`: separate common targets into shared `release.mak`
+- Change toolchain from `tdm32` to `cygwin`
 
 ## [1.29] - 2026-07-05
 - Tweak positioning of controls in main dialog, make them more centered
@@ -30,7 +31,7 @@
 
 ## [1.21] - 2023-02-26
 - If RX Bytes/second is arbitrarily large (>20000), drop fractional
-- portion of value in display, so rates > 100MB/sec will be readable
+  portion of value in display, so rates > 100MB/sec will be readable
 - Add tooltips to main dialog
 
 ## [1.20] - 2022-11-20
