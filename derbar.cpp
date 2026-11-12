@@ -29,10 +29,6 @@
 #include "systray.h"
 #include "tooltips.h"
 
-//lint -e592  Non-literal format specifier used without arguments
-
-//lint -esym(844, hwndSFree, hwndSCPU, hwndSMem, hwndSRX, hwndSTX, hwndSTotal, hwndSUpTime)
-
 #define  USE_TIMER_TEST
 
 #define  USE_CPU_UTIL   1
