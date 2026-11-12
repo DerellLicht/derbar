@@ -564,6 +564,11 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
       }
    }
 
+   //  Explorer restarted: tray icon was lost, so put it back
+   if (respond_to_taskbar_created(message)) {
+      return TRUE;
+   }
+
    switch (message) {
    // case WM_CREATE:
    case WM_INITDIALOG:

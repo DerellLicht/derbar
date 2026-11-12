@@ -1,5 +1,8 @@
 # derbar Changelog
 
+## [1.31] - 2026-11.12
+- add code to restore tray icon after Explorer restart
+
 ## [1.30] - 2026-09-25
 - `Makefile`: separate common targets into shared `release.mak`
 - Change toolchain from `tdm32` to `cygwin`
