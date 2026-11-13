@@ -97,7 +97,7 @@ check:
 cppc:
 	cmd /C "cppcheck --project=compile_commands.json --std=c++14 --suppressions-list=./.suppress.cppcheck"
 
-dist:
+dist: 
 	rm -f *.zip
 	zip $(DIST_ZIP) $(BINX) readme.md LICENSE.txt CHANGELOG.md
 
