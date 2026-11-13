@@ -8,11 +8,6 @@ DerBar is compatible with all other programs and will not conflict with DirectX 
 
 <hr>
 
-This project is licensed under Creative Commons CC0 1.0 Universal;  
-
-See the file LICENSE.txt for detailed information about this license
-<hr>
-
 Download [DerBar](https://github.com/DerellLicht/derbar/releases/latest) utility here  
 Download [DerBar source code](https://github.com/DerellLicht/derbar) here
 
